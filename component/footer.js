@@ -6,6 +6,7 @@ import {
   makeStyles,
   MenuItem,
   MenuList,
+  useTheme,
 } from "@material-ui/core";
 import React from "react";
 
@@ -20,6 +21,7 @@ const styles = makeStyles((theme) => ({
 
 const Footer = () => {
   const classes = styles();
+  const theme = useTheme()
   return (
     <Container disableGutters maxWidth={false}>
       <Container>
@@ -30,6 +32,7 @@ const Footer = () => {
             xs
             style={{
               margin: "-1px 20px 30px 15px",
+              backgroundColor: theme.palette.background.default,
               borderBottomRightRadius: "20px",
             }}
           >

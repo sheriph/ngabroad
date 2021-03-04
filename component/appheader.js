@@ -1,0 +1,63 @@
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import { Grid } from "@material-ui/core";
+import { ContactPhoneOutlined, MenuOpen } from "@material-ui/icons";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    // marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
+
+export default function AppHeader({ handleDrawerClose, handleDrawerOpen }) {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <Grid container alignItems="center" justify="space-between">
+            <Grid item>
+              <img
+                src="https://naijagoingabroad.com/wp-content/uploads/2021/01/new-logo-reversed_200x73_75.png"
+                width="73"
+                height="27"
+              />
+            </Grid>
+            <Grid item>
+              <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="menu"
+              >
+                <ContactPhoneOutlined />
+              </IconButton>
+            </Grid>
+            <Grid item>
+              <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="menu"
+                onClick={handleDrawerOpen}
+              >
+                <MenuOpen />
+              </IconButton>
+            </Grid>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+}

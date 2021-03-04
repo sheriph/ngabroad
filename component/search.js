@@ -6,7 +6,6 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import DirectionsIcon from "@material-ui/icons/Directions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,23 +38,17 @@ export default function SearchForm() {
       </IconButton>
       <InputBase
         className={classes.input}
-        placeholder="Search Google Maps"
-        inputProps={{ "aria-label": "search google maps" }}
+        placeholder="Search Articles"
+        inputProps={{ "aria-label": "search articles" }}
       />
+      <Divider className={classes.divider} orientation="vertical" />
       <IconButton
+        color="primary"
         type="submit"
         className={classes.iconButton}
         aria-label="search"
       >
         <SearchIcon />
-      </IconButton>
-      <Divider className={classes.divider} orientation="vertical" />
-      <IconButton
-        color="primary"
-        className={classes.iconButton}
-        aria-label="directions"
-      >
-        <DirectionsIcon />
       </IconButton>
     </Paper>
   );

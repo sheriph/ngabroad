@@ -19,12 +19,28 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import {
   AccountBalanceOutlined,
+  ContactSupportOutlined,
   DescriptionOutlined,
+  EmailOutlined,
+  ExpandLess,
+  ExpandMore,
+  LocationCity,
   LocationOnOutlined,
+  NotesOutlined,
+  PhoneOutlined,
   SchoolOutlined,
+  StarBorder,
 } from "@material-ui/icons";
 import { useRecoilState } from "recoil";
 import { drawerOpen_ } from "../state/recoil";
+import {
+  Box,
+  Button,
+  ButtonBase,
+  Collapse,
+  Grid,
+  ListSubheader,
+} from "@material-ui/core";
 
 const drawerWidth = 300;
 
@@ -84,30 +100,37 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginRight: 0,
   },
+  nested: {
+    paddingLeft: theme.spacing(8),
+  },
 }));
 
 export default function DrawerMenu({ open, handleDrawerClose }) {
   const classes = useStyles();
   const theme = useTheme();
-  // const [open, setOpen] = useRecoilState(drawerOpen_);
+  const [openVisa, setOpenVisa] = React.useState(true);
 
-  /*   const handleDrawerOpen = () => {
-    setOpen(true);
+  const handleClick = () => {
+    setOpenVisa(!openVisa);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  }; */
+  const [openContact, setOpenContact] = React.useState(true);
+
+  const handleContactOpen = () => {
+    setOpenContact(!openContact);
+  };
 
   const getIcon = (index) => {
     switch (index) {
       case 0:
-        return <SchoolOutlined />;
+        return <NotesOutlined />;
       case 1:
         return <DescriptionOutlined />;
       case 2:
-        return <AccountBalanceOutlined />;
+        return <DescriptionOutlined />;
       case 3:
+        return <AccountBalanceOutlined />;
+      case 4:
         return <LocationOnOutlined />;
       default:
         return "";
@@ -136,18 +159,139 @@ export default function DrawerMenu({ open, handleDrawerClose }) {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          {[
-            "STUDY ABROAD - SEARCH FOR SCHOOLS",
-            "GET VISA DOCUMENTS",
-            "CONTACT OF EMBASSIES IN NIGERIA",
-            "NIGERIAN EMBASSIES AROUND THE WORLD",
-          ].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{getIcon(index)}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+        <List
+          subheader={<ListSubheader disableSticky>Menu</ListSubheader>}
+          component="nav"
+        >
+          {["ARTICLES", "GET VISA DOCUMENTS ONLINE"].map((text, index) => (
+            <React.Fragment key={index}>
+              <ListItem
+                button
+                onClick={() => {
+                  if (index === 1) handleClick();
+                }}
+              >
+                <ListItemIcon>{getIcon(index)}</ListItemIcon>
+                <ListItemText primary={text} />
+
+                {index === 1 ? (
+                  <>{openVisa ? <ExpandLess /> : <ExpandMore />}</>
+                ) : (
+                  ""
+                )}
+              </ListItem>
+              {index === 1 ? (
+                <Collapse in={openVisa} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <ListItem button className={classes.nested}>
+                      <ListItemText primary="Travel Insurance" />
+                    </ListItem>
+                    <ListItem button className={classes.nested}>
+                      <ListItemText primary="Hotel Reservation for Visa" />
+                    </ListItem>
+                    <ListItem button className={classes.nested}>
+                      <ListItemText primary="Application Form Filling" />
+                    </ListItem>
+                  </List>
+                </Collapse>
+              ) : (
+                ""
+              )}
+            </React.Fragment>
           ))}
+        </List>
+        <Divider />
+        <List
+          subheader={<ListSubheader disableSticky>Travel Tools</ListSubheader>}
+          component="nav"
+          onClick={handleContactOpen}
+        >
+          <ListItem button>
+            <ListItemIcon>
+              <SchoolOutlined />
+            </ListItemIcon>
+            <ListItemText primary="SCHOOL FINDER" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <LocationCity />
+            </ListItemIcon>
+            <ListItemText primary="EMBASSY FINDER" />
+          </ListItem>
+        </List>
+        <Divider />
+        <List
+          subheader={
+            <ListSubheader
+              style={{
+                color: theme.palette.getContrastText(
+                  theme.palette.primary.main
+                ),
+              }}
+              disableSticky
+            >
+              Contact NGabroad
+            </ListSubheader>
+          }
+          component="nav"
+          onClick={handleContactOpen}
+          style={{
+            backgroundColor: theme.palette.primary.main,
+          }}
+        >
+          <ListItem>
+            <ListItemText
+              primary={
+                <Box>
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <ButtonBase
+                        component={Button}
+                        startIcon={<PhoneOutlined />}
+                        //    style={{ textDecoration: "none" }}
+                        style={{
+                          textTransform: "none",
+                          color: theme.palette.getContrastText(
+                            theme.palette.primary.main
+                          ),
+                        }}
+                      >
+                        09065369929 | 08087164862
+                      </ButtonBase>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <ButtonBase
+                        component={Button}
+                        startIcon={<EmailOutlined />}
+                        style={{
+                          textTransform: "none",
+                          color: theme.palette.getContrastText(
+                            theme.palette.primary.main
+                          ),
+                        }}
+                      >
+                        info@naijagoingabroad.com
+                      </ButtonBase>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <ButtonBase
+                        component={Button}
+                        startIcon={<LocationOnOutlined />}
+                        style={{
+                          textTransform: "none",
+                          color: theme.palette.getContrastText(
+                            theme.palette.primary.main
+                          ),
+                        }}
+                      >
+                        65c Opebi Rd, Ikeja, Lagos
+                      </ButtonBase>
+                    </Grid>
+                  </Grid>
+                </Box>
+              }
+            />
+          </ListItem>
         </List>
       </Drawer>
     </div>

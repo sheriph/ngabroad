@@ -3,6 +3,7 @@ import { Container, makeStyles } from "@material-ui/core";
 import Footer from "../component/footer";
 import { SleekTheme } from "../component/themes";
 import Homepage from "../component/homepagecomponent";
+import Order from "../component/order";
 
 const styles = makeStyles((theme) => ({
   baseContainer: {
@@ -13,10 +14,10 @@ const styles = makeStyles((theme) => ({
 export default function () {
   return (
     <SleekTheme
-      subtitle="Explore with us"
-      title="Let's plan the trip of your dreams"
-      jsx={<Homepage />}
-      pageTitle="Homepage"
+      subtitle="Order Now"
+      title="Order for you travel documents online"
+      jsx={<Order />}
+      pageTitle="documents order"
     />
   );
 }

@@ -1,34 +1,34 @@
 import { Container, Grid, Paper, Typography } from "@material-ui/core";
 
-const Test = () => {
+const FeatureCard = ({
+  src = "",
+  height = "150px",
+  width = "200px",
+  alt = "feature cards",
+  p1 = "",
+  p2 = "",
+}) => {
   return (
     <Container
       component={Paper}
       elevation={10}
-      style={{ paddingTop: "10px", paddingBottom: "10px" }}
+      style={{ paddingTop: "10px", paddingBottom: "10px", minHeight: "290px" }}
     >
       <Grid container>
         <Grid item container justify="center" xs={12}>
           <Grid item>
-            <img
-              src="/images/flight.svg"
-              height="150px"
-              width="200px"
-              alt="flight booking"
-            />
+            <img src={src} height={height} width={width} alt={alt} />
           </Grid>
         </Grid>
         <Grid item xs={12}>
           <Grid container>
             <Grid item xs={12}>
               <Typography align="center" variant="h4" color="primary">
-                Flights Booking
+                {p1}
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <Typography align="center">
-                We can assist you with affordable flight to all destinations
-              </Typography>
+              <Typography align="center">{p2}</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -37,4 +37,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default FeatureCard;
