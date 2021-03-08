@@ -5,6 +5,22 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../src/theme";
 import { RecoilRoot } from "recoil";
+import "firebase/firestore";
+import "firebase/auth";
+import { Fuego, FuegoProvider } from "@nandorojo/swr-firestore";
+import { SnackbarProvider } from 'notistack';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDnWq5tSHBtRn7Y83WyNHzZoIqY0xpCBzQ",
+  authDomain: "ngabroad-f348c.firebaseapp.com",
+  projectId: "ngabroad-f348c",
+  storageBucket: "ngabroad-f348c.appspot.com",
+  messagingSenderId: "1035539676049",
+  appId: "1:1035539676049:web:bb175380d94dca1b2af830",
+  measurementId: "G-6S1V47J894",
+};
+
+const fuego = new Fuego(firebaseConfig);
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -27,10 +43,14 @@ export default function MyApp(props) {
         />
       </Head>
       <ThemeProvider theme={theme}>
-        <RecoilRoot>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </RecoilRoot>
+        <SnackbarProvider maxSnack={3}>
+          <RecoilRoot>
+            <CssBaseline />
+            <FuegoProvider fuego={fuego}>
+              <Component {...pageProps} />
+            </FuegoProvider>
+          </RecoilRoot>
+        </SnackbarProvider>
       </ThemeProvider>
     </React.Fragment>
   );
