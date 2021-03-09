@@ -160,6 +160,7 @@ const Order = () => {
       appointment,
       consultation,
       checklist,
+      total,
       orderId: Math.floor(Math.random() * 10000),
     };
     console.log(customerData);
