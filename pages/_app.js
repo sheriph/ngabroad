@@ -44,19 +44,75 @@ export default function MyApp(props) {
         />
         <link rel="manifest" href="/manifest.json" />
         <link
-          href="/icons/icon-16x16.png"
+          href="/icons/icon16.png"
           rel="icon"
           type="image/png"
           sizes="16x16"
         />
         <link
-          href="/icons/icon-32x32.png"
+          href="/icons/icon32.png"
           rel="icon"
           type="image/png"
           sizes="32x32"
         />
-        <link rel="apple-touch-icon" href="/icons/favicon-32x32.png" />
+        <link
+          href="/icons/icon72.png"
+          rel="icon"
+          type="image/png"
+          sizes="72x72"
+        />
         <meta name="theme-color" content="#5348dc" />
+
+        <link
+          rel="apple-touch-icon"
+          sizes="57x57"
+          href="/icons/appleIcons/apple-icon-57x57.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="60x60"
+          href="/icons/appleIcons/apple-icon-60x60.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="72x72"
+          href="/icons/appleIcons/apple-icon-72x72.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="76x76"
+          href="/icons/appleIcons/apple-icon-76x76.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="114x114"
+          href="/icons/appleIcons/apple-icon-114x114.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="120x120"
+          href="/icons/appleIcons/apple-icon-120x120.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="144x144"
+          href="/icons/appleIcons/apple-icon-144x144.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="152x152"
+          href="/icons/appleIcons/apple-icon-152x152.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/icons/appleIcons/apple-icon-180x180.png"
+        />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta
+          name="msapplication-TileImage"
+          content="/icons/appleIcons/ms-icon-144x144.png"
+        />
       </Head>
       <ThemeProvider theme={theme}>
         <SnackbarProvider maxSnack={3}>
