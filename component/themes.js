@@ -23,17 +23,6 @@ export const SleekTheme = ({
   pageUrl = "",
 }) => {
   const classes = styles();
-  const {
-    canonical,
-    metaDesc,
-    opengraphDescription,
-    opengraphSiteName,
-    opengraphTitle,
-    opengraphType,
-    opengraphUrl,
-    title: yoastTitle,
-    opengraphImage,
-  } = seo;
 
   return (
     <React.Fragment>
@@ -70,23 +59,23 @@ export const SleekTheme = ({
         />
       ) : (
         <NextSeo
-          title={yoastTitle}
+          title={seo.title || ""}
           titleTemplate="%s | NGabroad"
-          description={metaDesc}
-          canonical={canonical}
+          description={seo.metaDesc || ""}
+          canonical={seo.canonical || ""}
           openGraph={{
-            url: { opengraphUrl },
+            url: `${seo.opengraphUrl || ""}`,
             type: "website",
             locale: "en_NG",
-            title: { opengraphTitle },
-            description: { opengraphDescription },
+            title: `${seo.opengraphTitle || ""}`,
+            description: `${seo.opengraphDescription || ""}`,
             images: [
               {
-                url: `${opengraphImage.sourceUrl}`,
-                alt: `${opengraphImage.altText}`,
+                url: `${seo.opengraphImage?.sourceUrl || ""}`,
+                alt: `${seo.opengraphImage?.altText || ""}`,
               },
             ],
-            site_name: { opengraphSiteName },
+            site_name: `${seo.opengraphSiteName || ""}`,
           }}
           twitter={{
             handle: "@ng_abroad",

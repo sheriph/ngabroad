@@ -29,7 +29,7 @@ const BlogCard = ({ post }) => {
   const classes = styles();
 
   const {
-    categories: { nodes: categoryList },
+    // categories: { nodes: categoryList },
     slug,
     title,
   } = post;
@@ -37,12 +37,19 @@ const BlogCard = ({ post }) => {
 
   let sourceUrl = "";
   let altText = "";
+  let categoryList = [{ name: "" }];
+
+  try {
+    categoryList = post.categories.nodes;
+  } catch (error) {
+    console.log("category error in ", title, error);
+  }
 
   try {
     sourceUrl = post.featuredImage.node.sourceUrl;
     altText = post.featuredImage.node.altText;
   } catch (error) {
-    console.log(error);
+    console.log("featureImage error in ", title, error);
   }
 
   return (
