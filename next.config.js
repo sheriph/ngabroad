@@ -32,6 +32,7 @@ module.exports = withPlugins(
         pwa: {
           dest: "public",
           runtimeCaching,
+          disable: process.env.NODE_ENV === "development",
         },
       },
     ],

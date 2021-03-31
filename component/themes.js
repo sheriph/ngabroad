@@ -1,13 +1,16 @@
 // @ts-nocheck
 import React from "react";
 import MyHeader from "./header";
-import { Container, makeStyles } from "@material-ui/core";
+import { Box, Container, Grid, makeStyles } from "@material-ui/core";
 import Footer from "./footer";
 import IntroHeader from "./introheader";
 import { NextSeo } from "next-seo";
 
 const styles = makeStyles((theme) => ({
   baseContainer: {
+    backgroundColor: theme.palette.primary.main,
+  },
+  ampheader: {
     backgroundColor: theme.palette.primary.main,
   },
 }));
@@ -21,11 +24,13 @@ export const SleekTheme = ({
   page = null,
   pageDesc = "",
   pageUrl = "",
+  isAmp,
 }) => {
   const classes = styles();
 
   return (
     <React.Fragment>
+      
       {page ? (
         <NextSeo
           title={pageTitle}

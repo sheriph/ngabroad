@@ -60,13 +60,6 @@ const MyHeader = () => {
   };
   return (
     <Container disableGutters>
-    {/*   <Head>
-        <title>
-          {pageTitle !== "NaijaGoingAbroad"
-            ? `${pageTitle} | NGabroad`
-            : "NaijaGoingAbroad"}
-        </title>
-      </Head> */}
       <DrawerMenu
         open={open}
         handleDrawerOpen={handleDrawerOpen}
@@ -86,7 +79,7 @@ const MyHeader = () => {
               component={Container}
               className={classes.secondarymenu}
             >
-              <Grid item>
+              <Grid item xs="auto">
                 <ButtonBase
                   component={Button}
                   startIcon={<EmailOutlinedIcon />}
@@ -96,7 +89,7 @@ const MyHeader = () => {
                   info@naijagoingabroad.com
                 </ButtonBase>
               </Grid>
-              <Grid item>
+              <Grid item xs="auto">
                 <ButtonBase
                   component={Button}
                   startIcon={<PhoneEnabledOutlined />}
@@ -106,16 +99,18 @@ const MyHeader = () => {
                   09065369929
                 </ButtonBase>
               </Grid>
-              <Grid item>
-                <ButtonBase
-                  component={Button}
-                  startIcon={<ScheduleOutlined />}
-                  className={classes.buttonbase}
-                  size="small"
-                >
-                  Mon-Fri: 9:00AM – 6:00PM
-                </ButtonBase>
-              </Grid>
+              <Hidden smDown>
+                <Grid item xs="auto">
+                  <ButtonBase
+                    component={Button}
+                    startIcon={<ScheduleOutlined />}
+                    className={classes.buttonbase}
+                    size="small"
+                  >
+                    Mon-Fri: 9:00AM – 6:00PM
+                  </ButtonBase>
+                </Grid>
+              </Hidden>
             </Grid>
             <Grid
               item

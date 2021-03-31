@@ -9,10 +9,16 @@ import {
   getSinglePost,
   getSingleRelatedPost,
 } from "../lib/api";
+import { useAmp } from "next/amp";
 
 const styles = makeStyles((theme) => ({}));
 
+export const config = { amp: "hybrid" };
+
 export default function ({ post }) {
+  const isAmp = useAmp();
+
+  console.log("isAmp", isAmp);
   const {
     content,
     title,
@@ -22,6 +28,7 @@ export default function ({ post }) {
   } = post;
   return (
     <SleekTheme
+      isAmp={isAmp}
       subtitle={categoryList.map((item) => item.name).toString()}
       seo={seo}
       jsx={<SinglePost content={content} relatedPosts={relatedPosts} />}
