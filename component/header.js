@@ -13,6 +13,7 @@ import Head from "next/head";
 import React, { useState } from "react";
 import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
 import {
+  Apps,
   MenuOpenOutlined,
   PhoneEnabledOutlined,
   PlayArrow,
@@ -21,6 +22,7 @@ import {
 import Image from "next/image";
 import DrawerMenu from "./drawermenu";
 import AppHeader from "./appheader";
+import Link from "next/link";
 
 const styles = makeStyles((theme) => ({
   buttonbase: {
@@ -47,7 +49,7 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const MyHeader = ({ pageTitle = "NaijaGoingAbroad" }) => {
+const MyHeader = () => {
   const [open, setOpen] = useState(false);
   const classes = styles();
   const handleDrawerOpen = () => {
@@ -58,13 +60,13 @@ const MyHeader = ({ pageTitle = "NaijaGoingAbroad" }) => {
   };
   return (
     <Container disableGutters>
-      <Head>
+    {/*   <Head>
         <title>
           {pageTitle !== "NaijaGoingAbroad"
             ? `${pageTitle} | NGabroad`
             : "NaijaGoingAbroad"}
         </title>
-      </Head>
+      </Head> */}
       <DrawerMenu
         open={open}
         handleDrawerOpen={handleDrawerOpen}
@@ -122,34 +124,40 @@ const MyHeader = ({ pageTitle = "NaijaGoingAbroad" }) => {
               className={classes.primaryHeader}
             >
               <Grid item xs>
-                <ButtonBase
-                  className={classes.primaryHeaderButton}
-                  component={Button}
-                  startIcon={
-                    <img
-                      src="https://naijagoingabroad.com/wp-content/uploads/2021/01/new-logo-reversed_200x73_75.png"
-                      width="105px"
-                      height="38px"
-                    />
-                  }
-                ></ButtonBase>
+                <Link href="/">
+                  <ButtonBase
+                    className={classes.primaryHeaderButton}
+                    component={Button}
+                    startIcon={
+                      <img
+                        src="https://naijagoingabroad.com/wp-content/uploads/2021/01/new-logo-reversed_200x73_75.png"
+                        width="105px"
+                        height="38px"
+                      />
+                    }
+                  ></ButtonBase>
+                </Link>
               </Grid>
 
               <Grid item>
-                <ButtonBase
-                  className={classes.primaryHeaderButton}
-                  component={Button}
-                >
-                  home
-                </ButtonBase>
+                <Link href="/">
+                  <ButtonBase
+                    className={classes.primaryHeaderButton}
+                    component={Button}
+                  >
+                    Home
+                  </ButtonBase>
+                </Link>
               </Grid>
               <Grid item>
-                <ButtonBase
-                  className={classes.primaryHeaderButton}
-                  component={Button}
-                >
-                  articles
-                </ButtonBase>
+                <Link href="/articles">
+                  <ButtonBase
+                    className={classes.primaryHeaderButton}
+                    component={Button}
+                  >
+                    articles
+                  </ButtonBase>
+                </Link>
               </Grid>
               <Grid item>
                 <ButtonBase
@@ -157,10 +165,10 @@ const MyHeader = ({ pageTitle = "NaijaGoingAbroad" }) => {
                   component={Button}
                   variant="outlined"
                   color="secondary"
-                  endIcon={<MenuOpenOutlined />}
+                  endIcon={<Apps />}
                   onClick={handleDrawerOpen}
                 >
-                  TRAVEL RESOURCES
+                  MORE
                 </ButtonBase>
               </Grid>
             </Grid>

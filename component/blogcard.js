@@ -11,6 +11,7 @@ import {
 import { BookmarksOutlined, MoreOutlined } from "@material-ui/icons";
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 
 const styles = makeStyles((theme) => ({
   blogcard: {
@@ -24,31 +25,53 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const BlogCard = () => {
+const BlogCard = ({ post }) => {
   const classes = styles();
+
+  const {
+    categories: { nodes: categoryList },
+    slug,
+    title,
+  } = post;
+  // console.log(categoryList);
+
+  let sourceUrl = "";
+  let altText = "";
+
+  try {
+    sourceUrl = post.featuredImage.node.sourceUrl;
+    altText = post.featuredImage.node.altText;
+  } catch (error) {
+    console.log(error);
+  }
+
   return (
     <Grid component={Paper} container spacing={2} className={classes.blogcard}>
       <Grid item container style={{ position: "relative" }}>
         <img
           //  layout="intrinsic"
-          src="/images/wedding.jpeg"
+          src={sourceUrl}
           width="100%"
-          height="auto"
+          height="250px"
+          alt={altText}
         />
         <Button
           size="small"
           variant="text"
           // color="primary"
+
           className={classes.buttoncategory}
           startIcon={<BookmarksOutlined />}
           style={{
             position: "absolute",
             top: "10px",
-            left: "5px",
+            // left: "5px",
             textTransform: "none",
+            fontSize: "8px",
+            borderRadius: "0",
           }}
         >
-          Study Abroad
+          {categoryList.map((category) => category.name).toString()}
         </Button>
       </Grid>
       <Grid
@@ -58,23 +81,25 @@ const BlogCard = () => {
         style={{ paddingLeft: "10px", paddingRight: "10px" }}
       >
         <Grid item xs={12} style={{ paddingLeft: "15px" }}>
-          <Typography>How to attend a wedding event in nigeria</Typography>
+          <Typography>{title}</Typography>
         </Grid>
         <Grid item xs={12}>
           <Divider />
         </Grid>
         <Grid item container>
           <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={
-                <MoreOutlined style={{ transform: "rotate(180deg)" }} />
-              }
-              style={{ left: "5px", textTransform: "none" }}
-            >
-              Read More
-            </Button>
+            <Link href={`/${encodeURIComponent(slug)}`}>
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={
+                  <MoreOutlined style={{ transform: "rotate(180deg)" }} />
+                }
+                style={{ textTransform: "none" }}
+              >
+                Read More
+              </Button>
+            </Link>
           </Grid>
         </Grid>
       </Grid>

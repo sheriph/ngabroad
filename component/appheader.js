@@ -5,7 +5,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Grid } from "@material-ui/core";
-import { ContactPhoneOutlined, MenuOpen } from "@material-ui/icons";
+import { Apps, ContactPhoneOutlined, MenuOpen } from "@material-ui/icons";
+import Link from "next/link";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,21 +29,13 @@ export default function AppHeader({ handleDrawerClose, handleDrawerOpen }) {
         <Toolbar>
           <Grid container alignItems="center" justify="space-between">
             <Grid item>
-              <img
-                src="https://naijagoingabroad.com/wp-content/uploads/2021/01/new-logo-reversed_200x73_75.png"
-                width="73"
-                height="27"
-              />
-            </Grid>
-            <Grid item>
-              <IconButton
-                edge="start"
-                className={classes.menuButton}
-                color="inherit"
-                aria-label="menu"
-              >
-                <ContactPhoneOutlined />
-              </IconButton>
+              <Link href="/">
+                <img
+                  src="https://naijagoingabroad.com/wp-content/uploads/2021/01/new-logo-reversed_200x73_75.png"
+                  width="73"
+                  height="27"
+                />
+              </Link>
             </Grid>
             <Grid item>
               <IconButton
@@ -52,7 +45,7 @@ export default function AppHeader({ handleDrawerClose, handleDrawerOpen }) {
                 aria-label="menu"
                 onClick={handleDrawerOpen}
               >
-                <MenuOpen />
+                <Apps />
               </IconButton>
             </Grid>
           </Grid>

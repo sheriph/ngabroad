@@ -1,6 +1,8 @@
 import {
   Button,
   ButtonGroup,
+  CircularProgress,
+  Collapse,
   Container,
   Divider,
   Grid,
@@ -9,6 +11,10 @@ import {
   Typography,
 } from "@material-ui/core";
 import { CallOutlined, EmailOutlined, HouseOutlined } from "@material-ui/icons";
+import { Alert } from "@material-ui/lab";
+import axios from "axios";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const styles = makeStyles((theme) => ({
   button: {
@@ -18,14 +24,47 @@ const styles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: "30px",
   },
+  alert: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.getContrastText(theme.palette.primary.main),
+  },
+  alertIcon: {
+    color: "white !important",
+  },
 }));
 
 const ContactUs = () => {
   const classes = styles();
+  const { register, handleSubmit, control } = useForm();
+  const [isFormSubmitted, setSubmitted] = useState(false);
+  const [enter, setEnter] = useState(false);
+  const [isloading, setLoading] = useState(false);
+
+  const onSubmit = (data) => {
+    console.log(data);
+    setLoading(true);
+    axios
+      .post(
+        "https://hook.integromat.com/14b7wp6j2m9jbm26owtfr4ff7kprnyyp",
+        data
+      )
+      .then((response) => {
+        console.log(response);
+        setSubmitted(true);
+        setLoading(false)
+        setTimeout(() => {
+          setEnter(true);
+        }, 500);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <Grid
       container
-      //   spacing={3}
+      spacing={3}
       component={Container}
       className={classes.container}
     >
@@ -46,16 +85,58 @@ const ContactUs = () => {
             <Divider />
           </Grid>
         </Grid>
-        <form>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField fullWidth label="Your Name" variant="outlined" />
+        {isFormSubmitted ? (
+          <Grid container justify="center">
+            <Grid item>
+              <img
+                src="/images/mailsent.svg"
+                alt="mailsent"
+                width="100%"
+                height="100px"
+              />
             </Grid>
+            <Grid item>
+              <Collapse in={enter} timeout={300}>
+                <Alert
+                  classes={{
+                    icon: classes.alertIcon,
+                  }}
+                  className={classes.alert}
+                >
+                  Your email has been sent. We will get back to you soon.
+                </Alert>
+              </Collapse>
+            </Grid>
+          </Grid>
+        ) : (
+          <Grid
+            component="form"
+            onSubmit={handleSubmit(onSubmit)}
+            container
+            spacing={2}
+          >
             <Grid item xs={12}>
-              <TextField fullWidth label="Your Email" variant="outlined" />
+              <TextField
+                inputRef={register}
+                name="name"
+                fullWidth
+                label="Your Name"
+                variant="outlined"
+              />
             </Grid>
             <Grid item xs={12}>
               <TextField
+                inputRef={register}
+                name="email"
+                fullWidth
+                label="Your Email"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                inputRef={register}
+                name="phone"
                 fullWidth
                 label="Your Telephone Number"
                 variant="outlined"
@@ -65,6 +146,8 @@ const ContactUs = () => {
               <TextField
                 id="outlined-multiline-static"
                 label="Your Message"
+                inputRef={register}
+                name="message"
                 multiline
                 rows={4}
                 //  defaultValue="Default Value"
@@ -72,8 +155,22 @@ const ContactUs = () => {
                 fullWidth
               />
             </Grid>
+            <Grid item xs={12}>
+              <Button
+                disabled={isloading}
+                fullWidth
+                variant="contained"
+                color="primary"
+                type="submit"
+                startIcon={
+                  isloading ? <CircularProgress color="primary" /> : ""
+                }
+              >
+                SEND
+              </Button>
+            </Grid>
           </Grid>
-        </form>
+        )}
       </Grid>
       <Grid item container xs={12} sm={7}>
         <Grid item xs={12}>

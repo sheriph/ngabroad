@@ -1,27 +1,35 @@
+// @ts-nocheck
 import { Container, Grid, Hidden, makeStyles } from "@material-ui/core";
+import { Pagination } from "@material-ui/lab";
+import { useRouter } from "next/router";
 import React from "react";
+import LazyLoad from "react-lazyload";
+import { getAllPosts } from "../lib/api";
 import BlogCard from "./blogcard";
 import SearchForm from "./search";
 
 const styles = makeStyles((theme) => ({
   gridContainer: {
     marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
   },
 }));
 
-const ArticleComponent = () => {
+const ArticleComponent = (props) => {
+  const { posts, count, allTitles } = props;
   const classes = styles();
-  const posts = [1, 2, 3, 4, 5];
+  const postsArr = new Array(10).fill("6");
+  const router = useRouter();
+  // console.log(posts, count);
+
+  if (!posts) return <> Loading</>;
   return (
     <Grid container className={classes.gridContainer}>
-      <Hidden xsDown>
-        <Grid item>SIDE BAR GOES HERE</Grid>
-      </Hidden>
       <Grid item xs>
         <Grid container>
           <Grid item container justify="center">
             <Grid item>
-              <SearchForm />
+              <SearchForm allTitles={allTitles} />
             </Grid>
           </Grid>
           <Grid
@@ -32,10 +40,21 @@ const ArticleComponent = () => {
           >
             {posts.map((post, index) => (
               <Grid item key={index} xs={12} sm={6} md={4}>
-                <BlogCard />
+                <BlogCard post={post} />
               </Grid>
             ))}
           </Grid>
+        </Grid>
+      </Grid>
+      <Grid item container justify="center">
+        <Grid item>
+          <Pagination
+            onChange={(e, page) => {
+              router.push(`/articles/${page}`);
+            }}
+            count={10}
+            color="primary"
+          />
         </Grid>
       </Grid>
     </Grid>

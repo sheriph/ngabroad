@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import { Container, makeStyles } from "@material-ui/core";
 import Footer from "../component/footer";
@@ -17,6 +18,9 @@ export default function () {
       title="Let's plan the trip of your dreams"
       jsx={<Homepage />}
       pageTitle="Homepage"
+      pageDesc="NGabroad Homepage | Your destination for all travel needs"
+      pageUrl="http://naijagoingabroad.com/"
+      page={true}
     />
   );
 }

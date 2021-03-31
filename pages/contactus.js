@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
@@ -23,7 +24,10 @@ const ContactPage = () => {
       subtitle="Get in touch"
       title="We love to hear from you"
       jsx={<ContactUs />}
-      pageTitle="contact us"
+      pageTitle="Contact US"
+      pageDesc="Contact US page"
+      pageUrl="http://naijagoingabroad.com/contactus"
+      page={true}
     />
   );
 };

@@ -43,7 +43,9 @@ const IntroHeader = ({ title = "", subtitle = "" }) => {
           className={classes.gridItem}
         >
           <Grid item>
-            <Typography variant="h5">{title}</Typography>
+            <Typography component="h1" variant="h5">
+              {title}
+            </Typography>
             <Typography variant="caption">{subtitle}</Typography>
           </Grid>
         </Grid>

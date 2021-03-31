@@ -9,13 +9,19 @@ import {
   Typography,
 } from "@material-ui/core";
 import {
+  AttachMoneyOutlined,
   CheckCircleOutlineSharp,
+  EmailOutlined,
   ErrorOutlineOutlined,
   ShoppingCartOutlined,
 } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { usePaystackPayment } from "react-paystack";
+import { formatMoney } from "./utilityfx";
 
 const styles = makeStyles((theme) => ({
   error: {
@@ -30,12 +36,33 @@ const styles = makeStyles((theme) => ({
 }));
 
 const PayOnlineButton = (props) => {
-  const { onSuccess, onClose, config, total } = props;
+  const {
+    onSuccess,
+    onClose,
+    config,
+    total,
+    paymentOption,
+    paymentStatus,
+  } = props;
   const initializePayment = usePaystackPayment(config);
+  useEffect(() => {
+    if (
+      window !== undefined &&
+      paymentOption === "Online Debit/Credit Card Payment" &&
+      paymentStatus === false
+    ) {
+      console.log(paymentStatus, paymentOption);
+
+      setTimeout(() => {
+        window.document.getElementById("pay").click();
+      }, 5000);
+    }
+  }, [null]);
   return (
     <Button
       variant="contained"
       color="primary"
+      id="pay"
       onClick={() => {
         initializePayment(onSuccess, onClose);
       }}
@@ -47,14 +74,24 @@ const PayOnlineButton = (props) => {
 
 const OrderSuccess = () => {
   const classes = styles();
-  const [paymentDone, setPayment] = useState(false);
   const [state, setState] = useState(null);
+  const router = useRouter();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (window !== undefined) {
-      setState(JSON.parse(window.sessionStorage.getItem("orderkeys")));
+      const session = JSON.parse(window.sessionStorage.getItem("orderkeys"));
+      if (session) {
+        setState(session);
+      } else {
+        enqueueSnackbar("sorry, no order found in your browser history", {
+          variant: "error",
+        });
+        enqueueSnackbar("redirecting to the order page", { variant: "error" });
+        router.push("/interactive-order-platform");
+      }
     }
-  }, [null]);
+  }, []);
 
   if (!state) return <>Loading..</>;
 
@@ -72,24 +109,45 @@ const OrderSuccess = () => {
     checklist,
     email,
     total,
+    paymentStatus,
+    paymentOption,
   } = state;
 
   const config = {
     reference: new Date().getTime(),
     email: email,
-    amount: total,
-    publicKey: "pk_test_272253f0c5a6b45e540df35be4fc30f101088e14",
+    amount: total + "00",
+    publicKey: "pk_live_15139c6c99cb881d8487bf68ef2011aa225d26f4",
   };
 
   const onPaymentSuccess = (reference) => {
     console.log(reference);
+    const session = JSON.parse(window.sessionStorage.getItem("orderkeys"));
+    const updateSession = { ...session, paymentStatus: true };
+    window.sessionStorage.setItem("orderkeys", JSON.stringify(updateSession));
+    setState(updateSession);
   };
+
   const onClose = () => {
     console.log("closed");
   };
   return (
     <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
       <Grid container justify="center">
+        <Grid item xs={12} style={{ marginBottom: "20px" }}>
+          <Alert icon={<EmailOutlined />} closeText="close" severity="success">
+            Booking confirmation has been sent to {email}
+          </Alert>
+          {paymentStatus && (
+            <Alert
+              icon={<AttachMoneyOutlined />}
+              closeText="close"
+              severity="success"
+            >
+              Payment confirmation has been sent to {email}
+            </Alert>
+          )}
+        </Grid>
         <Grid item container xs={12} sm={6}>
           <Grid
             item
@@ -101,28 +159,31 @@ const OrderSuccess = () => {
             <Grid item>
               <Typography>Dear {firstName}</Typography>
             </Grid>
-            {!paymentDone && (
+            {!paymentStatus && (
               <Grid item>
                 <PayOnlineButton
                   onSuccess={onPaymentSuccess}
                   onClose={onClose}
                   config={config}
                   total={total}
+                  paymentStatus={paymentStatus}
+                  paymentOption={paymentOption}
                 />
               </Grid>
             )}
           </Grid>
           <Grid item xs={12}>
             <Typography gutterBottom>
-              Order ID: <strong>{orderId}</strong>, has been completed with the
-              following details:
+              Order ID: <strong>{orderId}</strong>, has been submitted for the
+              following items:
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            {flightAmount > 0 ||
-              (freeFlight && (
-                <Alert severity="success">Flight Reservation For Visa</Alert>
-              ))}
+            {flightAmount > 0 || freeFlight === true ? (
+              <Alert severity="success">Flight Reservation For Visa</Alert>
+            ) : (
+              ""
+            )}
             {hotelAmount > 0 && (
               <Alert severity="success">Hotel Reservation For Visa</Alert>
             )}
@@ -144,13 +205,13 @@ const OrderSuccess = () => {
             {consultation && (
               <Alert severity="success">Consultaion Services</Alert>
             )}
-            {paymentDone ? (
+            {paymentStatus ? (
               <Alert severity="success">Payment Received</Alert>
             ) : (
               <Alert severity="error">Payment Pending</Alert>
             )}
           </Grid>
-          {!paymentDone && (
+          {!paymentStatus && (
             <Grid item xs={12} className={classes.bank}>
               <Typography>Bank Transfer</Typography>
               <Typography>Bank: Stanbic Ibtc</Typography>
@@ -159,11 +220,16 @@ const OrderSuccess = () => {
           )}
         </Grid>
         <Grid item xs={12} sm={6}>
-          {paymentDone ? (
+          {paymentStatus ? (
             <img src="images/ordersuccess.svg" width="100%" height="300px" />
           ) : (
             <img src="images/paymentwaiting.svg" width="100%" height="300px" />
           )}
+        </Grid>
+        <Grid item xs={12}>
+          <Box pl={5} mt={2}>
+            <Typography variant="h6">Total: {formatMoney(total)}</Typography>
+          </Box>
         </Grid>
       </Grid>
     </Container>

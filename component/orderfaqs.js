@@ -1,14 +1,27 @@
+// @ts-nocheck
+import MomentUtils from "@date-io/moment";
 import {
   Box,
+  Button,
   CircularProgress,
   Container,
+  FormControl,
+  Grid,
   IconButton,
   makeStyles,
+  MenuItem,
   Paper,
+  TextField,
   Typography,
   useTheme,
 } from "@material-ui/core";
-import { CloseRounded } from "@material-ui/icons";
+import { CloseRounded, DateRangeOutlined } from "@material-ui/icons";
+import { Alert } from "@material-ui/lab";
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import axios from "axios";
+import { Fragment } from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const styles = makeStyles((theme) => ({
   box: {
@@ -290,13 +303,285 @@ export const FreeGiftsFaqs = ({ setOpenModal }) => {
             coming for submission
           </li>
           <li>
-            Consultaion Services: Would you like to talk to an expert on
-            how to acheive success with your visa application? If so, this
-            service is available for you for free. <br />
+            Consultaion Services: Would you like to talk to an expert on how to
+            acheive success with your visa application? If so, this service is
+            available for you for free. <br />
             **minimum order of NGN 10,000 mandatory
           </li>
         </ul>
       </Typography>
+    </Box>
+  );
+};
+
+export const SchoolDetails = ({ setOpenModal, school }) => {
+  const theme = useTheme();
+  const classes = styles();
+  const [showForm, setForm] = useState(false);
+  const { register, handleSubmit, watch, errors, control } = useForm();
+  const [gender, setGender] = useState("Select Gender");
+  const [dob, handleDob] = useState(new Date());
+  const [isloading, setIsLoading] = useState(false);
+
+  const {
+    applicationFee,
+    country,
+    description,
+    selection6: durationLevel,
+    level: field,
+    location,
+    selection4_name: title,
+    selection5: tuitionFee,
+    uni_contact,
+    uni_image: logo,
+    uni_name,
+  } = school;
+
+  const [isFormSubmitted, setSubmitted] = useState(false);
+
+  const onSubmit = (data) => {
+    setIsLoading(true);
+    const userData = { ...data, ...school };
+    console.log(userData);
+    axios
+      .post(
+        "https://hook.integromat.com/pn4i5kl4vr8pwr3eopu56x12n2mifog5",
+        userData
+      )
+      .then((response) => {
+        console.log(response);
+        setSubmitted(true);
+        showForm(false);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      });
+  };
+  return (
+    <Box
+      css={{ bgcolor: "white", p: "10px", width: "80%" }}
+      className={classes.box}
+    >
+      <Box display="flex" justifyContent="space-between" mb={2}>
+        <IconButton onClick={() => setOpenModal(false)} color="primary">
+          <CloseRounded />
+        </IconButton>
+        <Button
+          onClick={() => setForm(true)}
+          size="small"
+          color="primary"
+          variant="contained"
+          disabled={isFormSubmitted}
+        >
+          {isFormSubmitted ? "Info Requested" : "Request More Info"}
+        </Button>
+      </Box>
+      <Grid container justify="center">
+        <Grid item xs={12}>
+          <Typography variant="h6" align="center" gutterBottom>
+            {title} <br /> {uni_name}
+          </Typography>
+        </Grid>
+        {showForm && !isFormSubmitted ? (
+          <Grid
+            item
+            container
+            spacing={2}
+            xs={12}
+            style={{
+              //  backgroundColor: theme.palette.primary.main,
+              //  color: theme.palette.getContrastText(theme.palette.primary.main),
+              marginTop: "10px",
+              marginBottom: "10px",
+              paddingTop: "10px",
+              paddingBottom: "10px",
+              borderRadius: "10px",
+            }}
+            component="form"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <Grid item xs={12}>
+              <Typography gutterBottom align="center">
+                Information Request Form
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                inputRef={register}
+                name="surname"
+                fullWidth
+                label="Surname"
+                variant="outlined"
+                required
+                disabled={isFormSubmitted}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                inputRef={register}
+                name="othername"
+                fullWidth
+                label="Other Names"
+                variant="outlined"
+                required
+                disabled={isFormSubmitted}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                inputRef={register}
+                name="email"
+                fullWidth
+                label="Email"
+                variant="outlined"
+                required
+                disabled={isFormSubmitted}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                inputRef={register}
+                name="phone"
+                fullWidth
+                label="Contact Phone"
+                variant="outlined"
+                required
+                disabled={isFormSubmitted}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="outlined-select-currency"
+                select
+                label="Select"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                //helperText="Gender"
+                variant="outlined"
+                inputRef={register}
+                name="gender"
+                disabled={isFormSubmitted}
+              >
+                {["Select Gender", "MALE", "FEMALE"].map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControl>
+                <MuiPickersUtilsProvider utils={MomentUtils}>
+                  <DatePicker
+                    inputRef={register}
+                    name="dob"
+                    value={dob}
+                    onChange={handleDob}
+                    format="MMMM Do YYYY"
+                    //  variant = "inline"
+                    //  InputAdornmentProps={{ position: "start" }}
+                    inputVariant="outlined"
+                    // component={InputBase}
+                    color="primary"
+                    InputProps={{
+                      startAdornment: (
+                        <DateRangeOutlined
+                          color="primary"
+                          style={{ marginRight: "10px" }}
+                        />
+                      ),
+                    }}
+
+                    // startIcon={<DateRangeOutlined />}
+                    //.MuiInputBase-input
+                  />
+                </MuiPickersUtilsProvider>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="outlined-multiline-static"
+                label="AddItional Info"
+                multiline
+                rows={4}
+                variant="outlined"
+                fullWidth
+                inputRef={register}
+                name="addInfo"
+                disabled={isFormSubmitted}
+                helperText="Please tell us about your highest level of education, any previous visa refusal, your budget on tuition, and any other useful information. We will get back to you for further discussion"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Button
+                disabled={isloading}
+                variant="contained"
+                color="primary"
+                type="submit"
+                startIcon={
+                  isloading ? <CircularProgress color="primary" /> : ""
+                }
+              >
+                Submit
+              </Button>
+            </Grid>
+          </Grid>
+        ) : (
+          <Grid
+            item
+            xs={12}
+            style={{
+              backgroundColor: theme.palette.primary.main,
+              color: theme.palette.getContrastText(theme.palette.primary.main),
+              marginTop: "10px",
+              marginBottom: "10px",
+              paddingTop: "10px",
+              paddingBottom: "10px",
+              borderRadius: "10px",
+            }}
+          >
+            <Typography align="center">
+              Why you should apply to {uni_name} via NGabroad:
+            </Typography>
+            <ul>
+              <li>Free admission support services</li>
+              <li>Free visa support services</li>
+              <li>99.9% success rate assured for eligible applicants</li>
+            </ul>
+          </Grid>
+        )}
+        {isFormSubmitted && (
+          <Grid item xs={12}>
+            <Alert severity="success">
+              Thank you !!. Your request has been submitted. You should receive
+              a feedback within the next 24 hours.
+            </Alert>
+          </Grid>
+        )}
+        <Grid item xs={12}>
+          {description && (
+            <>
+              <Typography gutterBottom align="center">
+                Program Overview
+              </Typography>
+              <>{description}</>
+            </>
+          )}
+        </Grid>
+        <Grid item xs={12}>
+          {uni_contact && (
+            <>
+              <Typography gutterBottom align="center">
+                Institution Information
+              </Typography>
+              <>{uni_contact}</>
+            </>
+          )}
+        </Grid>
+      </Grid>
     </Box>
   );
 };

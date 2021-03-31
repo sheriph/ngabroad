@@ -41,6 +41,7 @@ import {
   Grid,
   ListSubheader,
 } from "@material-ui/core";
+import { useRouter } from "next/router";
 
 const drawerWidth = 300;
 
@@ -113,7 +114,7 @@ export default function DrawerMenu({ open, handleDrawerClose }) {
   const handleClick = () => {
     setOpenVisa(!openVisa);
   };
-
+  const router = useRouter();
   const [openContact, setOpenContact] = React.useState(true);
 
   const handleContactOpen = () => {
@@ -164,7 +165,14 @@ export default function DrawerMenu({ open, handleDrawerClose }) {
           component="nav"
         >
           {["ARTICLES", "GET VISA DOCUMENTS ONLINE"].map((text, index) => (
-            <React.Fragment key={index}>
+            <Box
+              onClick={() => {
+                if (text === "ARTICLES") router.push("/articles");
+                if (text === "GET VISA DOCUMENTS ONLINE")
+                  router.push("/interactive-order-platform");
+              }}
+              key={index}
+            >
               <ListItem
                 button
                 onClick={() => {
@@ -183,13 +191,25 @@ export default function DrawerMenu({ open, handleDrawerClose }) {
               {index === 1 ? (
                 <Collapse in={openVisa} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    <ListItem button className={classes.nested}>
+                    <ListItem
+                      onClick={() => router.push("/interactive-order-platform")}
+                      button
+                      className={classes.nested}
+                    >
                       <ListItemText primary="Travel Insurance" />
                     </ListItem>
-                    <ListItem button className={classes.nested}>
+                    <ListItem
+                      onClick={() => router.push("/interactive-order-platform")}
+                      button
+                      className={classes.nested}
+                    >
                       <ListItemText primary="Hotel Reservation for Visa" />
                     </ListItem>
-                    <ListItem button className={classes.nested}>
+                    <ListItem
+                      onClick={() => router.push("/interactive-order-platform")}
+                      button
+                      className={classes.nested}
+                    >
                       <ListItemText primary="Application Form Filling" />
                     </ListItem>
                   </List>
@@ -197,7 +217,7 @@ export default function DrawerMenu({ open, handleDrawerClose }) {
               ) : (
                 ""
               )}
-            </React.Fragment>
+            </Box>
           ))}
         </List>
         <Divider />
@@ -206,13 +226,13 @@ export default function DrawerMenu({ open, handleDrawerClose }) {
           component="nav"
           onClick={handleContactOpen}
         >
-          <ListItem button>
+          <ListItem onClick={() => router.push("/studyabroad")} button>
             <ListItemIcon>
               <SchoolOutlined />
             </ListItemIcon>
             <ListItemText primary="SCHOOL FINDER" />
           </ListItem>
-          <ListItem button>
+          <ListItem onClick={() => router.push("/embassycontact")} button>
             <ListItemIcon>
               <LocationCity />
             </ListItemIcon>

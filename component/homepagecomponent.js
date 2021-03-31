@@ -1,6 +1,7 @@
 import { Container, Grid, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import FeatureCard from "./featurescard";
+import { useRouter } from "next/router";
 
 const styles = makeStyles((theme) => ({
   container: {
@@ -10,6 +11,7 @@ const styles = makeStyles((theme) => ({
 }));
 const Homepage = () => {
   const classes = styles();
+  const router = useRouter();
   const features = [
     {
       p2: "Unbeatable flight deals to all destinations",
@@ -57,7 +59,21 @@ const Homepage = () => {
       </Grid>
       <Grid item container spacing={3}>
         {features.map(({ p1, p2, src }, index) => (
-          <Grid item key={index} xs={12} sm={6}>
+          <Grid
+            onClick={(e) => {
+              e.preventDefault();
+              if (p1 === "Flight Booking") router.push("/contactus");
+              if (p1 === "Hotel Booking") router.push("/contactus");
+              if (p1 === "Travel Insurance")
+                router.push("/interactive-order-platform");
+              if (p1 === "Study Abroad") router.push("/studyabroad");
+              if (p1 === "Visa Consultaion") router.push("/contactus");
+            }}
+            item
+            key={index}
+            xs={12}
+            sm={6}
+          >
             <FeatureCard p1={p1} p2={p2} src={src} />
           </Grid>
         ))}
@@ -67,7 +83,17 @@ const Homepage = () => {
       </Grid>
       <Grid item container spacing={3}>
         {tools.map(({ p1, p2, src }, index) => (
-          <Grid item key={index} xs={12} sm={6}>
+          <Grid
+            onClick={(e) => {
+              e.preventDefault();
+              if (p1 === "Embassy Finder") router.push("/embassycontact");
+              if (p1 === "School Finder") router.push("/studyabroad");
+            }}
+            item
+            key={index}
+            xs={12}
+            sm={6}
+          >
             <FeatureCard p1={p1} p2={p2} src={src} />
           </Grid>
         ))}

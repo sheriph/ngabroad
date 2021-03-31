@@ -28,7 +28,13 @@ import { Autocomplete } from "@material-ui/lab";
 import { useDocument } from "@nandorojo/swr-firestore";
 import React, { useEffect, useState } from "react";
 import top100Films from "./movies";
-import { insurancePrice, insuranceDuration } from "./insuranceprice";
+import {
+  insurancePrice,
+  insuranceDuration,
+  countries,
+  schenghenPrice,
+  nonSchenghenPrice,
+} from "./insuranceprice";
 import { Controller, useForm } from "react-hook-form";
 import {
   DatePicker,
@@ -48,6 +54,8 @@ import {
 } from "./orderfaqs";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";
+import axios from "axios";
+import { formatMoney } from "./utilityfx";
 //import DateFnsUtils from "@date-io/date-fns";
 
 const styles = makeStyles((theme) => ({
@@ -146,6 +154,22 @@ const Order = () => {
       setIsBooking(false);
       return;
     }
+    const order1 =
+      flightAmount > 0 || freeFlight === true
+        ? "Flight Reservation For Visa"
+        : "";
+
+    const order2 = hotelAmount > 0 ? "Hotel Reservation For Visa" : "";
+    const order3 =
+      insurAmount > 0
+        ? `Travel Health Reservation: ${insurCountry} ${insurDuration}`
+        : "";
+    const order4 = coverAmount > 0 ? "Cover Letter Request" : "";
+    const order5 = formAmount > 0 ? "Application Formn Filling Service" : "";
+    const order6 = appointment === true ? "Appointment Booking Services" : "";
+    const order7 = checklist === true ? "Documents Checklist" : "";
+    const order8 = consultation === true ? "Consultation Services" : "";
+
     const customerData = {
       ...data,
       insurAmount,
@@ -161,17 +185,35 @@ const Order = () => {
       consultation,
       checklist,
       total,
-      orderId: Math.floor(Math.random() * 10000),
+      paymentOption,
+      paymentStatus: false,
+      orderId: Math.floor(Math.random() * 1000 + 1000),
+      order1,
+      order2,
+      order3,
+      order4,
+      order5,
+      order6,
+      order7,
+      order8,
     };
     console.log(customerData);
-
     window.sessionStorage.setItem("orderkeys", JSON.stringify(customerData));
-    setTimeout(() => {
-      setIsBooking(false);
-    }, 2500);
-    setTimeout(() => {
-      router.push("/congratulations-order-completed");
-    }, 3000);
+    axios
+      .post(
+        "https://hook.integromat.com/ma139mrhh9s8zxe2p5cx46a8lbdr1nln",
+        customerData
+      )
+      .then((response) => {
+        console.log(response);
+        setTimeout(() => {
+          setIsBooking(false);
+        }, 2500);
+        setTimeout(() => {
+          router.push("/congratulations-order-completed");
+        }, 3000);
+      })
+      .catch((error) => console.log(error));
   };
   const handlePayment = (e) => {
     setPayment(e.target.value);
@@ -197,7 +239,7 @@ const Order = () => {
             <AccordionSummary
               component="div"
               expandIcon={
-                <ExpandMore
+                <Box
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -207,7 +249,9 @@ const Order = () => {
                       setExpanded("gifts");
                     }
                   }}
-                />
+                >
+                  <ExpandMore />
+                </Box>
               }
               aria-controls="panel1a-content"
               id="panel1a-header"
@@ -332,7 +376,7 @@ const Order = () => {
             <AccordionSummary
               component="div"
               expandIcon={
-                <ExpandMore
+                <Box
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -342,7 +386,9 @@ const Order = () => {
                       setExpanded("insurance");
                     }
                   }}
-                />
+                >
+                  <ExpandMore />
+                </Box>
               }
               aria-controls="panel1a-content"
               id="panel1a-header"
@@ -363,6 +409,7 @@ const Order = () => {
                       setTimeout(() => {
                         setOrderItem(updateOrderItem(e.target.value));
                         setLoading(false);
+                        setInsurAmount(0);
                       }, 1500);
                     }}
                     name="checkedA"
@@ -371,7 +418,7 @@ const Order = () => {
                 </Grid>
                 <Grid item xs sm="auto">
                   <Typography display="inline" variant="button" color="primary">
-                    &#8358; {insurAmount}
+                    {formatMoney(insurAmount)}
                   </Typography>
                 </Grid>
               </Grid>
@@ -403,16 +450,20 @@ const Order = () => {
                 <Grid container spacing={2} justify="center">
                   <Grid item xs={12} sm>
                     <Autocomplete
-                      options={insurancePrice}
-                      getOptionLabel={(option) => option.country}
+                      options={countries}
+                      getOptionLabel={(option) => option.countryName}
                       style={{ width: "100%" }}
                       onChange={(e, v, l) => {
-                        setInsurCountry(v.country);
+                        if (!v) return;
+                        setInsurCountry(v.countryName);
                         if (insurDuration) {
-                          const amount = insurancePrice.filter(
-                            (item) => item.country === v.country
-                          )[0][insurDuration];
-                          setInsurAmount(amount);
+                          if (v.isShenghen) {
+                            const amount = schenghenPrice[insurDuration];
+                            setInsurAmount(amount);
+                          } else {
+                            const amount = nonSchenghenPrice[insurDuration];
+                            setInsurAmount(amount);
+                          }
                         }
                       }}
                       renderInput={(params) => (
@@ -422,6 +473,9 @@ const Order = () => {
                           variant="outlined"
                           inputRef={register}
                           name="insuranceCountry"
+                          helperText={
+                            insurCountry ? `Current Value: ${insurCountry}` : ""
+                          }
                         />
                       )}
                     />
@@ -432,12 +486,19 @@ const Order = () => {
                       getOptionLabel={(option) => option.duration}
                       style={{ width: "100%" }}
                       onChange={(e, v, l) => {
+                        if (!v) return;
                         setInsurDuration(v.duration);
                         if (insurCountry) {
-                          const amount = insurancePrice.filter(
-                            (item) => item.country === insurCountry
-                          )[0][v.duration];
-                          setInsurAmount(amount);
+                          const countryObj = countries.filter(
+                            (country) => country.countryName === insurCountry
+                          );
+                          if (countryObj.isShenghen) {
+                            const amount = schenghenPrice[v.duration];
+                            setInsurAmount(amount);
+                          } else {
+                            const amount = nonSchenghenPrice[v.duration];
+                            setInsurAmount(amount);
+                          }
                         }
                       }}
                       renderInput={(params) => (
@@ -447,6 +508,11 @@ const Order = () => {
                           variant="outlined"
                           inputRef={register}
                           name="insuranceDuration"
+                          helperText={
+                            insurDuration
+                              ? `Current Value: ${insurDuration}`
+                              : ""
+                          }
                         />
                       )}
                     />
@@ -483,7 +549,7 @@ const Order = () => {
             <AccordionSummary
               component="div"
               expandIcon={
-                <ExpandMore
+                <Box
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -493,7 +559,9 @@ const Order = () => {
                       setExpanded("hotel");
                     }
                   }}
-                />
+                >
+                  <ExpandMore />
+                </Box>
               }
               aria-controls="panel1a-content"
               id="panel1a-header"
@@ -523,7 +591,7 @@ const Order = () => {
                 </Grid>
                 <Grid item xs sm="auto">
                   <Typography display="inline" variant="button" color="primary">
-                    &#8358; {hotelAmount}
+                    {formatMoney(hotelAmount)}
                   </Typography>
                 </Grid>
               </Grid>
@@ -608,7 +676,7 @@ const Order = () => {
             <AccordionSummary
               component="div"
               expandIcon={
-                <ExpandMore
+                <Box
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -618,7 +686,9 @@ const Order = () => {
                       setExpanded("flight");
                     }
                   }}
-                />
+                >
+                  <ExpandMore />
+                </Box>
               }
               aria-controls="panel1a-content"
               id="panel1a-header"
@@ -649,7 +719,7 @@ const Order = () => {
                 </Grid>
                 <Grid item xs sm="auto">
                   <Typography display="inline" variant="button" color="primary">
-                    &#8358; {flightAmount}
+                    {formatMoney(flightAmount)}
                   </Typography>
                 </Grid>
               </Grid>
@@ -735,7 +805,7 @@ const Order = () => {
             <AccordionSummary
               component="div"
               expandIcon={
-                <ExpandMore
+                <Box
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -745,7 +815,9 @@ const Order = () => {
                       setExpanded("form");
                     }
                   }}
-                />
+                >
+                  <ExpandMore />
+                </Box>
               }
               aria-controls="panel1a-content"
               id="panel1a-header"
@@ -774,7 +846,7 @@ const Order = () => {
                 </Grid>
                 <Grid item xs sm="auto">
                   <Typography display="inline" variant="button" color="primary">
-                    &#8358; {formAmount}
+                    {formatMoney(formAmount)}
                   </Typography>
                 </Grid>
               </Grid>
@@ -828,7 +900,14 @@ const Order = () => {
                     </Grid>
                   </Grid>
                   <Grid item xs={12}>
-                    <Box display="flex" justifyContent="flex-end">
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Typography>
+                        ** You will be contacted for additional information
+                      </Typography>
                       <Button
                         size="large"
                         endIcon={<HelpSharp color="primary" />}
@@ -859,7 +938,7 @@ const Order = () => {
             <AccordionSummary
               component="div"
               expandIcon={
-                <ExpandMore
+                <Box
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -869,7 +948,9 @@ const Order = () => {
                       setExpanded("letter");
                     }
                   }}
-                />
+                >
+                  <ExpandMore />
+                </Box>
               }
               aria-controls="panel1a-content"
               id="panel1a-header"
@@ -899,7 +980,7 @@ const Order = () => {
                 </Grid>
                 <Grid item xs sm="auto">
                   <Typography display="inline" variant="button" color="primary">
-                    &#8358; {coverAmount}
+                    {formatMoney(coverAmount)}
                   </Typography>
                 </Grid>
               </Grid>
@@ -951,7 +1032,14 @@ const Order = () => {
                     </Grid>
                   </Grid>
                   <Grid item xs={12}>
-                    <Box display="flex" justifyContent="flex-end">
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Typography>
+                        ** You will be contacted for additional information
+                      </Typography>
                       <Button
                         size="large"
                         endIcon={<HelpSharp color="primary" />}
@@ -983,7 +1071,7 @@ const Order = () => {
             <AccordionSummary
               component="div"
               expandIcon={
-                <ExpandMore
+                <Box
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -993,7 +1081,9 @@ const Order = () => {
                       setExpanded("done");
                     }
                   }}
-                />
+                >
+                  <ExpandMore />
+                </Box>
               }
               aria-controls="panel1a-content"
               id="panel1a-header"
@@ -1004,7 +1094,7 @@ const Order = () => {
                     Complete Your Order
                   </Typography>
                 </Grid>
-                <Grid item>&#8358; {total}</Grid>
+                <Grid item>{formatMoney(total)}</Grid>
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
@@ -1040,6 +1130,7 @@ const Order = () => {
                       required
                       inputRef={register}
                       name="telephone"
+                      helperText="enter the phone number for communication with us. If you are not the applicant, provide the applicant's number in the additional info"
                       fullWidth
                       label="Telephone"
                       variant="outlined"
@@ -1052,6 +1143,7 @@ const Order = () => {
                       name="email"
                       fullWidth
                       label="Email"
+                      helperText="enter the email for communication with us. If you are not the applicant, provide the applicant's email in the additional info"
                       variant="outlined"
                     />
                   </Grid>
@@ -1075,7 +1167,6 @@ const Order = () => {
                       onChange={(e) => setGender(e.target.value)}
                       //helperText="Gender"
                       variant="outlined"
-                      value={gender}
                       inputRef={register}
                       name="gender"
                     >

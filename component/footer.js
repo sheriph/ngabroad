@@ -8,6 +8,7 @@ import {
   MenuList,
   useTheme,
 } from "@material-ui/core";
+import Link from "next/link";
 import React from "react";
 
 const styles = makeStyles((theme) => ({
@@ -21,7 +22,7 @@ const styles = makeStyles((theme) => ({
 
 const Footer = () => {
   const classes = styles();
-  const theme = useTheme()
+  const theme = useTheme();
   return (
     <Container disableGutters maxWidth={false}>
       <Container>
@@ -46,9 +47,15 @@ const Footer = () => {
                   variant="text"
                   size="small"
                 >
-                  <Button>HOME</Button>
-                  <Button>ARTICLES</Button>
-                  <Button>CONTACT US</Button>
+                  <Link href="/">
+                    <Button>HOME</Button>
+                  </Link>
+                  <Link href="/articles">
+                    <Button>ARTICLES</Button>
+                  </Link>
+                  <Link href="/contactus">
+                    <Button>CONTACT US</Button>
+                  </Link>
                 </ButtonGroup>
               </Grid>
             </Grid>
@@ -59,38 +66,46 @@ const Footer = () => {
           >
             <Grid item container direction="column">
               <Grid item>
-                <img
-                  src="https://naijagoingabroad.com/wp-content/uploads/2021/01/new-logo-reversed_200x73_75.png"
-                  width="75px"
-                  height="27px"
-                />
+                <Link href="/">
+                  <img
+                    src="https://naijagoingabroad.com/wp-content/uploads/2021/01/new-logo-reversed_200x73_75.png"
+                    width="75px"
+                    height="27px"
+                  />
+                </Link>
               </Grid>
 
               <Grid item>
                 <Grid item spacing={2} container>
                   <Grid item>
-                    <img
-                      src="/images/icons8-facebook-f.svg"
-                      alt="socailicons"
-                      height="16px"
-                      width="16px"
-                    />
+                    <Link href="https://www.facebook.com/Naijagoingabroad/">
+                      <img
+                        src="/images/icons8-facebook-f.svg"
+                        alt="socailicons"
+                        height="16px"
+                        width="16px"
+                      />
+                    </Link>
                   </Grid>
                   <Grid item>
-                    <img
-                      src="/images/icons8-instagram.svg"
-                      alt="socailicons"
-                      height="16px"
-                      width="16px"
-                    />
+                    <Link href="https://www.instagram.com/naijagoingabroad/?hl=en">
+                      <img
+                        src="/images/icons8-instagram.svg"
+                        alt="socailicons"
+                        height="16px"
+                        width="16px"
+                      />
+                    </Link>
                   </Grid>
                   <Grid item>
-                    <img
-                      src="/images/icons8-twitter.svg"
-                      alt="socailicons"
-                      height="16px"
-                      width="16px"
-                    />
+                    <Link href="https://twitter.com/ngabroad_?lang=en">
+                      <img
+                        src="/images/icons8-twitter.svg"
+                        alt="socailicons"
+                        height="16px"
+                        width="16px"
+                      />
+                    </Link>
                   </Grid>
                 </Grid>
               </Grid>

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import { Container, makeStyles } from "@material-ui/core";
 import Footer from "../component/footer";
@@ -17,7 +18,10 @@ export default function () {
       subtitle="Order Now"
       title="Order for you travel documents online"
       jsx={<Order />}
-      pageTitle="documents order"
+      pageTitle="Documents Order"
+      page={true}
+      pageDesc="Order your travel documents here"
+      pageUrl="http://naijagoingabroad.com/interactive-order-platform"
     />
   );
 }
