@@ -31,7 +31,7 @@ export default function AppHeader({ handleDrawerClose, handleDrawerOpen }) {
             <Grid item>
               <Link href="/">
                 <img
-                  src="https://naijagoingabroad.com/wp-content/uploads/2021/01/new-logo-reversed_200x73_75.png"
+                  src="https://ngabroadimages.s3.eu-west-2.amazonaws.com/wp-content/uploads/20210330154053/new-logo-reversed_75x27.png"
                   width="73"
                   height="27"
                 />

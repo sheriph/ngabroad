@@ -68,7 +68,7 @@ export async function getStaticProps({ params }) {
   let yarpp = [];
   // console.log("databaseId", databaseId);
   await axios
-    .get(`https://naijagoingabroad.com/wp-json/yarpp/v1/related/${databaseId}`)
+    .get(`https://naijagoingabroad.com.ng/wp-json/yarpp/v1/related/${databaseId}`)
     .then((response) => {
       // console.log("yarp response", response.data);
       yarpp = yarpp.concat(response.data);

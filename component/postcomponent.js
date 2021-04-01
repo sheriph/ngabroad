@@ -14,11 +14,12 @@ const styles = makeStyles((theme) => ({
     },
     "&.MuiBox-root img": {
       width: "100%",
-      maxHeight: "300px",
+      height: "auto",
+      //  maxHeight: "300px",
     },
     "&.MuiBox-root a": {
-      display: "block",
-     // overflow: "scroll",
+      display: "inline-block !important",
+      // overflow: "scroll",
     },
   },
 }));

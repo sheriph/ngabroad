@@ -84,7 +84,11 @@ const StudyAbroadComponent = () => {
                 container
                 spacing={3}
                 justify="center"
-                style={{ marginTop: "30px", height: "40px" }}
+                style={{
+                  marginTop: "30px",
+                  marginBottom: "30px",
+                  height: "40px",
+                }}
               >
                 <Grid item>
                   <Typography variant="h6">

@@ -68,7 +68,7 @@ const Footer = () => {
               <Grid item>
                 <Link href="/">
                   <img
-                    src="https://naijagoingabroad.com/wp-content/uploads/2021/01/new-logo-reversed_200x73_75.png"
+                    src="https://ngabroadimages.s3.eu-west-2.amazonaws.com/wp-content/uploads/20210330154050/new-logo-reversed_200x73_75.png"
                     width="75px"
                     height="27px"
                   />

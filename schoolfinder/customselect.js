@@ -8,7 +8,6 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useRecoilState } from "recoil";
-import { country_ } from "./recoil";
 
 const styles = makeStyles((theme) => ({
   root: {
@@ -25,7 +24,6 @@ const CustomSelect = ({
   defaultValueString = "",
 }) => {
   const classes = styles();
-  const [country, setCountry] = useRecoilState(country_);
   const countries = ["Australia", "Austria"];
   return (
     <Container disableGutters style={{ margin: "5px 0 5px 0" }}>

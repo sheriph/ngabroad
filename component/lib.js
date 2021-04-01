@@ -2,20 +2,13 @@ const mysql = require("mysql");
 
 export const db = mysql.createConnection({
   multipleStatements: true,
-  host: "naijagoingabroad.com.ng",
-  user: "u904780435_sheriph",
-  password: "Khashef2017.",
-  database: "u904780435_jic",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB,
 });
 
-export const dbpool = mysql.createPool({
-  multipleStatements: true,
-  connectionLimit: 10,
-  host: "naijagoingabroad.com",
-  user: "naijagoi_sheriph",
-  password: "Khashef2017.",
-  database: "naijagoi_jic",
-});
+
 
 /* export async function query(q) {
   try {

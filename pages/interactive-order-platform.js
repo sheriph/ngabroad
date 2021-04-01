@@ -16,7 +16,7 @@ export default function () {
   return (
     <SleekTheme
       subtitle="Order Now"
-      title="Order for you travel documents online"
+      title="Order your travel documents online"
       jsx={<Order />}
       pageTitle="Documents Order"
       page={true}
