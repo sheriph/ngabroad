@@ -13,7 +13,7 @@ import { useAmp } from "next/amp";
 
 const styles = makeStyles((theme) => ({}));
 
-export const config = { amp: "hybrid" };
+/* export const config = { amp: "hybrid" }; */
 
 export default function ({ post }) {
   const isAmp = useAmp();
@@ -27,7 +27,7 @@ export default function ({ post }) {
   } = post;
   return (
     <SleekTheme
-      isAmp={isAmp}
+     // isAmp={isAmp}
       subtitle={categoryList.map((item) => item.name).toString()}
       seo={seo}
       jsx={<SinglePost content={content} relatedPosts={relatedPosts} />}
