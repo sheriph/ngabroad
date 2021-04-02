@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import PropTypes from "prop-types";
 import Head from "next/head";
@@ -9,6 +10,7 @@ import "firebase/firestore";
 import "firebase/auth";
 import { Fuego, FuegoProvider } from "@nandorojo/swr-firestore";
 import { SnackbarProvider } from "notistack";
+import { useAmp } from "next/amp";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDnWq5tSHBtRn7Y83WyNHzZoIqY0xpCBzQ",
@@ -24,6 +26,7 @@ const fuego = new Fuego(firebaseConfig);
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
+  const isAmp = useAmp();
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -38,10 +41,14 @@ export default function MyApp(props) {
       <Head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
+
+        {!isAmp && (
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width"
+          />
+        )}
+
         <link rel="manifest" href="/manifest.json" />
         <link
           href="/icons/icon16.png"

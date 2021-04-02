@@ -18,7 +18,6 @@ export const config = { amp: "hybrid" };
 export default function ({ post }) {
   const isAmp = useAmp();
 
-  console.log("isAmp", isAmp);
   const {
     content,
     title,

@@ -50,6 +50,8 @@ const BlogCard = ({ post }) => {
     altText = post.featuredImage.node.altText;
   } catch (error) {
     console.log("featureImage error in ", title, error);
+    sourceUrl = "/images/placeholder";
+    altText = `${Math.random()}`;
   }
 
   return (
