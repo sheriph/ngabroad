@@ -1,6 +1,7 @@
 // import functions from the package
 import { SitemapStream, streamToPromise } from "sitemap";
 import { getAllPostsSlugs } from "../../../lib/api";
+
 // A custom function I use to fetch data from a backend. I will keep the import to make it more clear why "graphlqlFetch" is used in the code
 export default async (req, res) => {
   // Fetch data from a source which will be used to render the sitemap.
