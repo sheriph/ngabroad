@@ -13,7 +13,7 @@ import { useAmp } from "next/amp";
 
 const styles = makeStyles((theme) => ({}));
 
-/* export const config = { amp: "hybrid" }; */
+export const config = { amp: false };
 
 export default function ({ post }) {
   const isAmp = useAmp();
@@ -27,10 +27,16 @@ export default function ({ post }) {
   } = post;
   return (
     <SleekTheme
-     // isAmp={isAmp}
+      isAmp={isAmp}
       subtitle={categoryList.map((item) => item.name).toString()}
       seo={seo}
-      jsx={<SinglePost content={content} relatedPosts={relatedPosts} />}
+      jsx={
+        <SinglePost
+          isAmp={isAmp}
+          content={content}
+          relatedPosts={relatedPosts}
+        />
+      }
       title={title}
     />
   );
@@ -67,7 +73,9 @@ export async function getStaticProps({ params }) {
   let yarpp = [];
   // console.log("databaseId", databaseId);
   await axios
-    .get(`https://naijagoingabroad.com.ng/wp-json/yarpp/v1/related/${databaseId}`)
+    .get(
+      `https://naijagoingabroad.com.ng/wp-json/yarpp/v1/related/${databaseId}`
+    )
     .then((response) => {
       // console.log("yarp response", response.data);
       yarpp = yarpp.concat(response.data);

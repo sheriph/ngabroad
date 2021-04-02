@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   Button,
   ButtonGroup,
@@ -25,7 +26,7 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const BlogCard = ({ post }) => {
+const BlogCard = ({ post, isAmp }) => {
   const classes = styles();
 
   const {
@@ -57,13 +58,23 @@ const BlogCard = ({ post }) => {
   return (
     <Grid component={Paper} container spacing={2} className={classes.blogcard}>
       <Grid item container style={{ position: "relative" }}>
-        <img
-          //  layout="intrinsic"
-          src={sourceUrl}
-          width="100%"
-          height="250px"
-          alt={altText}
-        />
+        {isAmp ? (
+          <amp-img
+            src={sourceUrl}
+            width="300"
+            height="250"
+            layout="responsive"
+            alt={altText}
+          ></amp-img>
+        ) : (
+          <img
+            //  layout="intrinsic"
+            src={sourceUrl}
+            width="100%"
+            height="250px"
+            alt={altText}
+          />
+        )}
         <Button
           size="small"
           variant="text"
