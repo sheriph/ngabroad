@@ -14,6 +14,7 @@ import {
   FormLabel,
   Grid,
   InputBase,
+  InputLabel,
   makeStyles,
   MenuItem,
   OutlinedInput,
@@ -1192,6 +1193,7 @@ const Order = () => {
                       <MuiPickersUtilsProvider utils={MomentUtils}>
                         <DatePicker
                           inputRef={register}
+                          label ="Date of Birth"
                           name="dob"
                           value={dob}
                           onChange={handleDob}
@@ -1221,7 +1223,7 @@ const Order = () => {
                       <TextField
                         required
                         fullWidth
-                        label="Dep & Date"
+                        label="Departure City & Date Select"
                         variant="outlined"
                         placeholder="e.g Lagos"
                         inputRef={register}
@@ -1270,7 +1272,7 @@ const Order = () => {
                         inputRef={register}
                         name="retCity"
                         fullWidth
-                        label="Ret & Date"
+                        label="Return City & Date Select"
                         variant="outlined"
                         placeholder="e.g London"
                         // component="div"

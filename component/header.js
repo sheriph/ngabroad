@@ -73,7 +73,7 @@ const MyHeader = () => {
       <Hidden xsDown>
         <Container>
           <Grid container justify="flex-end">
-          {/*   <Grid
+            {/*   <Grid
               item
               container
               component={Container}
@@ -124,10 +124,12 @@ const MyHeader = () => {
                     className={classes.primaryHeaderButton}
                     component={Button}
                     startIcon={
-                      <img
+                      <Image
                         src="https://ngabroadimages.s3.eu-west-2.amazonaws.com/wp-content/uploads/20210330154050/new-logo-reversed_200x73_75.png"
-                        width="105px"
-                        height="38px"
+                        alt="logo"
+                        width="105"
+                        height="38"
+                        layout="intrinsic"
                       />
                     }
                   ></ButtonBase>

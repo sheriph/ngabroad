@@ -3,12 +3,12 @@ const withPWA = require("next-pwa");
 const runtimeCaching = require("next-pwa/cache");
 
 const nextConfig = {
-  /* target: "serverless",
-  webpack(config, { isServer, webpack }) {
-    // al your config
-
-    return config;
-  }, */
+  images: {
+    domains: [
+      "ngabroadimages.s3.eu-west-2.amazonaws.com",
+      "naijagoingabroad.com.ng",
+    ],
+  },
 };
 
 const redirects = {
@@ -22,6 +22,8 @@ const redirects = {
     ];
   },
 };
+
+//const images = () => ();
 
 module.exports = withPlugins(
   [

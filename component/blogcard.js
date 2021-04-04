@@ -18,6 +18,7 @@ const styles = makeStyles((theme) => ({
   blogcard: {
     //  maxWidth: "320px"
     //  marginBottom: "10px",
+    //  maxHeight: "300px",
   },
   buttoncategory: {
     backgroundColor: theme.palette.primary.light,
@@ -26,34 +27,17 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const BlogCard = ({ post, isAmp }) => {
+const BlogCard = ({
+  isAmp,
+  sourceUrl,
+  altText,
+  slug,
+  title,
+  width,
+  height,
+  categoryList,
+}) => {
   const classes = styles();
-
-  const {
-    // categories: { nodes: categoryList },
-    slug,
-    title,
-  } = post;
-  // console.log(categoryList);
-
-  let sourceUrl = "";
-  let altText = "";
-  let categoryList = [{ name: "" }];
-
-  try {
-    categoryList = post.categories.nodes;
-  } catch (error) {
-    console.log("category error in ", title, error);
-  }
-
-  try {
-    sourceUrl = post.featuredImage.node.sourceUrl;
-    altText = post.featuredImage.node.altText;
-  } catch (error) {
-    console.log("featureImage error in ", title, error);
-    sourceUrl = "/images/placeholder";
-    altText = `${Math.random()}`;
-  }
 
   return (
     <Grid component={Paper} container spacing={2} className={classes.blogcard}>
@@ -67,13 +51,15 @@ const BlogCard = ({ post, isAmp }) => {
             alt={altText}
           ></amp-img>
         ) : (
-          <img
-            //  layout="intrinsic"
-            src={sourceUrl}
-            width="100%"
-            height="250px"
-            alt={altText}
-          />
+          <span style ={{maxHeight: "450px"}}>
+            <Image
+              src={sourceUrl}
+              alt={altText}
+              width={width}
+              height={height}
+              layout="intrinsic"
+            />
+          </span>
         )}
         <Button
           size="small"

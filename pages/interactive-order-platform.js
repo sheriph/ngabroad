@@ -12,7 +12,7 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-export default function () {
+export default function OrderPage() {
   return (
     <SleekTheme
       subtitle="Order Now"

@@ -16,7 +16,7 @@ const styles = makeStyles((theme) => ({
 }));
 
 const ArticleComponent = (props) => {
-  const { posts, count, allTitles } = props;
+  const { posts, count, allTitles, isAmp } = props;
   const classes = styles();
   const postsArr = new Array(10).fill("6");
   const router = useRouter();
@@ -38,11 +38,54 @@ const ArticleComponent = (props) => {
             spacing={5}
             style={{ marginTop: "20px", marginBottom: "40px" }}
           >
-            {posts.map((post, index) => (
-              <Grid item key={index} xs={12} sm={6} md={4}>
-                <BlogCard post={post} />
-              </Grid>
-            ))}
+            {posts.map((post, index) => {
+              const { title, slug, categories } = post;
+
+              let categoryList = [{ name: "" }];
+
+              try {
+                categoryList = categories.nodes;
+              } catch (error) {
+                console.log("category error in ", title, error);
+              }
+
+              // console.log("post", post);
+              let sourceUrl = "";
+              let altText = "";
+              // let width = "";
+              //  let height = "";
+
+              try {
+                sourceUrl = post.featuredImage.node.sourceUrl;
+                altText = post.featuredImage.node.altText;
+                // height = post.featuredImage.node.mediaDetails.height;
+                //  width = post.featuredImage.node.mediaDetails.width;
+              } catch (error) {
+                console.log("featureImage error in ", title, error);
+                sourceUrl = "/images/placeholder";
+                altText = `${Math.random()}`;
+                {
+                  /*     width = "640";
+                height = "458"; */
+                }
+              }
+
+              return (
+                <Grid item key={index} xs={12} sm={6} md={4}>
+                  <BlogCard
+                    isAmp={isAmp}
+                    post={post}
+                    sourceUrl={sourceUrl}
+                    altText={altText}
+                    height={350}
+                    width={650}
+                    title={title}
+                    slug={slug}
+                    categoryList={categoryList}
+                  />
+                </Grid>
+              );
+            })}
           </Grid>
         </Grid>
       </Grid>

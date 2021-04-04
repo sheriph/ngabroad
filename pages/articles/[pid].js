@@ -23,6 +23,7 @@ export default function ({ paginate, count, allTitles }) {
           posts={paginate}
           count={count}
           allTitles={allTitles}
+          isAmp={false}
         />
       }
       pageTitle="Articles"

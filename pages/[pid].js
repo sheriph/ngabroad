@@ -15,7 +15,7 @@ const styles = makeStyles((theme) => ({}));
 
 export const config = { amp: false };
 
-export default function ({ post }) {
+export default function Article({ post }) {
   const isAmp = useAmp();
 
   const {
@@ -25,6 +25,25 @@ export default function ({ post }) {
     relatedPosts,
     seo,
   } = post;
+
+  let sourceUrl = "";
+  let altText = "";
+  let width = "";
+  let height = "";
+
+  try {
+    sourceUrl = post.featuredImage.node.sourceUrl;
+    altText = post.featuredImage.node.altText;
+    height = post.featuredImage.node.mediaDetails.height;
+    width = post.featuredImage.node.mediaDetails.width;
+  } catch (error) {
+    console.log("featureImage error in ", title, error);
+    sourceUrl = "/images/placeholder";
+    altText = `${Math.random()}`;
+    width = "640";
+    height = "458";
+  }
+
   return (
     <SleekTheme
       isAmp={isAmp}
@@ -35,6 +54,10 @@ export default function ({ post }) {
           isAmp={isAmp}
           content={content}
           relatedPosts={relatedPosts}
+          sourceUrl={sourceUrl}
+          altText={altText}
+          height={height}
+          width={width}
         />
       }
       title={title}

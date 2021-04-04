@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   Button,
   ButtonGroup,
@@ -8,6 +9,7 @@ import {
   MenuList,
   useTheme,
 } from "@material-ui/core";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -67,11 +69,15 @@ const Footer = () => {
             <Grid item container direction="column">
               <Grid item>
                 <Link href="/">
-                  <img
-                    src="https://ngabroadimages.s3.eu-west-2.amazonaws.com/wp-content/uploads/20210330154050/new-logo-reversed_200x73_75.png"
-                    width="75px"
-                    height="27px"
-                  />
+                  <span>
+                    <Image
+                      src="https://ngabroadimages.s3.eu-west-2.amazonaws.com/wp-content/uploads/20210330154050/new-logo-reversed_200x73_75.png"
+                      alt="logo"
+                      width="75"
+                      height="27"
+                      layout="intrinsic"
+                    />
+                  </span>
                 </Link>
               </Grid>
 
@@ -79,32 +85,41 @@ const Footer = () => {
                 <Grid item spacing={2} container>
                   <Grid item>
                     <Link href="https://www.facebook.com/Naijagoingabroad/">
-                      <img
-                        src="/images/icons8-facebook-f.svg"
-                        alt="socailicons"
-                        height="16px"
-                        width="16px"
-                      />
+                      <span>
+                        <Image
+                          src="/images/icons8-facebook-f.svg"
+                          alt="socailicons"
+                          height="16"
+                          width="16"
+                          layout="intrinsic"
+                        />
+                      </span>
                     </Link>
                   </Grid>
                   <Grid item>
                     <Link href="https://www.instagram.com/naijagoingabroad/?hl=en">
-                      <img
-                        src="/images/icons8-instagram.svg"
-                        alt="socailicons"
-                        height="16px"
-                        width="16px"
-                      />
+                      <span>
+                        <Image
+                          src="/images/icons8-instagram.svg"
+                          alt="socailicons"
+                          height="16"
+                          width="16"
+                          layout="intrinsic"
+                        />
+                      </span>
                     </Link>
                   </Grid>
                   <Grid item>
                     <Link href="https://twitter.com/ngabroad_?lang=en">
-                      <img
-                        src="/images/icons8-twitter.svg"
-                        alt="socailicons"
-                        height="16px"
-                        width="16px"
-                      />
+                      <span>
+                        <Image
+                          src="/images/icons8-twitter.svg"
+                          alt="socailicons"
+                          height="16"
+                          width="16"
+                          layout="intrinsic"
+                        />
+                      </span>
                     </Link>
                   </Grid>
                 </Grid>
