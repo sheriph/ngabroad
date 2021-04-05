@@ -6,11 +6,12 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import Image from "next/image";
-import { lazy, useEffect } from "react";
+//import { useEffect } from "react";
 import dynamic from "next/dynamic";
+//import FeaturedImage from "./featuredImage";
 
 const BlogCard = dynamic(() => import("./blogcard"));
+const FeaturedImage = dynamic(() => import("./featuredImage"));
 
 const styles = makeStyles((theme) => ({
   root: {
@@ -64,25 +65,23 @@ const SinglePost = (props) => {
   }
   // console.log("content", content);
 
-  useEffect(() => {
+/*   useEffect(() => {
     let introImg = window.document.querySelector("img");
     introImg.style.left = "50%";
     introImg.style.position = "relative";
     introImg.style.transform = "translateX(-50%)";
-  }, [null]);
+  }, [null]); */
 
   return (
     <Container disableGutters style={{ marginTop: "20px" }}>
       <Grid container>
         <Grid item container justify="center">
           <Grid item>
-            {/* <img src={sourceUrl} alt={altText} /> */}
-            <Image
+            <FeaturedImage
               src={sourceUrl}
               alt={altText}
               width={width}
               height={height}
-              layout="intrinsic"
             />
           </Grid>
         </Grid>

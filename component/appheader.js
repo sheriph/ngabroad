@@ -31,8 +31,8 @@ export default function AppHeader({ handleDrawerClose, handleDrawerOpen }) {
             <Grid item>
               <Link href="/">
                 <img
-                  src="https://ngabroadimages.s3.eu-west-2.amazonaws.com/wp-content/uploads/20210330154053/new-logo-reversed_75x27.png"
-                  width="73"
+                      src="/images/mobile-logo-reversed_75x27.png"
+                  width="75"
                   height="27"
                 />
               </Link>

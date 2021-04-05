@@ -71,7 +71,7 @@ const Footer = () => {
                 <Link href="/">
                   <span>
                     <Image
-                      src="https://ngabroadimages.s3.eu-west-2.amazonaws.com/wp-content/uploads/20210330154050/new-logo-reversed_200x73_75.png"
+                      src="/images/mobile-logo-reversed_75x27.png"
                       alt="logo"
                       width="75"
                       height="27"

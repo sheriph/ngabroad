@@ -1,10 +1,16 @@
 // @ts-nocheck
 import React from "react";
-import MyHeader from "./header";
-import { Box, Container, Grid, makeStyles } from "@material-ui/core";
-import Footer from "./footer";
-import IntroHeader from "./introheader";
+//import MyHeader from "./header";
+import { Container, makeStyles } from "@material-ui/core";
+//import Footer from "./footer";
+//import IntroHeader from "./introheader";
 import { NextSeo } from "next-seo";
+import dynamic from "next/dynamic";
+
+const MyHeader = dynamic(() => import("./header"));
+const Footer = dynamic(() => import("./footer"));
+const IntroHeader = dynamic(() => import("./introheader"));
+//const NextSeo = import("next-seo");
 
 const styles = makeStyles((theme) => ({
   baseContainer: {
@@ -30,7 +36,6 @@ export const SleekTheme = ({
 
   return (
     <React.Fragment>
-      
       {page ? (
         <NextSeo
           title={pageTitle}

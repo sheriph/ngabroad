@@ -7,6 +7,7 @@ const nextConfig = {
     domains: [
       "ngabroadimages.s3.eu-west-2.amazonaws.com",
       "naijagoingabroad.com.ng",
+      "cdn.naijagoingabroad.com"
     ],
   },
 };

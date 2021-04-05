@@ -1,5 +1,4 @@
 // @ts-nocheck
-import { makeStyles } from "@material-ui/core";
 import axios from "axios";
 import React from "react";
 import SinglePost from "../component/postcomponent";
@@ -10,8 +9,6 @@ import {
   getSingleRelatedPost,
 } from "../lib/api";
 import { useAmp } from "next/amp";
-
-const styles = makeStyles((theme) => ({}));
 
 export const config = { amp: false };
 
@@ -116,5 +113,5 @@ export async function getStaticProps({ params }) {
   }
 
   post = { ...post, relatedPosts: relatedPosts };
-  return { props: { post }, revalidate: 1 };
+  return { props: { post } };
 }
