@@ -95,7 +95,7 @@ const ArticleComponent = (props) => {
             onChange={(e, page) => {
               router.push(`/articles/${page}`);
             }}
-            count={10}
+            count={count}
             color="primary"
           />
         </Grid>

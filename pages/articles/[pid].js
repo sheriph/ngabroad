@@ -53,9 +53,15 @@ export async function getStaticPaths() {
     }
   }
 
-  const paths = allNodes.map((post, index) => {
-    return { params: { pid: `${index + 1}` } };
+  const linksNumber = Array.from(
+    Array(Math.ceil(allNodes.length / 50)).keys()
+  ).map((item) => item + 1);
+
+  const paths = linksNumber.map((linkNumber, index) => {
+    return { params: { pid: `${linkNumber}` } };
   });
+
+  console.log("paths", paths);
 
   return { paths, fallback: false };
 }
@@ -80,7 +86,8 @@ export async function getStaticProps({ params }) {
     title: item.title,
     slug: item.slug,
   }));
-  const totalCount = allNodes.length;
+  const totalCount = Math.ceil(allNodes.length / 50);
+  console.log("totalCount", totalCount);
   let paginate = allNodes.slice(start, end);
   return {
     props: {

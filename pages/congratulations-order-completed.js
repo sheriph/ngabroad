@@ -3,6 +3,7 @@ import React from "react";
 import { Container, makeStyles } from "@material-ui/core";
 import { SleekTheme } from "../component/themes";
 import OrderSuccess from "../component/ordersuccess";
+import { SnackbarProvider } from "notistack";
 
 const styles = makeStyles((theme) => ({
   baseContainer: {
@@ -12,6 +13,7 @@ const styles = makeStyles((theme) => ({
 
 export default function () {
   return (
+    <SnackbarProvider maxSnack={3}>
     <SleekTheme
       subtitle="Congratulations !!!"
       title=""
@@ -22,5 +24,6 @@ export default function () {
       pageDesc="Order success acknowledgement page"
       seo
     />
+    </SnackbarProvider>
   );
 }

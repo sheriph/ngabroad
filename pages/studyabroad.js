@@ -6,6 +6,7 @@ import { SleekTheme } from "../component/themes";
 import Homepage from "../component/homepagecomponent";
 import EmbassyComponent from "../component/embassycomponent";
 import StudyAbroadComponent from "../component/studyabroadcomponent";
+import { SnackbarProvider } from "notistack";
 
 const styles = makeStyles((theme) => ({
   baseContainer: {
@@ -15,6 +16,7 @@ const styles = makeStyles((theme) => ({
 
 export default function () {
   return (
+    <SnackbarProvider maxSnack={3}>
     <SleekTheme
       subtitle="Find Schools and Study Programs"
       title="Study Abroad"
@@ -25,5 +27,6 @@ export default function () {
       page={true}
       seo
     />
+    </SnackbarProvider>
   );
 }
