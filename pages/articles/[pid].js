@@ -97,6 +97,5 @@ export async function getStaticProps({ params }) {
       paginate: paginate,
       allTitles: allTitles,
     },
-    revalidate: 1,
   };
 }
