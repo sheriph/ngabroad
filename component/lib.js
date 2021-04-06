@@ -1,14 +1,35 @@
-const mysql = require("mysql");
+//const mysql = require("mysql");
 
+import mysql from "serverless-mysql";
+
+/* 
 export const db = mysql.createConnection({
   multipleStatements: true,
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB,
+}); */
+
+export const db = mysql({
+  config: {
+    multipleStatements: true,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB,
+  },
 });
 
-
+export async function query(q, values) {
+  try {
+    const results = await db.query(q, values);
+    await db.end();
+    return results;
+  } catch (e) {
+    throw Error(e.message);
+  }
+}
 
 /* export async function query(q) {
   try {

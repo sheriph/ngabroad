@@ -33,6 +33,7 @@
     "react-lazyload": "^3.2.0",
     "react-paystack": "^3.0.3",
     "recoil": "^0.1.2",
+    "serverless-mysql": "^1.5.4",
     "sitemap": "^6.4.0"
   },
   "scripts": {

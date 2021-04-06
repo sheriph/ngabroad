@@ -1,6 +1,6 @@
 /* import { db } from "../../../component/lib"; */
 
-const mysql = require("mysql");
+/* const mysql = require("mysql");
 
 export const db = mysql.createConnection({
   multipleStatements: true,
@@ -8,22 +8,23 @@ export const db = mysql.createConnection({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB,
-});
+}); */
 
-export default function getSchools(req, res) {
+import { query } from "../../../component/lib";
+
+
+
+export default async function getSchools(req, res) {
   const { country, field, level /* page */ } = req.body;
   console.log(country, field, level);
-  db.query(
-    `SELECT * FROM jicdata WHERE country = "${country}" AND level = "${field}" AND selection6 LIKE "%${level}%"`,
-    (error, results, fields) => {
-      if (results) {
-        db.end();
-        //   console.log(results);
-        res.send({ error, results });
-      } else if (error) {
-        db.end();
-        res.send({ error, results });
-      }
-    }
-  );
+  try {
+    const results = await query(
+      `SELECT * FROM jicdata WHERE country = "${country}" AND level = "${field}" AND selection6 LIKE "%${level}%"`
+    );
+    res.send({ results });
+    //return res.json(results);
+  } catch (e) {
+    res.send({ message: e.message });
+    //res.status(500).json({ message: e.message });
+  }
 }
