@@ -11,13 +11,14 @@ import {
 } from "@material-ui/core";
 import { useRecoilValue } from "recoil";
 import SearchForm from "../schoolfinder/searchform";
-import { schools_ } from "../state/recoil";
+import { schools_, isloading_ } from "../state/recoil";
 import LazyLoad from "react-lazyload";
 import ResultCard from "./resultcard";
 import React, { useState } from "react";
 import OrderModal from "./ordermodal";
 import { SchoolDetails } from "./orderfaqs";
 import { ExpandMoreOutlined } from "@material-ui/icons";
+import LinearBuffer from "../schoolfinder/bufferprogress";
 
 const styles = makeStyles((theme) => ({
   grid: {
@@ -31,9 +32,10 @@ const StudyAbroadComponent = () => {
   const [openModal, setOpenModal] = useState(false);
   const schools = useRecoilValue(schools_);
   const [schoolinfo, setschoolinfo] = useState(null);
+  const loading = useRecoilValue(isloading_);
   const [num, setExpanded] = useState(5);
-  console.log("schools", schools);
-  console.log(openModal);
+  //console.log("schools", schools);
+  //console.log(openModal);
   const handleExpand = (num) => {
     setExpanded(num);
   };
@@ -45,9 +47,12 @@ const StudyAbroadComponent = () => {
         jsx={<SchoolDetails school={schoolinfo} setOpenModal={setOpenModal} />}
       />
       <Grid container className={classes.grid}>
-        <Grid item container justify="center" xs={12}>
+        <Grid item container spacing={2} justify="center" xs={12}>
           <Grid item xs={12}>
             <SearchForm />
+          </Grid>
+          <Grid item xs={12}>
+            {loading && <LinearBuffer />}
           </Grid>
         </Grid>
         {schools ? (

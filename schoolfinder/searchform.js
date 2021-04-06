@@ -16,20 +16,14 @@ import {
   SchoolOutlined,
   SearchOutlined,
 } from "@material-ui/icons";
-import CustomSelect from "./customselect";
-import CustomButton from "./customsearch";
+
 import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
-import { getdbName } from "./utilities";
 import { useSnackbar } from "notistack";
-//import { useHistory, useLocation } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { page_ } from "./recoil";
-import LinearBuffer from "./bufferprogress";
-import { countries } from "./studycountries";
 import { Autocomplete, Skeleton } from "@material-ui/lab";
 import { updateData } from "../component/utilityfx";
-import { schools_ } from "../state/recoil";
+import { schools_, isloading_ } from "../state/recoil";
 
 const styles = makeStyles((theme) => ({
   /*  skeleton: {
@@ -48,16 +42,28 @@ const SearchForm = ({ setcountry, setfield, setlevel }) => {
   const [school, setschools] = useRecoilState(schools_);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const [isloading, setisloading] = useState(false);
+  const [isloading, setisloading] = useRecoilState(isloading_);
   const [enter, setenter] = useState(false);
 
   const [options, setOptions] = useState(null);
 
   const onSubmit = (data) => {
+    setisloading(true);
+    const { country, field, level } = data;
+    if (country.length === 0 || field.length === 0 || level.length === 0) {
+      enqueueSnackbar("Please select options in country, field and level", {
+        variant: "error",
+      });
+      setisloading(false);
+
+      return;
+    }
+
     console.log(data);
     axios
       .post("/api/getschools", data)
       .then((response) => {
+        setisloading(false);
         console.log(response);
         const { error, results } = response.data;
         if (results) {
@@ -66,7 +72,8 @@ const SearchForm = ({ setcountry, setfield, setlevel }) => {
           throw new Error(error);
         }
       })
-      .then((error) => {
+      .catch((error) => {
+        setisloading(false);
         console.log(error);
       });
   };
@@ -198,13 +205,6 @@ const SearchForm = ({ setcountry, setfield, setlevel }) => {
             </Button>
           </Grid>
         </Grid>
-        {isloading && (
-          <Grid item xs={12} style={{ marginTop: "10px" }}>
-            <Collapse in={enter} timeout="auto">
-              <LinearBuffer />
-            </Collapse>
-          </Grid>
-        )}
       </form>
     </Container>
   );
