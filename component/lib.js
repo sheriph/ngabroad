@@ -1,6 +1,6 @@
 import mysql from "serverless-mysql";
 
-export const db = mysql({
+/* export const db = mysql({
   config: {
     multipleStatements: true,
     host: process.env.NEXT_PUBLIC_DB_HOST,
@@ -8,14 +8,16 @@ export const db = mysql({
     password: process.env.NEXT_PUBLIC_DB_PASSWORD,
     database: process.env.NEXT_PUBLIC_DB,
   },
-});
+}); */
 
-console.log({
-  multipleStatements: true,
-  host: process.env.NEXT_PUBLIC_DB_HOST,
-  user: process.env.NEXT_PUBLIC_DB_USER,
-  password: process.env.NEXT_PUBLIC_DB_PASSWORD,
-  database: process.env.NEXT_PUBLIC_DB,
+export const db = mysql({
+  config: {
+    multipleStatements: true,
+    host: "naijagoingabroad.com.ng",
+    user: "u904780435_sheriph",
+    password: "Khashef2017.",
+    database: "u904780435_jic",
+  },
 });
 
 export async function query(q, values) {
