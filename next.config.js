@@ -10,10 +10,10 @@ const nextConfig = {
       "cdn.naijagoingabroad.com",
     ],
     env: {
-      DB_HOST: process.env.DB_HOST,
-      DB_USER: process.env.DB_USER,
-      DB_PASSWORD: process.env.DB_PASSWORD,
-      DB: process.env.DB,
+      DB_HOST: process.env.NEXT_PUBLIC_DB_HOST,
+      DB_USER: process.env.NEXT_PUBLIC_DB_USER,
+      DB_PASSWORD: process.env.NEXT_PUBLIC_DB_PASSWORD,
+      DB: process.env.NEXT_PUBLIC_DB,
     },
   },
 };
