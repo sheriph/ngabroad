@@ -3,19 +3,14 @@ import mysql from "serverless-mysql";
 export const db = mysql({
   config: {
     multipleStatements: true,
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB,
+    host: "141.136.33.154",
+    user: "u904780435_sheriph",
+    password: "Khashef2017.",
+    database: "u904780435_jic",
   },
 });
-console.log({
-  multipleStatements: true,
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB,
-});
+
+
 export async function query(q, values) {
   try {
     const results = await db.query(q, values);
