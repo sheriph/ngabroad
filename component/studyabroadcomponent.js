@@ -11,14 +11,17 @@ import {
 } from "@material-ui/core";
 import { useRecoilValue } from "recoil";
 import SearchForm from "../schoolfinder/searchform";
-import { schools_, isloading_ } from "../state/recoil";
+import { schools_, isloading_, allUni_ } from "../state/recoil";
 import LazyLoad from "react-lazyload";
 import ResultCard from "./resultcard";
+import ResultCard2 from "./resultcard2";
 import React, { useState } from "react";
 import OrderModal from "./ordermodal";
-import { SchoolDetails } from "./orderfaqs";
+import { SchoolDetails, SchoolDetails2 } from "./orderfaqs";
 import { ExpandMoreOutlined } from "@material-ui/icons";
 import LinearBuffer from "../schoolfinder/bufferprogress";
+import StudyTab from "./studytab";
+import SearchForm2 from "./searchForm2";
 
 const styles = makeStyles((theme) => ({
   grid: {
@@ -33,6 +36,7 @@ const StudyAbroadComponent = () => {
   const schools = useRecoilValue(schools_);
   const [schoolinfo, setschoolinfo] = useState(null);
   const loading = useRecoilValue(isloading_);
+  const allUni = useRecoilValue(allUni_);
   const [num, setExpanded] = useState(5);
   //console.log("schools", schools);
   //console.log(openModal);
@@ -44,12 +48,21 @@ const StudyAbroadComponent = () => {
       <OrderModal
         openModal={openModal}
         setOpenModal={setOpenModal}
-        jsx={<SchoolDetails school={schoolinfo} setOpenModal={setOpenModal} />}
+        jsx={
+          allUni ? (
+            <SchoolDetails2 school={schoolinfo} setOpenModal={setOpenModal} />
+          ) : (
+            <SchoolDetails school={schoolinfo} setOpenModal={setOpenModal} />
+          )
+        }
       />
       <Grid container className={classes.grid}>
         <Grid item container spacing={2} justify="center" xs={12}>
           <Grid item xs={12}>
-            <SearchForm />
+            <StudyTab
+              searchForm={<SearchForm />}
+              searchForm2={<SearchForm2 />}
+            />
           </Grid>
           <Grid item xs={12}>
             {loading && <LinearBuffer />}
@@ -77,7 +90,11 @@ const StudyAbroadComponent = () => {
                       xs={12}
                     >
                       <LazyLoad height={250} unmountIfInvisible>
-                        <ResultCard result={school} />
+                        {allUni ? (
+                          <ResultCard2 result={school} />
+                        ) : (
+                          <ResultCard result={school} />
+                        )}
                       </LazyLoad>
                     </Grid>
                   ))}

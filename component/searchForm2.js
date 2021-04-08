@@ -24,6 +24,7 @@ import { useRecoilState } from "recoil";
 import { Autocomplete, Skeleton } from "@material-ui/lab";
 import { updateData } from "../component/utilityfx";
 import { schools_, isloading_ } from "../state/recoil";
+import { startCase } from "lodash";
 
 const styles = makeStyles((theme) => ({
   /*  skeleton: {
@@ -35,7 +36,7 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const SearchForm = () => {
+const SearchForm2 = () => {
   const classes = styles();
   const { register, handleSubmit, watch, errors, control } = useForm();
   const [school, setschools] = useRecoilState(schools_);
@@ -45,6 +46,10 @@ const SearchForm = () => {
   const [enter, setenter] = useState(false);
 
   const [options, setOptions] = useState(null);
+
+  const [countries, setCountry] = useState(null);
+  const [level, setLevel] = useState(null);
+  const [field, setField] = useState(null);
 
   const onSubmit = (data) => {
     setisloading(true);
@@ -59,12 +64,13 @@ const SearchForm = () => {
     }
 
     console.log(data);
+
     axios
-      .post("/api/getschools", data)
+      .post("/api/getschools2", data)
       .then((response) => {
         setisloading(false);
-        console.log(response);
-        const { error, results } = response.data;
+      //  console.log(response);
+        const { results } = response.data;
         if (results) {
           setschools(results);
         } else {
@@ -73,24 +79,39 @@ const SearchForm = () => {
       })
       .catch((error) => {
         setisloading(false);
-        console.log(error);
+        console.log(error.response.data);
       });
   };
 
   useEffect(() => {
+   // console.log("mounting form 2");
+    let isloading = true;
+    setOptions(null);
     axios
-      .get("/api/getfilter")
+      .get("/api/getfilter2")
       .then((response) => {
-        console.log(response);
-        if (response.data.results) {
-          setOptions(response.data.results);
-        } else {
-          throw new Error(response.data.error);
+       // console.log(response);
+        const [countries, field, level] = response.data.results;
+        const formattedCountries = countries
+          .map((country) => startCase(country["TABLE_NAME"]))
+          .sort()
+          .map((country) => ({ country: country }));
+        if (isloading) {
+          setCountry(formattedCountries);
+          setField(field);
+          setLevel(level);
+          setOptions(true);
+          //    setisloading(false);
+          isloading = true;
         }
       })
       .catch((err) => {
         console.log(err);
+        setisloading(false);
       });
+    return () => {
+      isloading = true;
+    };
   }, []);
 
   if (!options)
@@ -102,21 +123,13 @@ const SearchForm = () => {
       </Grid>
     );
 
-  const getDegreeOptions = (option) => {
-    return Array.from(new Set(option.map((data) => updateData(data))))
-      .map((data) => ({
-        academiclevel: data,
-      }))
-      .filter((item) => item.academiclevel !== "null");
-  };
-
   return (
     <Container maxWidth={false} disableGutters>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={1}>
           <Grid item xs={6}>
             <Autocomplete
-              options={options[0]}
+              options={countries}
               getOptionLabel={(option) => option.country}
               onChange={(e, value, action) => {
                 if (action === "select-option") {
@@ -140,16 +153,8 @@ const SearchForm = () => {
           <Grid item xs={6}>
             <Autocomplete
               //  disabled={field.length === 0}
-              options={options[1]
-                .map((item) => {
-                  if (item.level.length > 1) {
-                    return item;
-                  } else {
-                    return { level: "Others" };
-                  }
-                })
-                .filter((item) => item.level !== "Others")}
-              getOptionLabel={(option) => option.level}
+              options={field}
+              getOptionLabel={(option) => option.field}
               onChange={(e, value, action) => {
                 if (action === "select-option") {
                 }
@@ -171,8 +176,8 @@ const SearchForm = () => {
           <Grid item xs={6}>
             <Autocomplete
               // disabled={level.length === 0}
-              options={getDegreeOptions(options[2])}
-              getOptionLabel={(option) => option.academiclevel}
+              options={level}
+              getOptionLabel={(option) => option.level}
               onChange={(e, value, action) => {
                 if (action === "select-option") {
                 }
@@ -209,4 +214,4 @@ const SearchForm = () => {
   );
 };
 
-export default SearchForm;
+export default SearchForm2;

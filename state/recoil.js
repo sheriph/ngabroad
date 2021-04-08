@@ -31,3 +31,8 @@ export const isloading_ = atom({
   key: "isloading",
   default: false,
 });
+
+export const allUni_ = atom({
+  key: "allUni",
+  default: true,
+});

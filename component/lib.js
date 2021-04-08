@@ -13,7 +13,7 @@ import mysql from "serverless-mysql";
 export const db = mysql({
   config: {
     multipleStatements: true,
-    host: "naijagoingabroad.com.ng",
+    host: "141.136.33.154",
     user: "u904780435_sheriph",
     password: "Khashef2017.",
     database: "u904780435_jic",

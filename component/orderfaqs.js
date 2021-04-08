@@ -3,6 +3,7 @@ import MomentUtils from "@date-io/moment";
 import {
   Box,
   Button,
+  ButtonBase,
   CircularProgress,
   Container,
   FormControl,
@@ -15,13 +16,20 @@ import {
   Typography,
   useTheme,
 } from "@material-ui/core";
-import { CloseRounded, DateRangeOutlined } from "@material-ui/icons";
+import {
+  BookmarkBorderOutlined,
+  CloseRounded,
+  DateRangeOutlined,
+  LocalLibraryOutlined,
+  LocationOnOutlined,
+} from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import axios from "axios";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import ReactPlayer from "react-player/youtube";
 
 const styles = makeStyles((theme) => ({
   box: {
@@ -580,6 +588,180 @@ export const SchoolDetails = ({ setOpenModal, school }) => {
               <>{uni_contact}</>
             </>
           )}
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};
+
+export const SchoolDetails2 = ({ setOpenModal, school }) => {
+  const theme = useTheme();
+  const classes = styles();
+  const [showForm, setForm] = useState(false);
+  const { register, handleSubmit, watch, errors, control } = useForm();
+  const [gender, setGender] = useState("Select Gender");
+  const [dob, handleDob] = useState(new Date());
+  const [isloading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    try {
+      window.document.querySelector(".ielts")?.remove();
+    } catch (e) {
+      console.log(e);
+    }
+  }, [null]);
+
+  let {
+    admissionRequirements,
+    career,
+    content,
+    description,
+    duration,
+    field,
+    level,
+    location,
+    logo,
+    outcome,
+    programUrl,
+    scholarship,
+    subject,
+    title,
+    tuition,
+    uniName,
+    video,
+    delivery,
+  } = school;
+
+  try {
+    admissionRequirements = admissionRequirements.replace(
+      `""ielts""`,
+      `"ielts"`
+    );
+  } catch (e) {
+    console.log(e);
+  }
+ // console.log("admissionRequirements", { admissionRequirements });
+  return (
+    <Box
+      css={{
+        bgcolor: "white",
+        p: "10px",
+        width: "80%",
+        maxHeight: "100%",
+        overflowY: "scroll",
+      }}
+      className={classes.box}
+    >
+      <Box display="flex" justifyContent="space-between" mb={2}>
+        <IconButton onClick={() => setOpenModal(false)} color="primary">
+          <CloseRounded />
+        </IconButton>
+        {programUrl && (
+          <Button
+            onClick={() => window.open(programUrl)}
+            size="small"
+            color="primary"
+            variant="contained"
+          >
+            Visit School Page
+          </Button>
+        )}
+      </Box>
+      <Grid container justify="center">
+        <Grid item xs={12}>
+          <Typography variant="h6" align="center" gutterBottom>
+            {title} <br /> {uniName}
+          </Typography>
+        </Grid>
+
+        <Grid item xs={12} container>
+          {level && (
+            <Grid item>
+              <ButtonBase
+                centerRipple
+                style={{ textTransform: "none" }}
+                component={Button}
+                startIcon={<LocalLibraryOutlined color="primary" />}
+              >
+                {level}
+              </ButtonBase>
+            </Grid>
+          )}
+          {duration && (
+            <Grid item>
+              <ButtonBase
+                centerRipple
+                style={{ textTransform: "none" }}
+                component={Button}
+                startIcon={<BookmarkBorderOutlined color="primary" />}
+              >
+                {duration}
+              </ButtonBase>
+            </Grid>
+          )}
+
+          {field && (
+            <Grid item>
+              <ButtonBase
+                centerRipple
+                style={{ textTransform: "none" }}
+                component={Button}
+                startIcon={<LocationOnOutlined color="primary" />}
+              >
+                {field && subject ? `${field} > ${subject}` : { field }}
+              </ButtonBase>
+            </Grid>
+          )}
+
+          {location && (
+            <Grid item>
+              <ButtonBase
+                centerRipple
+                style={{ textTransform: "none" }}
+                component={Button}
+                startIcon={<LocationOnOutlined color="primary" />}
+              >
+                {location}
+              </ButtonBase>
+            </Grid>
+          )}
+        </Grid>
+
+        <Grid item xs={12}>
+          {description && (
+            <Box dangerouslySetInnerHTML={{ __html: description }} />
+          )}
+        </Grid>
+
+        <Grid item xs={12}>
+          {content && <Box dangerouslySetInnerHTML={{ __html: content }} />}
+        </Grid>
+
+        <Grid item xs={12}>
+          {career && <Box dangerouslySetInnerHTML={{ __html: career }} />}
+        </Grid>
+
+        <Grid item xs={12}>
+          {outcome && <Box dangerouslySetInnerHTML={{ __html: outcome }} />}
+        </Grid>
+
+        <Grid item xs={12}>
+          {admissionRequirements && (
+            <Box dangerouslySetInnerHTML={{ __html: admissionRequirements }} />
+          )}
+        </Grid>
+        <Grid item xs={12}>
+          {tuition && <Box dangerouslySetInnerHTML={{ __html: tuition }} />}
+        </Grid>
+
+        <Grid item xs={12}>
+          {scholarship && (
+            <Box dangerouslySetInnerHTML={{ __html: scholarship }} />
+          )}
+        </Grid>
+
+        <Grid item xs={12}>
+          <ReactPlayer url={video} />
         </Grid>
       </Grid>
     </Box>
