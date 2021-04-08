@@ -595,15 +595,11 @@ export const SchoolDetails = ({ setOpenModal, school }) => {
 };
 
 export const SchoolDetails2 = ({ setOpenModal, school }) => {
-  const theme = useTheme();
   const classes = styles();
-  const [showForm, setForm] = useState(false);
-  const { register, handleSubmit, watch, errors, control } = useForm();
-  const [gender, setGender] = useState("Select Gender");
-  const [dob, handleDob] = useState(new Date());
-  const [isloading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
+
     try {
       window.document.querySelector(".ielts")?.remove();
     } catch (e) {
@@ -640,7 +636,7 @@ export const SchoolDetails2 = ({ setOpenModal, school }) => {
   } catch (e) {
     console.log(e);
   }
- // console.log("admissionRequirements", { admissionRequirements });
+  // console.log("admissionRequirements", { admissionRequirements });
   return (
     <Box
       css={{
@@ -708,7 +704,7 @@ export const SchoolDetails2 = ({ setOpenModal, school }) => {
                 component={Button}
                 startIcon={<LocationOnOutlined color="primary" />}
               >
-                {field && subject ? `${field} > ${subject}` : { field }}
+                ${field} | ${subject || ""}
               </ButtonBase>
             </Grid>
           )}
