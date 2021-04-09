@@ -6,37 +6,18 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-//import { useEffect } from "react";
 import dynamic from "next/dynamic";
-//import FeaturedImage from "./featuredImage";
+import Image from "next/image";
+import ReactHtmlParser, {
+  processNodes,
+} from "react-html-parser";
+
 
 const BlogCard = dynamic(() => import("./blogcard"));
-const FeaturedImage = dynamic(() => import("./featuredImage"));
 
-const styles = makeStyles((theme) => ({
-  root: {
-    img: {
-      //   width: "100%",
-    },
-    "&.MuiBox-root img": {
-      width: "100%",
-      height: "auto",
-      /*    position: "relative",
-      transform: "translateX(-50%)",
-      left: "50%", */
-
-      //  maxHeight: "300px",
-    },
-    "&.MuiBox-root a": {
-      display: "inline-block !important",
-      // overflow: "scroll",
-    },
-  },
-}));
 
 const SinglePost = (props) => {
-  const classes = styles();
-  // console.log(post);
+
 
   const {
     content,
@@ -47,49 +28,90 @@ const SinglePost = (props) => {
     width,
     height,
   } = props;
-  // console.log(content);
-  let renderContent = "";
 
-  if (isAmp && content) {
-    let imgFinder = /<img([\w\W]+?)[\/]?>/;
-    let matches = content.match(imgFinder);
-    // console.log("matches", matches)
-    let filteredMatch = matches.filter((item) => item.includes("<img"));
-    console.log("filteredMatch", filteredMatch);
-    filteredMatch.forEach((item) => {
-      renderContent = item.replace(
-        item,
-        `<i-amphtml-sizer-intrinsic>${item}</i-amphtml-sizer-intrinsic>`
+  const transform = (node, index) => {
+    if (node.type === "tag" && node.name === "h2") {
+      return (
+        <Typography variant="h5" align="center" component="h2" key={index}>
+          {processNodes(node.children, transform)}
+        </Typography>
       );
-    });
-  }
-  // console.log("content", content);
+    }
 
-/*   useEffect(() => {
-    let introImg = window.document.querySelector("img");
-    introImg.style.left = "50%";
-    introImg.style.position = "relative";
-    introImg.style.transform = "translateX(-50%)";
-  }, [null]); */
+    if (node.type === "tag" && node.name === "p") {
+      return (
+        <Typography variant="body1" component="p" key={index}>
+          {processNodes(node.children, transform)}
+        </Typography>
+      );
+    }
+
+    if (node.type === "tag" && node.name === "img") {
+      if (isAmp)
+        return (
+          <amp-img
+            key={index}
+            src={node.attribs.src}
+            alt={node.attribs.alt}
+            width={node.attribs.width}
+            height={node.attribs.height}
+            layout="responsive"
+          ></amp-img>
+        );
+      // console.log(node.src, node.alt, node.name, node)
+      return (
+        <Box display="flex" justifyContent="center" key={index}>
+          <Image
+            src={node.attribs.src}
+            alt={node.attribs.alt}
+            width={node.attribs.width}
+            height={node.attribs.height}
+            layout="intrinsic"
+          />
+        </Box>
+      );
+    }
+  };
+
+  const options = {
+    decodeEntities: true,
+    transform,
+  };
 
   return (
     <Container disableGutters style={{ marginTop: "20px" }}>
       <Grid container>
-        <Grid item container justify="center">
-          <Grid item>
-            <FeaturedImage
-              src={sourceUrl}
-              alt={altText}
-              width={width}
-              height={height}
-            />
+        {isAmp ? (
+          <Grid item container justify="center" style={{ display: "block" }}>
+            <Grid item>
+              <amp-img
+                src={sourceUrl}
+                alt={altText}
+                width={width}
+                height={height}
+                layout="responsive"
+              ></amp-img>
+            </Grid>
           </Grid>
-        </Grid>
+        ) : (
+          <Grid item container justify="center">
+            <Grid item>
+              <Image
+                src={sourceUrl}
+                alt={altText}
+                width={width}
+                height={height}
+                layout="intrinsic"
+              />
+            </Grid>
+          </Grid>
+        )}
         <Grid item xs={12}>
-          <Box
+          {/* <Box
             className={classes.root}
             dangerouslySetInnerHTML={{ __html: content }}
-          />
+          /> */}
+          {ReactHtmlParser(content, options)}
         </Grid>
 
         <Grid

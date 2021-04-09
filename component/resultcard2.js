@@ -27,19 +27,7 @@ const styles = makeStyles((theme) => ({
 }));
 
 const ResultCard2 = ({ result }) => {
-  /* const {
-    applicationFee,
-    country,
-    description,
-    selection6: durationLevel,
-    level: field,
-    location,
-    selection4_name: title,
-    selection5: tuitionFee,
-    uni_contact,
-    uni_image: logo,
-    uni_name,
-  } = result; */
+
 
   const {
     admissionRequirements,

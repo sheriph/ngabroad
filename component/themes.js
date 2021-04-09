@@ -6,6 +6,8 @@ import { Container, makeStyles } from "@material-ui/core";
 //import IntroHeader from "./introheader";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
+import AmpHeader from "./ampheader";
+import AmpFooter from "./ampfooter";
 
 const MyHeader = dynamic(() => import("./header"));
 const Footer = dynamic(() => import("./footer"));
@@ -105,7 +107,7 @@ export const SleekTheme = ({
         disableGutters
         maxWidth={false}
       >
-        <MyHeader />
+        {isAmp ? <AmpHeader /> : <MyHeader />}
         <IntroHeader title={title} subtitle={subtitle} />
       </Container>
       <Container>{jsx}</Container>
@@ -114,7 +116,7 @@ export const SleekTheme = ({
         disableGutters
         maxWidth={false}
       >
-        <Footer />
+        <Footer isAmp={isAmp} />
       </Container>
     </React.Fragment>
   );

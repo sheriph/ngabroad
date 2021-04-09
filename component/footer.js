@@ -5,8 +5,6 @@ import {
   Container,
   Grid,
   makeStyles,
-  MenuItem,
-  MenuList,
   useTheme,
 } from "@material-ui/core";
 import Image from "next/image";
@@ -22,7 +20,7 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const Footer = () => {
+const Footer = ({ isAmp }) => {
   const classes = styles();
   const theme = useTheme();
   return (
@@ -49,15 +47,33 @@ const Footer = () => {
                   variant="text"
                   size="small"
                 >
-                  <Link href="/">
-                    <Button>HOME</Button>
-                  </Link>
-                  <Link href="/articles">
-                    <Button>ARTICLES</Button>
-                  </Link>
-                  <Link href="/contactus">
-                    <Button>CONTACT US</Button>
-                  </Link>
+                  {isAmp ? (
+                    <a style={{ textDecoration: "none" }} href="/">
+                      <Button>HOME</Button>
+                    </a>
+                  ) : (
+                    <Link href="/">
+                      <Button>HOME</Button>
+                    </Link>
+                  )}
+                  {isAmp ? (
+                    <a style={{ textDecoration: "none" }} href="/articles">
+                      <Button>ARTICLES</Button>
+                    </a>
+                  ) : (
+                    <Link href="/articles">
+                      <Button>ARTICLES</Button>
+                    </Link>
+                  )}
+                  {isAmp ? (
+                    <a style={{ textDecoration: "none" }} href="/contactus">
+                      <Button>CONTACT US</Button>
+                    </a>
+                  ) : (
+                    <Link href="/contactus">
+                      <Button>CONTACT US</Button>
+                    </Link>
+                  )}
                 </ButtonGroup>
               </Grid>
             </Grid>
@@ -68,62 +84,76 @@ const Footer = () => {
           >
             <Grid item container direction="column">
               <Grid item>
-                <Link href="/">
-                  <span>
-                    <Image
+                {isAmp ? (
+                  <a style={{ textDecoration: "none" }} href="/">
+                    <amp-img
                       src="/images/mobile-logo-reversed_75x27.png"
                       alt="logo"
                       width="75"
                       height="27"
-                      layout="intrinsic"
-                    />
-                  </span>
-                </Link>
+                      layout="fixed"
+                    ></amp-img>
+                  </a>
+                ) : (
+                  <Link href="/">
+                    <span>
+                      <Image
+                        src="/images/mobile-logo-reversed_75x27.png"
+                        alt="logo"
+                        width="75"
+                        height="27"
+                        layout="intrinsic"
+                      />
+                    </span>
+                  </Link>
+                )}
               </Grid>
 
-              <Grid item>
-                <Grid item spacing={2} container>
-                  <Grid item>
-                    <Link href="https://www.facebook.com/Naijagoingabroad/">
-                      <span>
-                        <Image
-                          src="/images/icons8-facebook-f.svg"
-                          alt="socailicons"
-                          height="16"
-                          width="16"
-                          layout="intrinsic"
-                        />
-                      </span>
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link href="https://www.instagram.com/naijagoingabroad/?hl=en">
-                      <span>
-                        <Image
-                          src="/images/icons8-instagram.svg"
-                          alt="socailicons"
-                          height="16"
-                          width="16"
-                          layout="intrinsic"
-                        />
-                      </span>
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link href="https://twitter.com/ngabroad_?lang=en">
-                      <span>
-                        <Image
-                          src="/images/icons8-twitter.svg"
-                          alt="socailicons"
-                          height="16"
-                          width="16"
-                          layout="intrinsic"
-                        />
-                      </span>
-                    </Link>
+              {!isAmp && (
+                <Grid item>
+                  <Grid item spacing={2} container>
+                    <Grid item>
+                      <Link href="https://www.facebook.com/Naijagoingabroad/">
+                        <span>
+                          <Image
+                            src="/images/icons8-facebook-f.svg"
+                            alt="socailicons"
+                            height="16"
+                            width="16"
+                            layout="intrinsic"
+                          />
+                        </span>
+                      </Link>
+                    </Grid>
+                    <Grid item>
+                      <Link href="https://www.instagram.com/naijagoingabroad/?hl=en">
+                        <span>
+                          <Image
+                            src="/images/icons8-instagram.svg"
+                            alt="socailicons"
+                            height="16"
+                            width="16"
+                            layout="intrinsic"
+                          />
+                        </span>
+                      </Link>
+                    </Grid>
+                    <Grid item>
+                      <Link href="https://twitter.com/ngabroad_?lang=en">
+                        <span>
+                          <Image
+                            src="/images/icons8-twitter.svg"
+                            alt="socailicons"
+                            height="16"
+                            width="16"
+                            layout="intrinsic"
+                          />
+                        </span>
+                      </Link>
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
+              )}
             </Grid>
           </Grid>
         </Grid>

@@ -3,9 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import { Grid } from "@material-ui/core";
-import { Apps, ContactPhoneOutlined, MenuOpen } from "@material-ui/icons";
+import { Apps } from "@material-ui/icons";
 import Link from "next/link";
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +30,7 @@ export default function AppHeader({ handleDrawerClose, handleDrawerOpen }) {
             <Grid item>
               <Link href="/">
                 <img
-                      src="/images/mobile-logo-reversed_75x27.png"
+                  src="/images/mobile-logo-reversed_75x27.png"
                   width="75"
                   height="27"
                 />

@@ -8,6 +8,7 @@ const nextConfig = {
       "ngabroadimages.s3.eu-west-2.amazonaws.com",
       "naijagoingabroad.com.ng",
       "cdn.naijagoingabroad.com",
+      "www.naijagoingabroad.com.ng",
     ],
     env: {
       DB_HOST: process.env.NEXT_PUBLIC_DB_HOST,

@@ -73,45 +73,6 @@ const MyHeader = () => {
       <Hidden xsDown>
         <Container>
           <Grid container justify="flex-end">
-            {/*   <Grid
-              item
-              container
-              component={Container}
-              className={classes.secondarymenu}
-            >
-              <Grid item xs="auto">
-                <ButtonBase
-                  component={Button}
-                  startIcon={<EmailOutlinedIcon />}
-                  className={classes.buttonbase}
-                  size="small"
-                >
-                  info@naijagoingabroad.com
-                </ButtonBase>
-              </Grid>
-              <Grid item xs="auto">
-                <ButtonBase
-                  component={Button}
-                  startIcon={<PhoneEnabledOutlined />}
-                  className={classes.buttonbase}
-                  size="small"
-                >
-                  09065369929
-                </ButtonBase>
-              </Grid>
-              <Hidden smDown>
-                <Grid item xs="auto">
-                  <ButtonBase
-                    component={Button}
-                    startIcon={<ScheduleOutlined />}
-                    className={classes.buttonbase}
-                    size="small"
-                  >
-                    Mon-Fri: 9:00AM – 6:00PM
-                  </ButtonBase>
-                </Grid>
-              </Hidden>
-            </Grid> */}
             <Grid
               item
               container
@@ -125,8 +86,8 @@ const MyHeader = () => {
                     component={Button}
                     startIcon={
                       <Image
-                        src = "/images/desktop-logo-reversed_200x73_75.png"
-                         alt="logo"
+                        src="/images/desktop-logo-reversed_200x73_75.png"
+                        alt="logo"
                         width="105"
                         height="38"
                         layout="intrinsic"
@@ -137,22 +98,22 @@ const MyHeader = () => {
               </Grid>
 
               <Grid item>
-                <Link href="/">
+                <Link passHref href="/">
                   <ButtonBase
                     className={classes.primaryHeaderButton}
                     component={Button}
                   >
-                    Home
+                    HOME
                   </ButtonBase>
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/articles">
+                <Link passHref href="/articles">
                   <ButtonBase
                     className={classes.primaryHeaderButton}
                     component={Button}
                   >
-                    articles
+                    ARTICLES
                   </ButtonBase>
                 </Link>
               </Grid>

@@ -1,8 +1,6 @@
 // @ts-nocheck
 import {
   Button,
-  ButtonGroup,
-  Container,
   Divider,
   Grid,
   makeStyles,
@@ -15,11 +13,6 @@ import React from "react";
 import Link from "next/link";
 
 const styles = makeStyles((theme) => ({
-  blogcard: {
-    //  maxWidth: "320px"
-    //  marginBottom: "10px",
-    //  maxHeight: "300px",
-  },
   buttoncategory: {
     backgroundColor: theme.palette.primary.light,
     opacity: "0.7",
@@ -40,8 +33,8 @@ const BlogCard = ({
   const classes = styles();
 
   return (
-    <Grid component={Paper} container spacing={2} className={classes.blogcard}>
-      <Grid item container style={{ position: "relative" }}>
+    <Grid component={Paper} container spacing={2}>
+      <Grid item container style={{ position: "relative", display: "block" }}>
         {isAmp ? (
           <amp-img
             src={sourceUrl}
@@ -51,7 +44,7 @@ const BlogCard = ({
             alt={altText}
           ></amp-img>
         ) : (
-          <span style ={{maxHeight: "450px"}}>
+          <span style={{ maxHeight: "450px" }}>
             <Image
               src={sourceUrl}
               alt={altText}
@@ -71,7 +64,7 @@ const BlogCard = ({
           style={{
             position: "absolute",
             top: "10px",
-            // left: "5px",
+            left: "10px",
             textTransform: "none",
             fontSize: "8px",
             borderRadius: "0",
@@ -94,18 +87,41 @@ const BlogCard = ({
         </Grid>
         <Grid item container>
           <Grid item>
-            <Link href={`/${encodeURIComponent(slug)}`}>
-              <Button
-                variant="contained"
-                color="primary"
-                startIcon={
-                  <MoreOutlined style={{ transform: "rotate(180deg)" }} />
-                }
-                style={{ textTransform: "none" }}
+            {isAmp ? (
+              <a
+                style={{ textDecoration: "none" }}
+                href={`/${encodeURIComponent(slug)}`}
               >
-                Read More
-              </Button>
-            </Link>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  startIcon={
+                    <MoreOutlined style={{ transform: "rotate(180deg)" }} />
+                  }
+                  style={{ textTransform: "none" }}
+                >
+                  Read More
+                </Button>
+              </a>
+            ) : (
+              <Link
+                passHref
+                prefetch={false}
+                href={`/${encodeURIComponent(slug)}`}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  startIcon={
+                    <MoreOutlined style={{ transform: "rotate(180deg)" }} />
+                  }
+                  style={{ textTransform: "none" }}
+                  component="a"
+                >
+                  Read More
+                </Button>
+              </Link>
+            )}
           </Grid>
         </Grid>
       </Grid>

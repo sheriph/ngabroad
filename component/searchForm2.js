@@ -110,7 +110,7 @@ const SearchForm2 = () => {
         setisloading(false);
       });
     return () => {
-      isloading = true;
+      isloading = false;
     };
   }, []);
 

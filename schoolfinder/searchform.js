@@ -78,12 +78,13 @@ const SearchForm = () => {
   };
 
   useEffect(() => {
+    let isloading = true;
     axios
       .get("/api/getfilter")
       .then((response) => {
         console.log(response);
         if (response.data.results) {
-          setOptions(response.data.results);
+          if (isloading) setOptions(response.data.results);
         } else {
           throw new Error(response.data.error);
         }
@@ -91,6 +92,9 @@ const SearchForm = () => {
       .catch((err) => {
         console.log(err);
       });
+    return () => {
+      isloading = false;
+    };
   }, []);
 
   if (!options)
