@@ -78,11 +78,13 @@ export async function getStaticPaths() {
 
   //console.log("allNodes", allNodes);
 
-  const paths = allNodes.map((post) => {
-    return { params: { pid: post.slug } };
-  });
-
-  return { paths, fallback: false };
+  const paths = allNodes.map((post) => ({ params: { pid: post.slug } }));
+  const ampPaths = allNodes.map((post) => ({
+    params: { pid: `${post.slug}?amp=1` },
+  }));
+  const allPaths = [...paths, ...ampPaths];
+  
+  return { paths: allPaths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
