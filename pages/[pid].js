@@ -10,7 +10,7 @@ import {
 } from "../lib/api";
 import { useAmp } from "next/amp";
 
-export const config = { amp: "hybrid" };
+export const config = { amp: true };
 
 export default function Article({ post }) {
   const isAmp = useAmp();

@@ -8,17 +8,11 @@ import {
 } from "@material-ui/core";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import ReactHtmlParser, {
-  processNodes,
-} from "react-html-parser";
-
+import ReactHtmlParser, { processNodes } from "react-html-parser";
 
 const BlogCard = dynamic(() => import("./blogcard"));
 
-
 const SinglePost = (props) => {
-
-
   const {
     content,
     relatedPosts,
@@ -47,28 +41,53 @@ const SinglePost = (props) => {
     }
 
     if (node.type === "tag" && node.name === "img") {
+      const { src, alt, width, height } = node.attribs;
       if (isAmp)
         return (
           <amp-img
             key={index}
-            src={node.attribs.src}
-            alt={node.attribs.alt}
-            width={node.attribs.width}
-            height={node.attribs.height}
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
             layout="responsive"
           ></amp-img>
         );
-      // console.log(node.src, node.alt, node.name, node)
       return (
         <Box display="flex" justifyContent="center" key={index}>
           <Image
-            src={node.attribs.src}
-            alt={node.attribs.alt}
-            width={node.attribs.width}
-            height={node.attribs.height}
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
             layout="intrinsic"
           />
         </Box>
+      );
+    }
+
+    if (isAmp && node.type === "tag" && node.name === "iframe") {
+     // console.log("node", node);
+      let { src, width, height } = node.attribs;
+      if (!src.includes("https")) {
+        src = `https:${src}`;
+      }
+      //frameborder:
+      return (
+        <amp-iframe
+          width={width}
+          height={height}
+          layout="responsive"
+          sandbox="allow-scripts allow-same-origin"
+          src={src}
+          frameborder="0"
+        >
+          <amp-img
+            layout="fill"
+            src="/images/iframeloading336x297.gif"
+            placeholder
+          ></amp-img>
+        </amp-iframe>
       );
     }
   };
