@@ -39,42 +39,46 @@ const Footer = ({ isAmp }) => {
           >
             <Grid item container>
               <Grid item>
-                <ButtonGroup
-                  classes={{ root: classes.buttongrouproot }}
-                  orientation="vertical"
-                  color="primary"
-                  aria-label="vertical contained primary button group"
-                  variant="text"
-                  size="small"
-                >
-                  {isAmp ? (
-                    <a style={{ textDecoration: "none" }} href="/">
-                      <Button>HOME</Button>
-                    </a>
-                  ) : (
+                {isAmp ? (
+                  <ul style={{ listStyle: "none", margin: "0", padding: "0" }}>
+                    <li>
+                      <a style={{ textDecoration: "none" }} href="/">
+                        <Button>HOME</Button>
+                      </a>
+                    </li>
+                    <li>
+                      <a style={{ textDecoration: "none" }} href="/articles">
+                        <Button>ARTICLES</Button>
+                      </a>
+                    </li>
+                    <li>
+                      <a style={{ textDecoration: "none" }} href="/contactus">
+                        <Button>CONTACT US</Button>
+                      </a>
+                    </li>
+                  </ul>
+                ) : (
+                  <ButtonGroup
+                    classes={{ root: classes.buttongrouproot }}
+                    orientation="vertical"
+                    color="primary"
+                    aria-label="vertical contained primary button group"
+                    variant="text"
+                    size="small"
+                  >
                     <Link href="/">
                       <Button>HOME</Button>
                     </Link>
-                  )}
-                  {isAmp ? (
-                    <a style={{ textDecoration: "none" }} href="/articles">
-                      <Button>ARTICLES</Button>
-                    </a>
-                  ) : (
+
                     <Link href="/articles">
                       <Button>ARTICLES</Button>
                     </Link>
-                  )}
-                  {isAmp ? (
-                    <a style={{ textDecoration: "none" }} href="/contactus">
-                      <Button>CONTACT US</Button>
-                    </a>
-                  ) : (
+
                     <Link href="/contactus">
                       <Button>CONTACT US</Button>
                     </Link>
-                  )}
-                </ButtonGroup>
+                  </ButtonGroup>
+                )}
               </Grid>
             </Grid>
           </Grid>
