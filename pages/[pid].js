@@ -41,6 +41,7 @@ export default function Article({ post }) {
     height = "458";
   }
 
+
   return (
     <SleekTheme
       isAmp={isAmp}
@@ -83,7 +84,7 @@ export async function getStaticPaths() {
     params: { pid: `${post.slug}?amp=1` },
   }));
   const allPaths = [...paths, ...ampPaths];
-  
+
   return { paths: allPaths, fallback: false };
 }
 

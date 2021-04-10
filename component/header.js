@@ -1,7 +1,6 @@
 // @ts-nocheck
 import {
   Backdrop,
-  Box,
   Button,
   ButtonBase,
   Container,
@@ -9,16 +8,8 @@ import {
   Hidden,
   makeStyles,
 } from "@material-ui/core";
-import Head from "next/head";
-import React, { useState } from "react";
-import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
-import {
-  Apps,
-  MenuOpenOutlined,
-  PhoneEnabledOutlined,
-  PlayArrow,
-  ScheduleOutlined,
-} from "@material-ui/icons";
+import React, { useEffect, useState } from "react";
+import { Apps } from "@material-ui/icons";
 import Image from "next/image";
 import DrawerMenu from "./drawermenu";
 import AppHeader from "./appheader";
@@ -58,6 +49,16 @@ const MyHeader = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (
+      window !== "undefined" &&
+      window.location.href.includes("openmenu=true")
+    ) {
+      setOpen(true);
+    }
+  }, []);
+
   return (
     <Container disableGutters>
       <DrawerMenu
