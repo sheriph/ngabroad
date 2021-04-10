@@ -7,7 +7,6 @@ import { Container, makeStyles } from "@material-ui/core";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import AmpHeader from "./ampheader";
-import AmpFooter from "./ampfooter";
 
 const MyHeader = dynamic(() => import("./header"));
 const Footer = dynamic(() => import("./footer"));
