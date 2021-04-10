@@ -6,7 +6,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import { Grid } from "@material-ui/core";
 import { Apps } from "@material-ui/icons";
-import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,8 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AmpHeader() {
   const classes = useStyles();
-  const router = useRouter();
-  const { pid } = router.query;
+
 
   return (
     <div className={classes.root}>
@@ -44,20 +42,18 @@ export default function AmpHeader() {
               </a>
             </Grid>
             <Grid item>
-              <a
-                style={{ textDecoration: "none" }}
-                href={`/${encodeURIComponent(pid)}?openmenu=true`}
+              <IconButton
+                edge="start"
+                //  className={classes.menuButton}
+                // color="inherit"
+                style={{ color: "white" }}
+                aria-label="menu"
+                component="button"
+                on="tap:sidebar.toggle"
+                className="sidebar-trigger"
               >
-                <IconButton
-                  edge="start"
-                  className={classes.menuButton}
-                  // color="inherit"
-                  style={{ color: "white" }}
-                  aria-label="menu"
-                >
-                  <Apps />
-                </IconButton>
-              </a>
+                <Apps />
+              </IconButton>
             </Grid>
           </Grid>
         </Toolbar>

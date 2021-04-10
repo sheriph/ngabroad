@@ -10,7 +10,7 @@ import {
 } from "../lib/api";
 import { useAmp } from "next/amp";
 
-export const config = { amp: true };
+export const config = { amp: "hybrid" };
 
 export default function Article({ post }) {
   const isAmp = useAmp();
@@ -79,10 +79,6 @@ export async function getStaticPaths() {
   //console.log("allNodes", allNodes);
 
   const paths = allNodes.map((post) => ({ params: { pid: post.slug } }));
-  /*   const ampPaths = allNodes.map((post) => ({
-    params: { pid: `${post.slug}?amp=1` },
-  })); */
-  //  const allPaths = [...paths, ...ampPaths];
 
   return { paths, fallback: false };
 }
