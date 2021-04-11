@@ -12,6 +12,7 @@ import {
   PhoneOutlined,
 } from "@material-ui/icons";
 import { Box, Button, ButtonBase, Grid, Typography } from "@material-ui/core";
+import { useAmp } from "next/amp";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
 const AmpSidebar = () => {
   const classes = useStyles();
   const theme = useTheme();
+  const isAmp = useAmp();
+
+  if (!isAmp) return "";
 
   return (
     <amp-sidebar
