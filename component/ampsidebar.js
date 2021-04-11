@@ -17,6 +17,7 @@ import { useAmp } from "next/amp";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    backgroundColor: "white",
   },
   drawerHeader: {
     display: "flex",
