@@ -36,3 +36,8 @@ export const allUni_ = atom({
   key: "allUni",
   default: true,
 });
+
+export const isDialogOpen_ = atom({
+  key: "isDialogOpen",
+  default: false,
+});

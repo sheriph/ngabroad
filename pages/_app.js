@@ -8,6 +8,7 @@ import theme from "../src/theme";
 import { RecoilRoot } from "recoil";
 import "firebase/firestore";
 import "firebase/auth";
+import { CookiesProvider } from "react-cookie";
 /* import { Fuego, FuegoProvider } from "@nandorojo/swr-firestore";
 import { SnackbarProvider } from "notistack"; */
 import { useAmp } from "next/amp";
@@ -46,11 +47,6 @@ export default function MyApp(props) {
   return (
     <React.Fragment>
       <Head>
-        <script
-          data-ad-client="ca-pub-9023491735769338"
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-        ></script>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
@@ -135,12 +131,14 @@ export default function MyApp(props) {
       </Head>
       <ThemeProvider theme={theme}>
         {/*  <SnackbarProvider maxSnack={3}> */}
-        <RecoilRoot>
-          <CssBaseline />
-          {/*   <FuegoProvider fuego={fuego}> */}
-          <Component {...pageProps} />
-          {/*   </FuegoProvider> */}
-        </RecoilRoot>
+        <CookiesProvider>
+          <RecoilRoot>
+            <CssBaseline />
+            {/*   <FuegoProvider fuego={fuego}> */}
+            <Component {...pageProps} />
+            {/*   </FuegoProvider> */}
+          </RecoilRoot>
+        </CookiesProvider>
         {/*   </SnackbarProvider> */}
       </ThemeProvider>
     </React.Fragment>

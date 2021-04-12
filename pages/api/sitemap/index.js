@@ -7,7 +7,7 @@ export default async (req, res) => {
   // Fetch data from a source which will be used to render the sitemap.
   let after = "null";
   let posts = [];
-  for (let i = 0; i < 1; i++) {
+  for (let i = 0; i < 100; i++) {
     const allNodes = await getAllPostsSlugs(after);
     posts = posts.concat(allNodes.nodes);
     after = allNodes.pageInfo.endCursor;

@@ -3,12 +3,13 @@ import {
   Box,
   Container,
   Grid,
-  makeStyles,
   Typography,
 } from "@material-ui/core";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import React from "react";
 import ReactHtmlParser, { processNodes } from "react-html-parser";
+import GoogleAds from "./googleads";
 
 const BlogCard = dynamic(() => import("./blogcard"));
 
@@ -23,6 +24,7 @@ const SinglePost = (props) => {
     height,
   } = props;
 
+
   const transform = (node, index) => {
     if (node.type === "tag" && node.name === "h2") {
       return (
@@ -33,11 +35,33 @@ const SinglePost = (props) => {
     }
 
     if (node.type === "tag" && node.name === "p") {
-      return (
-        <Typography variant="body1" component="p" key={index}>
-          {processNodes(node.children, transform)}
-        </Typography>
-      );
+      const isOdd = (n) => n % 2 === 1;
+      // console.log("node", node, index, isOdd(index));
+
+      if (isAmp) {
+        return (
+          <Typography variant="body1" component="p" key={index}>
+            {processNodes(node.children, transform)}
+          </Typography>
+        );
+      }
+      if (!isAmp) {
+        if (isOdd(index)) {
+          return (
+            <Typography variant="body1" component="p" key={index}>
+              {processNodes(node.children, transform)}
+              {/*  <GoogleAds path={pid} /> */}
+              <GoogleAds />
+            </Typography>
+          );
+        } else {
+          return (
+            <Typography variant="body1" component="p" key={index}>
+              {processNodes(node.children, transform)}
+            </Typography>
+          );
+        }
+      }
     }
 
     if (node.type === "tag" && node.name === "img") {
@@ -66,29 +90,46 @@ const SinglePost = (props) => {
       );
     }
 
-    if (isAmp && node.type === "tag" && node.name === "iframe") {
-     // console.log("node", node);
+    if (node.type === "tag" && node.name === "iframe") {
+      // console.log("node", node);
       let { src, width, height } = node.attribs;
-      if (!src.includes("https")) {
-        src = `https:${src}`;
+
+      if (!isAmp) {
+        return (
+          //  <Container>
+          <iframe
+            key={index}
+            width="auto"
+            height={height}
+            src={src}
+            frameBorder="0"
+          ></iframe>
+          //   </Container>
+        );
       }
-      //frameborder:
-      return (
-        <amp-iframe
-          width={width}
-          height={height}
-          layout="responsive"
-          sandbox="allow-scripts allow-same-origin"
-          src={src}
-          frameborder="0"
-        >
-          <amp-img
-            layout="fill"
-            src="/images/iframeloading336x297.gif"
-            placeholder
-          ></amp-img>
-        </amp-iframe>
-      );
+
+      if (isAmp) {
+        if (!src.includes("https")) {
+          src = `https:${src}`;
+        }
+        //frameborder:
+        return (
+          <amp-iframe
+            width={width}
+            height={height}
+            layout="responsive"
+            sandbox="allow-scripts allow-same-origin"
+            src={src}
+            frameborder="0"
+          >
+            <amp-img
+              layout="fill"
+              src="/images/iframeloading336x297.gif"
+              placeholder
+            ></amp-img>
+          </amp-iframe>
+        );
+      }
     }
   };
 
