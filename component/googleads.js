@@ -15,7 +15,6 @@ const GoogleAds = () => {
       const url =
         "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
       if (!isScriptLoaded(url)) {
-
         let script = document.createElement("script");
         script.type = "text/javascript";
         script.async = true;
@@ -27,6 +26,7 @@ const GoogleAds = () => {
       }
     }
   }, [null]);
+
   return (
     <ins
       className="adsbygoogle"

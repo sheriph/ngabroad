@@ -40,24 +40,22 @@ export const SleekTheme = ({
 }) => {
   const classes = styles();
 
-  const [cookies, setCookie] = useCookies(["optin"]);
+  const [cookies, setCookie] = useCookies(["ngabroadoptin"]);
   const [isModalOpen, setModalOpen] = useRecoilState(isDialogOpen_);
 
   useEffect(() => {
-    console.log("running effect", cookies.optin);
-    if (!cookies.optin) {
-      console.log("running effect2", cookies.optin);
-      setCookie(
-        "optin",
-        JSON.stringify(Math.ceil(Math.random() * 1000 + 1000)),
-        {
-          maxAge: 345600,
-          sameSite: true,
-          path: "/",
-        }
-      );
+    if (!cookies.ngabroadoptin) {
       setTimeout(() => {
         setModalOpen(true);
+        setCookie(
+          "optin",
+          JSON.stringify(Math.ceil(Math.random() * 1000 + 1000)),
+          {
+            maxAge: 345600,
+            sameSite: true,
+            path: "/",
+          }
+        );
       }, 30000);
     }
   }, [null]);

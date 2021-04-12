@@ -36,8 +36,6 @@ const SinglePost = (props) => {
 
     if (node.type === "tag" && node.name === "p") {
       const isOdd = (n) => n % 2 === 1;
-      // console.log("node", node, index, isOdd(index));
-
       if (isAmp) {
         return (
           <Typography variant="body1" component="p" key={index}>
@@ -45,12 +43,12 @@ const SinglePost = (props) => {
           </Typography>
         );
       }
+      
       if (!isAmp) {
         if (isOdd(index)) {
           return (
             <Typography variant="body1" component="p" key={index}>
               {processNodes(node.children, transform)}
-              {/*  <GoogleAds path={pid} /> */}
               <GoogleAds />
             </Typography>
           );
@@ -137,6 +135,12 @@ const SinglePost = (props) => {
     decodeEntities: true,
     transform,
   };
+
+
+
+
+
+  
 
   return (
     <Container disableGutters style={{ marginTop: "20px" }}>
