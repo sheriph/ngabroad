@@ -48,10 +48,10 @@ export const SleekTheme = ({
       setTimeout(() => {
         setModalOpen(true);
         setCookie(
-          "optin",
+          "ngabroadoptin",
           JSON.stringify(Math.ceil(Math.random() * 1000 + 1000)),
           {
-            maxAge: 345600,
+            maxAge: 172800,
             sameSite: true,
             path: "/",
           }
