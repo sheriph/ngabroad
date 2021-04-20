@@ -1,10 +1,5 @@
 // @ts-nocheck
-import {
-  Box,
-  Container,
-  Grid,
-  Typography,
-} from "@material-ui/core";
+import { Box, Container, Grid, Typography } from "@material-ui/core";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import React from "react";
@@ -24,11 +19,16 @@ const SinglePost = (props) => {
     height,
   } = props;
 
-
   const transform = (node, index) => {
     if (node.type === "tag" && node.name === "h2") {
       return (
-        <Typography variant="h5" align="center" component="h2" key={index}>
+        <Typography
+          style={{ marginTop: "15px", marginBottom: "15px" }}
+          variant="h5"
+          align="center"
+          component="h2"
+          key={index}
+        >
           {processNodes(node.children, transform)}
         </Typography>
       );
@@ -43,7 +43,7 @@ const SinglePost = (props) => {
           </Typography>
         );
       }
-      
+
       if (!isAmp) {
         if (isOdd(index)) {
           return (
@@ -76,7 +76,12 @@ const SinglePost = (props) => {
           ></amp-img>
         );
       return (
-        <Box display="flex" justifyContent="center" key={index}>
+        <Box
+          style={{ marginBottom: "15px" }}
+          display="flex"
+          justifyContent="center"
+          key={index}
+        >
           <Image
             src={src}
             alt={alt}
@@ -135,12 +140,6 @@ const SinglePost = (props) => {
     decodeEntities: true,
     transform,
   };
-
-
-
-
-
-  
 
   return (
     <Container disableGutters style={{ marginTop: "20px" }}>

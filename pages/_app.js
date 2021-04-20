@@ -12,6 +12,8 @@ import { CookiesProvider } from "react-cookie";
 /* import { Fuego, FuegoProvider } from "@nandorojo/swr-firestore";
 import { SnackbarProvider } from "notistack"; */
 import { useAmp } from "next/amp";
+import { useRouter } from "next/router";
+import * as ga from "../lib/ga";
 
 /* const firebaseConfig = {
   apiKey: "AIzaSyDnWq5tSHBtRn7Y83WyNHzZoIqY0xpCBzQ",
@@ -35,6 +37,7 @@ const fuego = new Fuego(firebaseConfig); */
 export default function MyApp(props) {
   const { Component, pageProps } = props;
   const isAmp = useAmp();
+  const router = useRouter();
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -42,7 +45,20 @@ export default function MyApp(props) {
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
-  }, []);
+
+    const handleRouteChange = (url) => {
+      ga.pageview(url);
+    };
+    //When the component is mounted, subscribe to router changes
+    //and log those page views
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    // If the component is unmounted, unsubscribe
+    // from the event with the `off` method
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
 
   return (
     <React.Fragment>
@@ -55,6 +71,27 @@ export default function MyApp(props) {
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width"
           />
+        )}
+
+        {!isAmp && (
+          <>
+            <script
+              async
+              src="https://www.googletagmanager.com/gtag/js?id=G-9ZDV1TKBLS"
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-9ZDV1TKBLS', {
+              page_path: window.location.pathname,
+            });
+            `,
+              }}
+            />
+          </>
         )}
 
         <link rel="manifest" href="/manifest.json" />

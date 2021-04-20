@@ -5,12 +5,26 @@ import { ServerStyleSheets } from "@material-ui/core/styles";
 import theme from "../src/theme";
 import AmpSidebar from "../component/ampsidebar";
 export default class MyDocument extends Document {
-  
   render() {
     return (
       <Html lang="en">
         <Head>
-          {/* PWA primary color */}
+          {/* <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-9ZDV1TKBLS"
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-9ZDV1TKBLS', {
+              page_path: window.location.pathname,
+            });
+            `,
+            }}
+          /> */}
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link
             rel="stylesheet"
