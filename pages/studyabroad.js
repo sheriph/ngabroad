@@ -5,7 +5,7 @@ import StudyAbroadComponent from "../component/studyabroadcomponent";
 import { SnackbarProvider } from "notistack";
 
 
-export default function () {
+export default function StudyAbroad() {
   return (
     <SnackbarProvider maxSnack={3}>
       <SleekTheme
