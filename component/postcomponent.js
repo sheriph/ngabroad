@@ -37,6 +37,20 @@ const SinglePost = (props) => {
     if (node.type === "tag" && node.name === "p") {
       const isOdd = (n) => n % 2 === 1;
       if (isAmp) {
+        const slot = [
+          "1097990250",
+          "3316959485",
+          "1289561944",
+          "2602643619",
+          "8569286164",
+          "4107296975",
+          "4640460077",
+          "8579705086",
+          "8771276779",
+          "6326266205",
+          "4272794417",
+        ];
+
         if (
           isOdd(index) &&
           index > 3 &&
@@ -49,17 +63,19 @@ const SinglePost = (props) => {
               <Typography variant="body1" component="p" key={index}>
                 {processNodes(node.children, transform)}
               </Typography>
-              <amp-ad
-                width="100vw"
-                height="320"
-                type="adsense"
-                data-ad-client="ca-pub-9023491735769338"
-                data-ad-slot="4272794417"
-                data-auto-format="rspv"
-                data-full-width=""
-              >
-                <div overflow=""></div>
-              </amp-ad>
+              <div style={{ marginTop: "15px", marginBottom: "15px" }}>
+                <amp-ad
+                  width="100vw"
+                  height="320"
+                  type="adsense"
+                  data-ad-client="ca-pub-9023491735769338"
+                  data-ad-slot={`${slot[Math.ceil(Math.random() * 10)]}`}
+                  data-auto-format="rspv"
+                  data-full-width=""
+                >
+                  <div overflow=""></div>
+                </amp-ad>
+              </div>
             </>
           );
         } else {
@@ -113,18 +129,20 @@ const SinglePost = (props) => {
       const { src, alt, width, height } = node.attribs;
       if (isAmp)
         return (
-          <amp-img
-            key={index}
-            src={src}
-            alt={alt}
-            width={width}
-            height={height}
-            layout="responsive"
-          ></amp-img>
+          <div style={{ marginBottom: "15px", marginTop: "15px" }}>
+            <amp-img
+              key={index}
+              src={src}
+              alt={alt}
+              width={width}
+              height={height}
+              layout="responsive"
+            ></amp-img>
+          </div>
         );
       return (
         <Box
-          style={{ marginBottom: "15px" }}
+          style={{ marginBottom: "15px", marginTop: "15px" }}
           display="flex"
           justifyContent="center"
           key={index}

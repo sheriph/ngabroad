@@ -31,12 +31,17 @@ const GoogleAds = ({ slot }) => {
     }
   }, [null]);
 
- // console.log("slot", slot);
+  // console.log("slot", slot);
 
   return (
     <ins
       className="adsbygoogle"
-      style={{ display: "block", textAlign: "center" }}
+      style={{
+        display: "block",
+        textAlign: "center",
+        paddingTop: "15px",
+        paddingBottom: "15px",
+      }}
       data-ad-layout="in-article"
       data-ad-format="fluid"
       data-ad-client="ca-pub-9023491735769338"
