@@ -93,11 +93,6 @@ const SinglePost = (props) => {
             .filter((item) => typeof item === "string")
             .toLocaleString().length > 180
         ) {
-          console.log(
-            "index after",
-            index,
-            processNodes(node.children, transform)
-          );
           return (
             <Typography variant="body1" component="p" key={index}>
               {processNodes(node.children, transform)}

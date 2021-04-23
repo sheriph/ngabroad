@@ -31,7 +31,7 @@ const GoogleAds = ({ slot }) => {
     }
   }, [null]);
 
-  console.log("slot", slot);
+ // console.log("slot", slot);
 
   return (
     <ins
