@@ -37,19 +37,71 @@ const SinglePost = (props) => {
     if (node.type === "tag" && node.name === "p") {
       const isOdd = (n) => n % 2 === 1;
       if (isAmp) {
-        return (
-          <Typography variant="body1" component="p" key={index}>
-            {processNodes(node.children, transform)}
-          </Typography>
-        );
-      }
-
-      if (!isAmp) {
-        if (isOdd(index)) {
+        if (
+          isOdd(index) &&
+          index > 3 &&
+          processNodes(node.children, transform)
+            .filter((item) => typeof item === "string")
+            .toLocaleString().length > 180
+        ) {
+          return (
+            <>
+              <Typography variant="body1" component="p" key={index}>
+                {processNodes(node.children, transform)}
+              </Typography>
+              <amp-ad
+                width="100vw"
+                height="320"
+                type="adsense"
+                data-ad-client="ca-pub-9023491735769338"
+                data-ad-slot="4272794417"
+                data-auto-format="rspv"
+                data-full-width=""
+              >
+                <div overflow=""></div>
+              </amp-ad>
+            </>
+          );
+        } else {
           return (
             <Typography variant="body1" component="p" key={index}>
               {processNodes(node.children, transform)}
-              <GoogleAds />
+            </Typography>
+          );
+        }
+      }
+
+      if (!isAmp) {
+        const slot = [
+          "8519630377",
+          "1584472777",
+          "2131267688",
+          "9212693114",
+          "8199828498",
+          "3061205970",
+          "4657127169",
+          "6868341620",
+          "5778637149",
+          "4242178287",
+          "5587065453",
+        ];
+        // console.log("index before", index, processNodes(node.children, transform));
+        if (
+          isOdd(index) &&
+          index > 3 &&
+          processNodes(node.children, transform)
+            .filter((item) => typeof item === "string")
+            .toLocaleString().length > 180
+        ) {
+          console.log(
+            "index after",
+            index,
+            processNodes(node.children, transform)
+          );
+          return (
+            <Typography variant="body1" component="p" key={index}>
+              {processNodes(node.children, transform)}
+              <GoogleAds slot={`${slot[Math.ceil(Math.random() * 10)]}`} />
             </Typography>
           );
         } else {

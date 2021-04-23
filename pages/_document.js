@@ -25,6 +25,11 @@ export default class MyDocument extends Document {
             `,
             }}
           /> */}
+          {/* <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9023491735769338"
+            crossorigin="anonymous"
+          ></script> */}
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link
             rel="stylesheet"

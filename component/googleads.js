@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useEffect } from "react";
 
-const GoogleAds = () => {
+const GoogleAds = ({ slot }) => {
   const isScriptLoaded = (url) => {
     let scripts = document.getElementsByTagName("script");
     for (let i = 0; i < scripts.length; i++) {
@@ -22,10 +22,16 @@ const GoogleAds = () => {
         script.src = url;
         document.head.prepend(script);
 
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        // (window.adsbygoogle = window.adsbygoogle || []).push({});
+
+        [].forEach.call(document.querySelectorAll(".adsbygoogle"), function () {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        });
       }
     }
   }, [null]);
+
+  console.log("slot", slot);
 
   return (
     <ins
@@ -34,7 +40,7 @@ const GoogleAds = () => {
       data-ad-layout="in-article"
       data-ad-format="fluid"
       data-ad-client="ca-pub-9023491735769338"
-      data-ad-slot="8519630377"
+      data-ad-slot={slot}
     ></ins>
   );
 };
