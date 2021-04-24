@@ -2,9 +2,14 @@
 import { Box, Container, Grid, Typography } from "@material-ui/core";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactHtmlParser, { processNodes } from "react-html-parser";
+import { useRecoilState } from "recoil";
+import { isDialogOpen_ } from "../state/recoil";
+import AdblockNotifications from "./adsblockernotification";
 import GoogleAds from "./googleads";
+import Modal from "./modal";
+import Modal2 from "./modal2";
 
 const BlogCard = dynamic(() => import("./blogcard"));
 
@@ -101,7 +106,7 @@ const SinglePost = (props) => {
           "4242178287",
           "5587065453",
         ];
-        // console.log("index before", index, processNodes(node.children, transform));
+
         if (
           isOdd(index) &&
           index > 3 &&
@@ -205,9 +210,46 @@ const SinglePost = (props) => {
     decodeEntities: true,
     transform,
   };
+  const [open, setOpen] = useState(false);
+
+  // Function called if AdBlock is not detected
+  function adBlockNotDetected() {
+    console.log("AdBlock is not enabled");
+  }
+  // Function called if AdBlock is detected
+  function adBlockDetected() {
+    console.log("AdBlock is enabled");
+  }
+
+  const createFuckAdBlock = () => {
+    // Otherwise, you import the script FuckAdBlock
+    var importFAB = document.createElement("script");
+    importFAB.onload = function () {
+      // If all goes well, we configure FuckAdBlock
+      fuckAdBlock.onDetected(adBlockDetected);
+      fuckAdBlock.onNotDetected(adBlockNotDetected);
+    };
+    importFAB.onerror = function () {
+      // If the script does not load (blocked, integrity error, ...)
+      // Then a detection is triggered
+      adBlockDetected();
+    };
+    importFAB.integrity = "sha256-xjwKUY/NgkPjZZBOtOxRYtK20GaqTwUCf7WYCJ1z69w=";
+    importFAB.crossOrigin = "anonymous";
+    importFAB.src =
+      "https://cdnjs.cloudflare.com/ajax/libs/fuckadblock/3.2.1/fuckadblock.min.js";
+    document.head.appendChild(importFAB);
+  };
+
+  useEffect(() => {
+    createFuckAdBlock();
+  });
 
   return (
     <Container disableGutters style={{ marginTop: "20px" }}>
+      <Modal2 open={open} setOpen={setOpen}>
+        <AdblockNotifications />
+      </Modal2>
       <Grid container>
         {isAmp ? (
           <Grid item container justify="center" style={{ display: "block" }}>

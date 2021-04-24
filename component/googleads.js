@@ -39,8 +39,8 @@ const GoogleAds = ({ slot }) => {
       style={{
         display: "block",
         textAlign: "center",
-        paddingTop: "15px",
-        paddingBottom: "15px",
+        marginTop: "15px",
+        marginBottom: "15px",
       }}
       data-ad-layout="in-article"
       data-ad-format="fluid"
