@@ -242,7 +242,7 @@ const SinglePost = (props) => {
   };
 
   useEffect(() => {
-    createFuckAdBlock();
+    if (!isAmp) createFuckAdBlock();
   });
 
   return (
