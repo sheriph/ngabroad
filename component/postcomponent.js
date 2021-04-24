@@ -4,11 +4,8 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import ReactHtmlParser, { processNodes } from "react-html-parser";
-import { useRecoilState } from "recoil";
-import { isDialogOpen_ } from "../state/recoil";
 import AdblockNotifications from "./adsblockernotification";
 import GoogleAds from "./googleads";
-import Modal from "./modal";
 import Modal2 from "./modal2";
 
 const BlogCard = dynamic(() => import("./blogcard"));
@@ -64,7 +61,7 @@ const SinglePost = (props) => {
             .toLocaleString().length > 180
         ) {
           return (
-            <>
+            <div key={index}>
               <Typography variant="body1" component="p" key={index}>
                 {processNodes(node.children, transform)}
               </Typography>
@@ -81,7 +78,7 @@ const SinglePost = (props) => {
                   <div overflow=""></div>
                 </amp-ad>
               </div>
-            </>
+            </div>
           );
         } else {
           return (
@@ -188,6 +185,7 @@ const SinglePost = (props) => {
         //frameborder:
         return (
           <amp-iframe
+            key={index}
             width={width}
             height={height}
             layout="responsive"
@@ -242,14 +240,18 @@ const SinglePost = (props) => {
   };
 
   useEffect(() => {
-    if (!isAmp) createFuckAdBlock();
+    if (!isAmp) {
+      createFuckAdBlock();
+    }
   });
 
   return (
     <Container disableGutters style={{ marginTop: "20px" }}>
-      <Modal2 open={open} setOpen={setOpen}>
-        <AdblockNotifications />
-      </Modal2>
+      {!isAmp && (
+        <Modal2 open={open} setOpen={setOpen}>
+          <AdblockNotifications />
+        </Modal2>
+      )}
       <Grid container>
         {isAmp ? (
           <Grid item container justify="center" style={{ display: "block" }}>

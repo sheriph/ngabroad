@@ -2,8 +2,6 @@
 import React from "react";
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
-import { useRecoilState } from "recoil";
-import { isDialogOpen_ } from "../state/recoil";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
