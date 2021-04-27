@@ -75,7 +75,7 @@ export const SleekTheme = ({
             description: { pageDesc },
             images: [
               {
-                url: "/images/favicon32",
+                url: "/images/favicon32.png",
                 alt: "favicon",
               },
             ],

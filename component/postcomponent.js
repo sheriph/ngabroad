@@ -210,41 +210,7 @@ const SinglePost = (props) => {
   };
   const [open, setOpen] = useState(false);
 
-  // Function called if AdBlock is not detected
-  function adBlockNotDetected() {
-    console.log("AdBlock is not enabled");
-  }
-  // Function called if AdBlock is detected
-  function adBlockDetected() {
-    console.log("AdBlock is enabled");
-  }
-
-  const createFuckAdBlock = () => {
-    // Otherwise, you import the script FuckAdBlock
-    var importFAB = document.createElement("script");
-    importFAB.onload = function () {
-      // If all goes well, we configure FuckAdBlock
-      fuckAdBlock.onDetected(adBlockDetected);
-      fuckAdBlock.onNotDetected(adBlockNotDetected);
-    };
-    importFAB.onerror = function () {
-      // If the script does not load (blocked, integrity error, ...)
-      // Then a detection is triggered
-      adBlockDetected();
-    };
-    importFAB.integrity = "sha256-xjwKUY/NgkPjZZBOtOxRYtK20GaqTwUCf7WYCJ1z69w=";
-    importFAB.crossOrigin = "anonymous";
-    importFAB.src =
-      "https://cdnjs.cloudflare.com/ajax/libs/fuckadblock/3.2.1/fuckadblock.min.js";
-    document.head.appendChild(importFAB);
-  };
-
-  useEffect(() => {
-    if (!isAmp) {
-      createFuckAdBlock();
-    }
-  });
-
+ 
   return (
     <Container disableGutters style={{ marginTop: "20px" }}>
       {!isAmp && (

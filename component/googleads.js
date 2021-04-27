@@ -22,11 +22,25 @@ const GoogleAds = ({ slot }) => {
         script.src = url;
         document.head.prepend(script);
 
-        // (window.adsbygoogle = window.adsbygoogle || []).push({});
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
 
-        [].forEach.call(document.querySelectorAll(".adsbygoogle"), function () {
+        /*     [].forEach.call(document.querySelectorAll(".adsbygoogle"), function () {
           (window.adsbygoogle = window.adsbygoogle || []).push({});
-        });
+        }); */
       }
     }
   }, [null]);
@@ -41,6 +55,7 @@ const GoogleAds = ({ slot }) => {
         textAlign: "center",
         marginTop: "15px",
         marginBottom: "15px",
+       // minHeight: "150px",
       }}
       data-ad-layout="in-article"
       data-ad-format="fluid"

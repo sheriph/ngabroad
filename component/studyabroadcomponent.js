@@ -22,6 +22,7 @@ import { ExpandMoreOutlined } from "@material-ui/icons";
 import LinearBuffer from "../schoolfinder/bufferprogress";
 import StudyTab from "./studytab";
 import SearchForm2 from "./searchForm2";
+import GoogleAds from "./googleads";
 
 const styles = makeStyles((theme) => ({
   grid: {
@@ -43,6 +44,19 @@ const StudyAbroadComponent = () => {
   const handleExpand = (num) => {
     setExpanded(num);
   };
+  const slot = [
+    "8519630377",
+    "1584472777",
+    "2131267688",
+    "9212693114",
+    "8199828498",
+    "3061205970",
+    "4657127169",
+    "6868341620",
+    "5778637149",
+    "4242178287",
+    "5587065453",
+  ];
   return (
     <React.Fragment>
       <OrderModal
@@ -89,11 +103,25 @@ const StudyAbroadComponent = () => {
                       item
                       xs={12}
                     >
-                      <LazyLoad height={250} unmountIfInvisible>
+                      <LazyLoad height={250} offset={300} unmountIfInvisible>
                         {allUni ? (
-                          <ResultCard2 result={school} />
+                          <>
+                            <ResultCard2 result={school} />
+                            {index > 0 && index % 3 === 0 && (
+                              <GoogleAds
+                                slot={`${slot[Math.ceil(Math.random() * 10)]}`}
+                              />
+                            )}
+                          </>
                         ) : (
-                          <ResultCard result={school} />
+                          <>
+                            <ResultCard result={school} />
+                            {index > 0 && index % 3 === 0 && (
+                              <GoogleAds
+                                slot={`${slot[Math.ceil(Math.random() * 10)]}`}
+                              />
+                            )}
+                          </>
                         )}
                       </LazyLoad>
                     </Grid>
