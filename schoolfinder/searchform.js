@@ -35,7 +35,7 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const SearchForm = () => {
+const SearchForm = ({ isAmp }) => {
   const classes = styles();
   const { register, handleSubmit, watch, errors, control } = useForm();
   const [school, setschools] = useRecoilState(schools_);

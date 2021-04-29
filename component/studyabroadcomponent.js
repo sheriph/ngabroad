@@ -23,6 +23,7 @@ import LinearBuffer from "../schoolfinder/bufferprogress";
 import StudyTab from "./studytab";
 import SearchForm2 from "./searchForm2";
 import GoogleAds from "./googleads";
+import Image from "next/image";
 
 const styles = makeStyles((theme) => ({
   grid: {
@@ -31,7 +32,7 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const StudyAbroadComponent = () => {
+const StudyAbroadComponent = ({ isAmp }) => {
   const classes = styles();
   const [openModal, setOpenModal] = useState(false);
   const schools = useRecoilValue(schools_);
@@ -57,25 +58,28 @@ const StudyAbroadComponent = () => {
     "4242178287",
     "5587065453",
   ];
+
   return (
     <React.Fragment>
-      <OrderModal
-        openModal={openModal}
-        setOpenModal={setOpenModal}
-        jsx={
-          allUni ? (
-            <SchoolDetails2 school={schoolinfo} setOpenModal={setOpenModal} />
-          ) : (
-            <SchoolDetails school={schoolinfo} setOpenModal={setOpenModal} />
-          )
-        }
-      />
+      {!isAmp && (
+        <OrderModal
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          jsx={
+            allUni ? (
+              <SchoolDetails2 school={schoolinfo} setOpenModal={setOpenModal} />
+            ) : (
+              <SchoolDetails school={schoolinfo} setOpenModal={setOpenModal} />
+            )
+          }
+        />
+      )}
       <Grid container className={classes.grid}>
         <Grid item container spacing={2} justify="center" xs={12}>
           <Grid item xs={12}>
             <StudyTab
               searchForm={<SearchForm />}
-              searchForm2={<SearchForm2 />}
+              searchForm2={<SearchForm2 isAmp={isAmp} />}
             />
           </Grid>
           <Grid item xs={12}>
@@ -147,12 +151,22 @@ const StudyAbroadComponent = () => {
         ) : (
           <Grid item container justify="center" style={{ marginTop: "40px" }}>
             <Grid item xs={12} sm={6}>
-              <img
-                src="/images/stepup.svg"
-                alt="study abroad"
-                width="100%"
-                height="300px"
-              />
+              {isAmp ? (
+                <amp-img
+                  src="/images/stepup.svg"
+                  alt="study abroad"
+                  width="320"
+                  height="300"
+                  layout="responsive"
+                ></amp-img>
+              ) : (
+                <img
+                  src="/images/stepup.svg"
+                  alt="study abroad"
+                  width="100%"
+                  height="300px"
+                />
+              )}
             </Grid>
 
             <Grid item container spacing={2} xs={12} sm={6}>
@@ -287,10 +301,30 @@ const StudyAbroadComponent = () => {
                 </Accordion>
               </Grid>
             </Grid>
+
             <Grid item xs={12} style={{ marginTop: "30px" }}>
               <Typography variant="h5" component="h2" gutterBottom>
                 Study Abroad FAQs that will help you…
               </Typography>
+              {isAmp ? (
+                <amp-img
+                  src="/images/studyabroadfaqs.jpg"
+                  alt="study abroad"
+                  width="320"
+                  height="300"
+                  layout="responsive"
+                ></amp-img>
+              ) : (
+                <Box display="flex" justifyContent="center" py={2}>
+                  <Image
+                    src="/images/studyabroadfaqs.jpg"
+                    alt="study abroad"
+                    width="640"
+                    height="427"
+                    layout="intrinsic"
+                  />
+                </Box>
+              )}
               <Typography gutterBottom>
                 It is particularly common to hear students ask questions as it
                 regards their study abroad mission. Getting an abroad education
@@ -313,6 +347,7 @@ const StudyAbroadComponent = () => {
               <Typography variant="h5" component="h2" gutterBottom>
                 Why study abroad?
               </Typography>
+
               <Typography gutterBottom>
                 Are you among those asking this question “why study abroad?
                 Well, ‘to each is his own as what may interest you may not
@@ -422,6 +457,25 @@ const StudyAbroadComponent = () => {
               <Typography variant="h5" component="h2" gutterBottom>
                 How do I get started?
               </Typography>
+              {isAmp ? (
+                <amp-img
+                  src="/images/study abroad.jpg"
+                  alt="study abroad"
+                  width="320"
+                  height="300"
+                  layout="responsive"
+                ></amp-img>
+              ) : (
+                <Box display="flex" justifyContent="center" py={2}>
+                  <Image
+                    src="/images/study abroad.jpg"
+                    alt="study abroad"
+                    width="640"
+                    height="427"
+                    layout="intrinsic"
+                  />
+                </Box>
+              )}
               <Typography gutterBottom>
                 simple response: start by using the school finder application
                 available at the top of this page to find schools, courses, and
@@ -507,6 +561,25 @@ const StudyAbroadComponent = () => {
               <Typography variant="h5" component="h2" gutterBottom>
                 Do I have to speak a second language to study abroad?
               </Typography>
+              {isAmp ? (
+                <amp-img
+                  src="/images/Do I have to speak a second language to study abroad.jpg"
+                  alt="study abroad"
+                  width="320"
+                  height="300"
+                  layout="responsive"
+                ></amp-img>
+              ) : (
+                <Box display="flex" justifyContent="center" py={2}>
+                  <Image
+                    src="/images/Do I have to speak a second language to study abroad.jpg"
+                    alt="study abroad"
+                    width="640"
+                    height="427"
+                    layout="intrinsic"
+                  />
+                </Box>
+              )}
               <Typography gutterBottom>
                 Speaking a second language is an advantage for you, but before
                 you apply for a proficiency exam, check the school website to
@@ -569,6 +642,25 @@ const StudyAbroadComponent = () => {
               <Typography variant="h5" component="h2" gutterBottom>
                 Where can I find scholarships?
               </Typography>
+              {isAmp ? (
+                <amp-img
+                  src="/images/scholarships study abroad.jpg"
+                  alt="study abroad"
+                  width="320"
+                  height="300"
+                  layout="responsive"
+                ></amp-img>
+              ) : (
+                <Box display="flex" justifyContent="center" py={2}>
+                  <Image
+                    src="/images/scholarships study abroad.jpg"
+                    alt="study abroad"
+                    width="640"
+                    height="427"
+                    layout="intrinsic"
+                  />
+                </Box>
+              )}
               <Typography gutterBottom>
                 Schools, governments, and individuals provide scholarship
                 opportunities to eligible candidates. To find a scholarship, you

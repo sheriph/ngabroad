@@ -9,6 +9,7 @@ import {
   makeStyles,
   Paper,
   TextField,
+  Typography,
 } from "@material-ui/core";
 import {
   LanguageOutlined,
@@ -36,7 +37,7 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const SearchForm2 = () => {
+const SearchForm2 = ({ isAmp }) => {
   const classes = styles();
   const { register, handleSubmit, watch, errors, control } = useForm();
   const [school, setschools] = useRecoilState(schools_);
@@ -69,7 +70,7 @@ const SearchForm2 = () => {
       .post("/api/getschools2", data)
       .then((response) => {
         setisloading(false);
-      //  console.log(response);
+        //  console.log(response);
         const { results } = response.data;
         if (results) {
           setschools(results);
@@ -84,13 +85,13 @@ const SearchForm2 = () => {
   };
 
   useEffect(() => {
-   // console.log("mounting form 2");
+    // console.log("mounting form 2");
     let isloading = true;
     setOptions(null);
     axios
       .get("/api/getfilter2")
       .then((response) => {
-       // console.log(response);
+        // console.log(response);
         const [countries, field, level] = response.data.results;
         const formattedCountries = countries
           .map((country) => startCase(country["TABLE_NAME"]))
@@ -120,6 +121,16 @@ const SearchForm2 = () => {
         <Grid item component={Paper} xs={12}>
           <Skeleton animation="wave" variant="rect" height={140} />
         </Grid>
+        {isAmp && (
+          <Typography
+            style={{ position: "absolute", lineHeight: "140px" }}
+            variant="h4"
+          >
+            <a style={{ textDecoration: "none" }} href="/studyabroad">
+              CLICK TO LOAD DATA
+            </a>
+          </Typography>
+        )}
       </Grid>
     );
 

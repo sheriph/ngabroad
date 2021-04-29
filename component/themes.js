@@ -60,6 +60,7 @@ export const SleekTheme = ({
     }
   }, [null]);
 
+
   return (
     <React.Fragment>
       {page ? (

@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import EmbassyCard from "./embassycard";
 import { countriesWithEmbassyInNigeria, embassyAddress } from "./embassyfinder";
 import LazyLoad from "react-lazyload";
+import GoogleAds from "./googleads";
 
 const styles = makeStyles((theme) => ({
   grid: {
@@ -28,7 +29,21 @@ const EmbassyComponent = () => {
   const [fixEmbassyList, setFix] = useState(embassyAddress);
   const [embassyList, setEmbassyList] = useState(embassyAddress);
 
- //console.log(embassyList);
+  const slot = [
+    "8519630377",
+    "1584472777",
+    "2131267688",
+    "9212693114",
+    "8199828498",
+    "3061205970",
+    "4657127169",
+    "6868341620",
+    "5778637149",
+    "4242178287",
+    "5587065453",
+  ];
+
+  //console.log(embassyList);
 
   return (
     <Grid container className={classes.grid}>
@@ -43,7 +58,7 @@ const EmbassyComponent = () => {
                   value.name.toLowerCase().slice(0, 4)
                 )
               );
-            
+
               setEmbassyList(newEmbassyList);
             }
           }}
@@ -60,18 +75,22 @@ const EmbassyComponent = () => {
         />
       </Grid>
       {embassyList.map((embassy, index) => (
-        <LazyLoad
-          key={index}
-          height={300}
-          offset={800}
-          unmountIfInvisible
-          scroll
-          debounce
-        >
-          <Grid item key={index} xs={12}>
-            <EmbassyCard embassy={embassy} />
-          </Grid>
-        </LazyLoad>
+        <Box key={index}>
+          <LazyLoad
+            height={300}
+            offset={800}
+            unmountIfInvisible
+            scroll
+            debounce
+          >
+            <Grid item key={index} xs={12}>
+              <EmbassyCard embassy={embassy} />
+            </Grid>
+          </LazyLoad>
+          {index > 0 && index % 3 === 0 && (
+            <GoogleAds slot={`${slot[Math.ceil(Math.random() * 10)]}`} />
+          )}
+        </Box>
       ))}
     </Grid>
   );
