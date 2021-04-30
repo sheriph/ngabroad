@@ -75,7 +75,7 @@ const EmbassyComponent = () => {
         />
       </Grid>
       {embassyList.map((embassy, index) => (
-        <Box key={index}>
+        <div key={index}>
           <LazyLoad
             height={300}
             offset={800}
@@ -90,7 +90,7 @@ const EmbassyComponent = () => {
           {index > 0 && index % 3 === 0 && (
             <GoogleAds slot={`${slot[Math.ceil(Math.random() * 10)]}`} />
           )}
-        </Box>
+        </div>
       ))}
     </Grid>
   );
