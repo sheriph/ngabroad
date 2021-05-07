@@ -59,6 +59,26 @@ const VisaEligibilityComponent = () => {
     formState: { errors },
   } = useForm();
 
+  const getIncomeText = (income) => {
+    switch (income) {
+      case 25:
+        return "between NGN 100,000 - NGN 199,000";
+        break;
+      case 35:
+        return "between NGN 200,000 - NGN 299,000";
+        break;
+      case 45:
+        return "between NGN 300,000 - NGN 399,000";
+        break;
+      case 50:
+        return "between NGN 400,000 +";
+        break;
+      default:
+        return "";
+        break;
+    }
+  };
+
   const onSubmit = (data) => {
     setSubmitted(true);
 
@@ -203,7 +223,15 @@ const VisaEligibilityComponent = () => {
   ]);
 
   return (
-    <Box my={3}>
+    <Box my={3} pb={5}>
+      <Box pb={3}>
+        <Typography gutterBottom variant="h4" component="h2">
+          Thinking of applying for a visa soon ???
+        </Typography>
+        <Typography gutterBottom>
+          Please provide your details below to get evaluated instantly
+        </Typography>
+      </Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2} component={Paper}>
           <Grid item xs={12}>
@@ -571,7 +599,9 @@ const VisaEligibilityComponent = () => {
                       <BeenhereIcon color="secondary" />
                     </ListItemIcon>
                     <ListItemText
-                      primary={`You have stated that your monthly income is ${income}, it is your responsibility to ensure that you submit clear evidence of this fact to the consular`}
+                      primary={`You have stated that your monthly income is ${getIncomeText(
+                        income
+                      )}, it is your responsibility to ensure that you submit clear evidence of this fact to the consular`}
                     />
                   </ListItem>
                 )}
@@ -589,7 +619,13 @@ const VisaEligibilityComponent = () => {
                   </ListItem>
                 )}
             </List>
-            <Grid item spacing={5} container justify="space-between">
+            <Grid
+              style={{ paddingTop: "20px" }}
+              item
+              spacing={5}
+              container
+              justify="space-between"
+            >
               <Grid
                 xs={12}
                 sm={6}

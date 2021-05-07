@@ -5,7 +5,7 @@ import { SnackbarProvider } from "notistack";
 import { useAmp } from "next/amp";
 import VisaEligibilityComponent from "../component/visaeligibilityComponent";
 
-export const config = { amp: "hybrid" };
+export const config = { amp: false };
 
 export default function VisaEligibilityTest() {
   const isAmp = useAmp();
