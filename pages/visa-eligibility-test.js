@@ -3,7 +3,8 @@ import React from "react";
 import { SleekTheme } from "../component/themes";
 import { SnackbarProvider } from "notistack";
 import { useAmp } from "next/amp";
-import VisaEligibilityComponent from "../component/visaeligibilityComponent";
+import VisaEligibilityComponent from "../component/vetcomponent";
+
 
 export const config = { amp: false };
 
