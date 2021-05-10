@@ -78,6 +78,7 @@ const Homepage = () => {
             key={index}
             xs={12}
             sm={6}
+            style={{ cursor: "pointer" }}
           >
             <FeatureCard p1={p1} p2={p2} src={src} />
           </Grid>
@@ -100,6 +101,7 @@ const Homepage = () => {
             key={index}
             xs={12}
             sm={6}
+            style={{ cursor: "pointer" }}
           >
             <FeatureCard p1={p1} p2={p2} src={src} />
           </Grid>
