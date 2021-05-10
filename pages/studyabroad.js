@@ -18,7 +18,7 @@ export default function StudyAbroad() {
         title="Study Abroad"
         jsx={<StudyAbroadComponent isAmp={isAmp} />}
         pageTitle="Study Abroad"
-        pageDesc="Study Abroad"
+        pageDesc="Find study programs offered by universities around the world"
         pageUrl="http://naijagoingabroad.com/studyabroad"
         page={true}
         seo

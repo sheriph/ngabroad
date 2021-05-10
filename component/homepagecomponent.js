@@ -51,6 +51,11 @@ const Homepage = () => {
       p2: "Find study programs with admission and visa processing info",
       src: "/images/schoolfinder.svg",
     },
+    {
+      p1: "Visa Eligibility",
+      p2: "Get instant assessment on your eligibility for visa",
+      src: "/images/vet.svg",
+    },
   ];
   return (
     <Grid container component={Container} className={classes.container}>
@@ -88,6 +93,8 @@ const Homepage = () => {
               e.preventDefault();
               if (p1 === "Embassy Finder") router.push("/embassycontact");
               if (p1 === "School Finder") router.push("/studyabroad");
+              if (p1 === "Visa Eligibility")
+                router.push("/visa-eligibility-test");
             }}
             item
             key={index}

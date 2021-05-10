@@ -60,7 +60,6 @@ export const SleekTheme = ({
     }
   }, [null]);
 
-
   return (
     <React.Fragment>
       {page ? (
@@ -76,7 +75,7 @@ export const SleekTheme = ({
             description: { pageDesc },
             images: [
               {
-                url: "/images/favicon32.png",
+                url: "/images/icon32.png",
                 alt: "favicon",
               },
             ],

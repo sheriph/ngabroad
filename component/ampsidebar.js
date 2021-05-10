@@ -133,6 +133,14 @@ const AmpSidebar = () => {
                 <Button>Embassy Finder</Button>
               </a>
             </li>
+            <li>
+              <a
+                style={{ textDecoration: "none" }}
+                href="/visa-eligibility-test"
+              >
+                <Button>Visa Eligibility Test</Button>
+              </a>
+            </li>
           </ul>
 
           <Divider />

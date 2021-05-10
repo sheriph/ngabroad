@@ -15,6 +15,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import AssessmentIcon from "@material-ui/icons/Assessment";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import {
@@ -237,6 +238,15 @@ export default function DrawerMenu({ open, handleDrawerClose }) {
               <LocationCity />
             </ListItemIcon>
             <ListItemText primary="EMBASSY FINDER" />
+          </ListItem>
+          <ListItem
+            onClick={() => router.push("/visa-eligibility-test")}
+            button
+          >
+            <ListItemIcon>
+              <AssessmentIcon />
+            </ListItemIcon>
+            <ListItemText primary="VISA ELIGIBILITY TEST" />
           </ListItem>
         </List>
         <Divider />
