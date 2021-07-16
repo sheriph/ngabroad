@@ -63,7 +63,7 @@ export default function Article({ post }) {
 }
 
 export async function getStaticPaths() {
-  let after = "null";
+  /*   let after = "null";
   let allNodes = [];
   for (let i = 0; i < 100; i++) {
     const posts = await getAllPostsSlugs(after);
@@ -74,42 +74,48 @@ export async function getStaticPaths() {
     } else {
       break;
     }
-  }
+  } */
 
-  //console.log("allNodes", allNodes);
+  // const paths = allNodes.map((post) => ({ params: { pid: post.slug } }));
 
-  const paths = allNodes.map((post) => ({ params: { pid: post.slug } }));
-
-  return { paths, fallback: false };
+  const paths = [{ params: { pid: "america-us-student-visa-nigeria" } }];
+  return { paths, fallback: "blocking" };
 }
 
 export async function getStaticProps({ params }) {
-  // console.log("params", params);
+  try {
+    // console.log("params", params);
 
-  let post = await getSinglePost(params.pid);
-  const databaseId = post.databaseId;
-  let yarpp = [];
-  // console.log("databaseId", databaseId);
-  await axios
-    .get(
-      `https://naijagoingabroad.com.ng/wp-json/yarpp/v1/related/${databaseId}`
-    )
-    .then((response) => {
-      // console.log("yarp response", response.data);
-      yarpp = yarpp.concat(response.data);
-    })
-    .catch((err) => console.error("yarp error", err));
+    let post = await getSinglePost(params.pid);
+    const databaseId = post.databaseId;
+    let yarpp = [];
+    // console.log("databaseId", databaseId);
+    await axios
+      .get(
+        `https://naijagoingabroad.com.ng/wp-json/yarpp/v1/related/${databaseId}`
+      )
+      .then((response) => {
+        // console.log("yarp response", response.data);
+        yarpp = yarpp.concat(response.data);
+      })
+      .catch((err) => console.error("yarp error", err));
 
-  // console.log("yarp", yarpp);
+    // console.log("yarp", yarpp);
 
-  let relatedPosts = [];
+    let relatedPosts = [];
 
-  for (let i = 0; i < yarpp.length; i++) {
-    const post = await getSingleRelatedPost(yarpp[i].slug);
-    //  console.log("post", post);
-    relatedPosts.push(post);
+    for (let i = 0; i < yarpp.length; i++) {
+      const post = await getSingleRelatedPost(yarpp[i].slug);
+      //  console.log("post", post);
+      relatedPosts.push(post);
+    }
+
+    post = { ...post, relatedPosts: relatedPosts };
+    return { props: { post }, revalidate: 1 };
+  } catch (err) {
+    console.log(err);
+    return {
+      notFound: true,
+    };
   }
-
-  post = { ...post, relatedPosts: relatedPosts };
-  return { props: { post } };
 }

@@ -63,39 +63,47 @@ export async function getStaticPaths() {
 
   console.log("paths", paths);
 
-  return { paths, fallback: false };
+  return { paths, fallback: "blocking" };
 }
 
 export async function getStaticProps({ params }) {
-  const { pid } = params;
-  const start = Number(pid) * 50 - 50;
-  const end = Number(pid) * 50;
-  let after = "null";
-  let allNodes = [];
-  for (let i = 0; i < 100; i++) {
-    const posts = await getAllTitles(after);
-    allNodes = allNodes.concat(posts.nodes);
-    after = posts.pageInfo.endCursor;
-    if (posts.pageInfo.hasNextPage) {
-      continue;
-    } else {
-      break;
+  try {
+    const { pid } = params;
+    const start = Number(pid) * 50 - 50;
+    const end = Number(pid) * 50;
+    let after = "null";
+    let allNodes = [];
+    for (let i = 0; i < 100; i++) {
+      const posts = await getAllTitles(after);
+      allNodes = allNodes.concat(posts.nodes);
+      after = posts.pageInfo.endCursor;
+      if (posts.pageInfo.hasNextPage) {
+        continue;
+      } else {
+        break;
+      }
     }
+    const allTitles = allNodes.map((item) => ({
+      title: item.title,
+      slug: item.slug,
+    }));
+    const totalCount = Math.ceil(allNodes.length / 50);
+    console.log("totalCount", totalCount);
+    let paginate = allNodes.slice(start, end);
+    return {
+      props: {
+        // posts: paginate,
+        count: totalCount,
+        // allNodes: allNodes,
+        paginate: paginate,
+        allTitles: allTitles,
+      },
+      revalidate: 1,
+    };
+  } catch (err) {
+    console.log(err);
+    return {
+      notFound: true,
+    };
   }
-  const allTitles = allNodes.map((item) => ({
-    title: item.title,
-    slug: item.slug,
-  }));
-  const totalCount = Math.ceil(allNodes.length / 50);
-  console.log("totalCount", totalCount);
-  let paginate = allNodes.slice(start, end);
-  return {
-    props: {
-      // posts: paginate,
-      count: totalCount,
-      // allNodes: allNodes,
-      paginate: paginate,
-      allTitles: allTitles,
-    },
-  };
 }
