@@ -12,7 +12,6 @@ import { useAmp } from "next/amp";
 export const config = { amp: "hybrid" };
 
 export default function Article({ post }) {
-  console.log("post", post);
   const isAmp = useAmp();
   const [relatedPosts, setRelatedPosts] = useState([]);
 
