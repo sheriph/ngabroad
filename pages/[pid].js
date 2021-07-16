@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SinglePost from "../component/postcomponent";
 import { SleekTheme } from "../component/themes";
 import {
@@ -12,14 +12,16 @@ import { useAmp } from "next/amp";
 export const config = { amp: "hybrid" };
 
 export default function Article({ post }) {
+  console.log("post", post);
   const isAmp = useAmp();
+  const [relatedPosts, setRelatedPosts] = useState([]);
 
   const {
     content,
     title,
     categories: { nodes: categoryList },
-    relatedPosts,
     seo,
+    databaseId,
   } = post;
 
   let sourceUrl = "";
@@ -39,6 +41,37 @@ export default function Article({ post }) {
     width = "640";
     height = "458";
   }
+
+  const fetcher = async () => {
+    try {
+      console.log("getting yarp");
+      const yarpp = await axios.get(
+        `https://naijagoingabroad.com.ng/wp-json/yarpp/v1/related/${databaseId}`
+      );
+
+      console.log("yarp", yarpp.data);
+      const res = yarpp.data;
+
+      let relatedPosts = [];
+
+      for (let i = 0; i < res.length; i++) {
+        try {
+          const post = await getSingleRelatedPost(res[i].slug);
+          relatedPosts.push(post);
+        } catch (error) {
+          console.log("fetch post error", error);
+        }
+      }
+      console.log("relatedPosts", relatedPosts);
+      setRelatedPosts(relatedPosts);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetcher();
+  }, [null]);
 
   return (
     <SleekTheme
