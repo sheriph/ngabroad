@@ -44,12 +44,10 @@ export default function Article({ post }) {
 
   const fetcher = async () => {
     try {
-      console.log("getting yarp");
       const yarpp = await axios.get(
         `https://naijagoingabroad.com.ng/wp-json/yarpp/v1/related/${databaseId}`
       );
 
-      console.log("yarp", yarpp.data);
       const res = yarpp.data;
 
       let relatedPosts = [];
@@ -60,12 +58,14 @@ export default function Article({ post }) {
           relatedPosts.push(post);
         } catch (error) {
           console.log("fetch post error", error);
+          return;
         }
       }
       console.log("relatedPosts", relatedPosts);
       setRelatedPosts(relatedPosts);
     } catch (error) {
       console.log(error);
+      return;
     }
   };
 
@@ -95,7 +95,7 @@ export default function Article({ post }) {
 }
 
 export async function getStaticPaths() {
-  /*   let after = "null";
+  let after = "null";
   let allNodes = [];
   for (let i = 0; i < 100; i++) {
     const posts = await getAllPostsSlugs(after);
@@ -106,12 +106,11 @@ export async function getStaticPaths() {
     } else {
       break;
     }
-  } */
+  }
+  const paths = allNodes.map((post) => ({ params: { pid: post.slug } }));
 
-  // const paths = allNodes.map((post) => ({ params: { pid: post.slug } }));
-
-  const paths = [{ params: { pid: "america-us-student-visa-nigeria" } }];
-  return { paths, fallback: "blocking" };
+  // const paths = [{ params: { pid: "america-us-student-visa-nigeria" } }];
+  return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
@@ -143,7 +142,7 @@ export async function getStaticProps({ params }) {
     } */
     let relatedPosts = [];
     post = { ...post, relatedPosts: relatedPosts };
-    return { props: { post }, revalidate: 1 };
+    return { props: { post } };
   } catch (err) {
     console.log(err);
     return {
