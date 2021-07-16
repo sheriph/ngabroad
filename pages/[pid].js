@@ -1,4 +1,3 @@
-// @ts-nocheck
 import axios from "axios";
 import React from "react";
 import SinglePost from "../component/postcomponent";
@@ -87,7 +86,7 @@ export async function getStaticProps({ params }) {
     // console.log("params", params);
 
     let post = await getSinglePost(params.pid);
-    const databaseId = post.databaseId;
+    /* const databaseId = post.databaseId;
     let yarpp = [];
     // console.log("databaseId", databaseId);
     await axios
@@ -108,8 +107,8 @@ export async function getStaticProps({ params }) {
       const post = await getSingleRelatedPost(yarpp[i].slug);
       //  console.log("post", post);
       relatedPosts.push(post);
-    }
-
+    } */
+    let relatedPosts = [];
     post = { ...post, relatedPosts: relatedPosts };
     return { props: { post }, revalidate: 1 };
   } catch (err) {
