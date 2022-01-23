@@ -18,7 +18,6 @@ import {
 import { Alert } from "@mui/lab";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { usePaystackPayment } from "react-paystack";
 import { formatMoney } from "./utilityfx";
@@ -78,22 +77,8 @@ const OrderSuccess = () => {
   const classes = styles();
   const [state, setState] = useState(null);
   const router = useRouter();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    if (window !== undefined) {
-      const session = JSON.parse(window.sessionStorage.getItem("orderkeys"));
-      if (session) {
-        setState(session);
-      } else {
-        enqueueSnackbar("sorry, no order found in your browser history", {
-          variant: "error",
-        });
-        enqueueSnackbar("redirecting to the order page", { variant: "error" });
-        router.push("/interactive-order-platform");
-      }
-    }
-  }, []);
+
 
   if (!state) return <>Loading..</>;
 
