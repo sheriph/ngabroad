@@ -4,7 +4,7 @@ import { SleekTheme } from "../component/themes";
 import FourOFourComponent from "../component/404";
 import { useAmp } from "next/amp";
 
-export const config = { amp: "hybrid" };
+export const config = { amp: false };
 
 export default function FourOFour() {
   const isAmp = useAmp();
