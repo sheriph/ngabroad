@@ -9,6 +9,8 @@ import {
   Paper,
   TextField,
   Typography,
+  Autocomplete,
+  Skeleton,
 } from "@mui/material";
 import {
   LanguageOutlined,
@@ -21,7 +23,6 @@ import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import { useRecoilState } from "recoil";
-import { Autocomplete, Skeleton } from "@mui/lab";
 import { updateData } from "../component/utilityfx";
 import { schools_, isloading_ } from "../state/recoil";
 import { startCase } from "lodash";

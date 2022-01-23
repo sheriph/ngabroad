@@ -3,7 +3,7 @@ import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheets } from "@mui/styles";
 import theme from "../src/theme";
-import AmpSidebar from "../component/ampsidebar";
+//import AmpSidebar from "../component/ampsidebar";
 export default class MyDocument extends Document {
   render() {
     return (
@@ -37,7 +37,7 @@ export default class MyDocument extends Document {
           />
         </Head>
         <body>
-          <AmpSidebar />
+         {/*  <AmpSidebar /> */}
           <Main />
           <NextScript />
         </body>

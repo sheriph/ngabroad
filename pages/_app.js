@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from "react";
 import PropTypes from "prop-types";
 import Head from "next/head";
@@ -169,17 +168,13 @@ export default function MyApp(props) {
       </Head>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          {/*  <SnackbarProvider maxSnack={3}> */}
           <CookiesProvider>
             <RecoilRoot>
               <ToastContainer />
               <CssBaseline />
-              {/*   <FuegoProvider fuego={fuego}> */}
               <Component {...pageProps} />
-              {/*   </FuegoProvider> */}
             </RecoilRoot>
           </CookiesProvider>
-          {/*   </SnackbarProvider> */}
         </ThemeProvider>
       </StyledEngineProvider>
     </React.Fragment>

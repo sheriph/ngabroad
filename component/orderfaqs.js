@@ -14,7 +14,6 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { adaptV4Theme } from '@mui/material/styles';
 import {
   BookmarkBorderOutlined,
   CloseRounded,
@@ -22,7 +21,7 @@ import {
   LocalLibraryOutlined,
   LocationOnOutlined,
 } from "@mui/icons-material";
-import { Alert} from "@mui/lab";
+import { Alert } from "@mui/lab";
 import axios from "axios";
 import { Fragment, useEffect } from "react";
 import { useState } from "react";
@@ -30,11 +29,11 @@ import { useForm } from "react-hook-form";
 import ReactPlayer from "react-player/youtube";
 import { makeStyles } from "@mui/styles";
 
-const theme = createTheme(adaptV4Theme({}));
+const theme = createTheme();
 const styles = makeStyles(() => ({
   box: {
     width: "80%",
-    [theme.breakpoints.down('md')]: { width: "100%" },
+    [theme.breakpoints.down("md")]: { width: "100%" },
   },
 }));
 
@@ -49,7 +48,11 @@ export const InsuranceFaqs = ({ setOpenModal }) => {
       className={classes.box}
     >
       <Box display="flex" justifyContent="flex-end">
-        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
+        <IconButton
+          onClick={() => setOpenModal(false)}
+          color="primary"
+          size="large"
+        >
           <CloseRounded />
         </IconButton>
       </Box>
@@ -91,7 +94,11 @@ export const HotelFaqs = ({ setOpenModal }) => {
       className={classes.box}
     >
       <Box display="flex" justifyContent="flex-end">
-        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
+        <IconButton
+          onClick={() => setOpenModal(false)}
+          color="primary"
+          size="large"
+        >
           <CloseRounded />
         </IconButton>
       </Box>
@@ -138,7 +145,11 @@ export const FlightFaqs = ({ setOpenModal }) => {
       className={classes.box}
     >
       <Box display="flex" justifyContent="flex-end">
-        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
+        <IconButton
+          onClick={() => setOpenModal(false)}
+          color="primary"
+          size="large"
+        >
           <CloseRounded />
         </IconButton>
       </Box>
@@ -189,7 +200,11 @@ export const FormFaqs = ({ setOpenModal }) => {
       className={classes.box}
     >
       <Box display="flex" justifyContent="flex-end">
-        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
+        <IconButton
+          onClick={() => setOpenModal(false)}
+          color="primary"
+          size="large"
+        >
           <CloseRounded />
         </IconButton>
       </Box>
@@ -226,7 +241,11 @@ export const CoverFaqs = ({ setOpenModal }) => {
       className={classes.box}
     >
       <Box display="flex" justifyContent="flex-end">
-        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
+        <IconButton
+          onClick={() => setOpenModal(false)}
+          color="primary"
+          size="large"
+        >
           <CloseRounded />
         </IconButton>
       </Box>
@@ -285,7 +304,11 @@ export const FreeGiftsFaqs = ({ setOpenModal }) => {
       className={classes.box}
     >
       <Box display="flex" justifyContent="flex-end">
-        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
+        <IconButton
+          onClick={() => setOpenModal(false)}
+          color="primary"
+          size="large"
+        >
           <CloseRounded />
         </IconButton>
       </Box>
@@ -374,7 +397,11 @@ export const SchoolDetails = ({ setOpenModal, school }) => {
       className={classes.box}
     >
       <Box display="flex" justifyContent="space-between" mb={2}>
-        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
+        <IconButton
+          onClick={() => setOpenModal(false)}
+          color="primary"
+          size="large"
+        >
           <CloseRounded />
         </IconButton>
         <Button
@@ -649,7 +676,11 @@ export const SchoolDetails2 = ({ setOpenModal, school }) => {
       className={classes.box}
     >
       <Box display="flex" justifyContent="space-between" mb={2}>
-        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
+        <IconButton
+          onClick={() => setOpenModal(false)}
+          color="primary"
+          size="large"
+        >
           <CloseRounded />
         </IconButton>
         {programUrl && (

@@ -1,7 +1,15 @@
 // @ts-nocheck
 import React from "react";
 import { Apps } from "@mui/icons-material";
-import { AppBar, Toolbar, IconButton, Grid, Box } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Grid,
+  Box,
+  Paper,
+  Stack,
+} from "@mui/material";
 
 /* const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,12 +27,8 @@ export default function AmpHeader() {
   // const classes = useStyles();
 
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-      }}
-    >
-      <AppBar position="static">
+    <div>
+      {/* <AppBar position="static">
         <Toolbar>
           <Grid container alignItems="center" justifyContent="space-between">
             <Grid item>
@@ -54,7 +58,7 @@ export default function AmpHeader() {
             </Grid>
           </Grid>
         </Toolbar>
-      </AppBar>
-    </Box>
+      </AppBar> */}
+    </div>
   );
 }

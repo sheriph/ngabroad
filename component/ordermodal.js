@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Backdrop, Fade, createTheme, Paper } from "@mui/material";
+import { Modal, Backdrop, Fade, createTheme, Paper, Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 const theme = createTheme();
@@ -31,13 +31,13 @@ const OrderModal = ({ openModal = false, jsx = <></>, setOpenModal }) => {
       className={classes.modal}
       open={openModal}
       onClose={handleClose}
-     // BackdropComponent={Backdrop}
+      // BackdropComponent={Backdrop}
       component={Paper}
       BackdropProps={{
         timeout: 500,
       }}
     >
-      {jsx}
+      <Box>{jsx}</Box>
     </Modal>
   );
 };

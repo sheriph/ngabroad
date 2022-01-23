@@ -5,7 +5,7 @@ import StudyAbroadComponent from "../component/studyabroadcomponent";
 import { SnackbarProvider } from "notistack";
 import { useAmp } from "next/amp";
 
-export const config = { amp: "hybrid" };
+export const config = { amp: false };
 
 export default function StudyAbroad() {
   const isAmp = useAmp();

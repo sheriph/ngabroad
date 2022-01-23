@@ -53,7 +53,7 @@ const AmpSidebar = () => {
       layout="nodisplay"
       side="right"
     >
-      <div className={classes.root}>
+      {/* <div className={classes.root}>
         <Box>
           <div className={classes.drawerHeader}>
             <IconButton
@@ -202,7 +202,8 @@ const AmpSidebar = () => {
             </Grid>
           </Grid>
         </Box>
-      </div>
+      </div> */}
+      <p>hello sidebar</p>
     </amp-sidebar>
   );
 };

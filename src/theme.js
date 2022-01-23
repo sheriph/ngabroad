@@ -1,4 +1,4 @@
-import { createTheme, adaptV4Theme } from "@mui/material";
+import { createTheme } from "@mui/material";
 import { red } from "@mui/material/colors";
 
 const values = {

@@ -1,11 +1,10 @@
 import { Container, Grid, Typography, useTheme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
-
-
+import { useAmp } from "next/amp";
 
 const IntroHeader = ({ title = "", subtitle = "" }) => {
-
+  const isAmp = useAmp();
   const theme = useTheme();
   const styles = makeStyles(() => ({
     gridContainer: {
@@ -21,8 +20,8 @@ const IntroHeader = ({ title = "", subtitle = "" }) => {
       backgroundColor: theme.palette.primary.dark,
       borderRadius: "20px",
       padding: "10px",
-      width: "80%",
-      [theme.breakpoints.down('md')]: {
+      width: isAmp ? "100%" : "80%",
+      [theme.breakpoints.down("md")]: {
         width: "90%",
         height: "90%",
       },
