@@ -94,7 +94,7 @@ export default function Order() {
       case 0:
         methods.register("totalPrice");
         const hotelPrice = data.hotelReservation ? 5000 : 0;
-        const flightPrice = data.flightReservation ? 5000 : 0;
+        const flightPrice = 0;
         const insurancePrice = data.insurancePrice ? data.insurancePrice : 0;
         const formFillingPrice = data.visaForm ? 10000 : 0;
         const coverLetterPrice = data.coverLetter ? 10000 : 0;
