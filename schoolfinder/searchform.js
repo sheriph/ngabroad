@@ -1,7 +1,14 @@
-// @ts-nocheck
 import React, { useEffect, useState } from "react";
-import { Button, CircularProgress, Collapse, Container, Grid, Paper, TextField } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
+import {
+  Button,
+  CircularProgress,
+  Collapse,
+  Container,
+  Grid,
+  Paper,
+  TextField,
+} from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import {
   LanguageOutlined,
   LibraryBooksOutlined,
@@ -11,11 +18,13 @@ import {
 
 import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
-import { useSnackbar } from "notistack";
 import { useRecoilState } from "recoil";
-import { Autocomplete, Skeleton } from '@mui/material';
+import { Autocomplete, Skeleton } from "@mui/material";
 import { updateData } from "../component/utilityfx";
 import { schools_, isloading_ } from "../state/recoil";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const styles = makeStyles((theme) => ({
   /*  skeleton: {
@@ -31,7 +40,6 @@ const SearchForm = ({ isAmp }) => {
   const classes = styles();
   const { register, handleSubmit, watch, errors, control } = useForm();
   const [school, setschools] = useRecoilState(schools_);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const [isloading, setisloading] = useRecoilState(isloading_);
   const [enter, setenter] = useState(false);
@@ -42,9 +50,7 @@ const SearchForm = ({ isAmp }) => {
     setisloading(true);
     const { country, field, level } = data;
     if (country.length === 0 || field.length === 0 || level.length === 0) {
-      enqueueSnackbar("Please select options in country, field and level", {
-        variant: "error",
-      });
+      toast.error("Please select options in country, field and level");
       setisloading(false);
 
       return;
@@ -115,14 +121,13 @@ const SearchForm = ({ isAmp }) => {
               options={options[0]}
               getOptionLabel={(option) => option.country}
               onChange={(e, value, action) => {
-                if (action === "select-option") {
+                if (action === "selectOption") {
                   // getfilter();
                 }
               }}
               noOptionsText="Please select a country from the list"
               renderInput={(params) => (
                 <TextField
-                  component={Paper}
                   // className={classes.textField}
                   {...params}
                   label="Select a Country"
@@ -147,13 +152,12 @@ const SearchForm = ({ isAmp }) => {
                 .filter((item) => item.level !== "Others")}
               getOptionLabel={(option) => option.level}
               onChange={(e, value, action) => {
-                if (action === "select-option") {
+                if (action === "selectOption") {
                 }
               }}
               noOptionsText="Please Select a Field of Study"
               renderInput={(params) => (
                 <TextField
-                  component={Paper}
                   // className={classes.textField}
                   {...params}
                   label="Select a Field"
@@ -170,13 +174,12 @@ const SearchForm = ({ isAmp }) => {
               options={getDegreeOptions(options[2])}
               getOptionLabel={(option) => option.academiclevel}
               onChange={(e, value, action) => {
-                if (action === "select-option") {
+                if (action === "selectOption") {
                 }
               }}
               noOptionsText="Please select a level from the list"
               renderInput={(params) => (
                 <TextField
-                  component={Paper}
                   // className={classes.textField}
                   {...params}
                   label="Select a Level"

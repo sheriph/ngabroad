@@ -5,7 +5,7 @@ import {
   Paper,
   TextField,
 } from "@mui/material";
-import { Autocomplete, Skeleton } from "@mui/lab";
+import { Autocomplete, Skeleton } from "@mui/material";
 import React, { useState } from "react";
 import EmbassyCard from "./embassycard";
 import { countriesWithEmbassyInNigeria, embassyAddress } from "./embassyfinder";

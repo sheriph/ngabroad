@@ -76,7 +76,7 @@ const StudyAbroadComponent = ({ isAmp }) => {
         />
       )}
       <Grid container className={classes.grid}>
-        <Grid item container spacing={2} justify="center" xs={12}>
+        <Grid item container spacing={2} justifyContent="center" xs={12}>
           <Grid item xs={12}>
             {/* <StudyTab
               searchForm={<SearchForm />}
@@ -96,7 +96,7 @@ const StudyAbroadComponent = ({ isAmp }) => {
                   item
                   container
                   spacing={3}
-                  justify="center"
+                  justifyContent="center"
                   style={{ marginTop: "30px" }}
                 >
                   {schools.map((school, index) => (
@@ -134,7 +134,7 @@ const StudyAbroadComponent = ({ isAmp }) => {
                 item
                 container
                 spacing={3}
-                justify="center"
+                justifyContent="center"
                 style={{
                   marginTop: "30px",
                   marginBottom: "30px",
@@ -151,7 +151,7 @@ const StudyAbroadComponent = ({ isAmp }) => {
             )}
           </React.Fragment>
         ) : (
-          <Grid item container justify="center" style={{ marginTop: "40px" }}>
+          <Grid item container justifyContent="center" style={{ marginTop: "40px" }}>
             <Grid item xs={12} sm={6}>
               {isAmp ? (
                 <amp-img

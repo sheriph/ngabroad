@@ -13,15 +13,12 @@ import {
   Skeleton,
 } from "@mui/material";
 import {
-  LanguageOutlined,
-  LibraryBooksOutlined,
-  SchoolOutlined,
+
   SearchOutlined,
 } from "@mui/icons-material";
 
 import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
-import { useSnackbar } from "notistack";
 import { useRecoilState } from "recoil";
 import { updateData } from "../component/utilityfx";
 import { schools_, isloading_ } from "../state/recoil";
@@ -38,7 +35,6 @@ const SearchForm2 = ({ isAmp }) => {
   const classes = styles();
   const { register, handleSubmit, watch, errors, control } = useForm();
   const [school, setschools] = useRecoilState(schools_);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const [isloading, setisloading] = useRecoilState(isloading_);
   const [enter, setenter] = useState(false);

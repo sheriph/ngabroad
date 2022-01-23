@@ -5,11 +5,7 @@ import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "../src/theme";
 import { RecoilRoot } from "recoil";
-import "firebase/firestore";
-import "firebase/auth";
 import { CookiesProvider } from "react-cookie";
-/* import { Fuego, FuegoProvider } from "@nandorojo/swr-firestore";
-import { SnackbarProvider } from "notistack"; */
 import { useAmp } from "next/amp";
 import { useRouter } from "next/router";
 import * as ga from "../lib/ga";

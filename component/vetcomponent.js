@@ -31,10 +31,9 @@ import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
 import { startCase } from "lodash";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import { useSnackbar } from "notistack";
 import { makeStyles } from "@mui/styles";
 
-const theme = createTheme(adaptV4Theme({}));
+const theme = createTheme();
 
 const styles = makeStyles(() => ({
   emailInput: {
@@ -53,7 +52,6 @@ const styles = makeStyles(() => ({
   },
 }));
 const VisaEligibilityComponent = () => {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const {
     control,
