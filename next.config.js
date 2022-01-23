@@ -12,10 +12,18 @@ const nextConfig = {
     ],
   },
   env: {
-    DB_HOST: process.env.NEXT_PUBLIC_DB_HOST,
-    DB_USER: process.env.NEXT_PUBLIC_DB_USER,
-    DB_PASSWORD: process.env.NEXT_PUBLIC_DB_PASSWORD,
-    DB: process.env.NEXT_PUBLIC_DB,
+    DB_HOST: process.env.DB_HOST,
+    DB_USER: process.env.DB_USER,
+    DB_PASSWORD: process.env.DB_PASSWORD,
+    DB: process.env.DB,
+    NEXT_PUBLIC_SERVICE_ID: process.env.NEXT_PUBLIC_SERVICE_ID,
+    NEXT_PUBLIC_TEMPLATE_ID_CONTACT_FORM:
+      process.env.NEXT_PUBLIC_TEMPLATE_ID_CONTACT_FORM,
+    NEXT_PUBLIC_EMAILJS_USER_ID: process.env.NEXT_PUBLIC_EMAILJS_USER_ID,
+    MONGODB_URI: process.env.MONGODB_URI,
+    NEXT_PUBLIC_DB_PUBLIC_KEY: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+    NEXT_PUBLIC_TEMPLATE_ID_ORDER_FORM:
+      process.env.NEXT_PUBLIC_TEMPLATE_ID_ORDER_FORM,
   },
 };
 

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   Box,
   Button,
@@ -11,71 +10,23 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  makeStyles,
   TextField,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import Image from "next/image";
-import SendIcon from "@material-ui/icons/Send";
-import FavoriteOutlinedIcon from "@material-ui/icons/FavoriteOutlined";
+import SendIcon from "@mui/icons-material/Send";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import CancelPresentationOutlinedIcon from "@material-ui/icons/CancelPresentationOutlined";
+import CancelPresentationOutlinedIcon from "@mui/icons-material/CancelPresentationOutlined";
 import { useRecoilState } from "recoil";
 import { isDialogOpen_ } from "../state/recoil";
 import axios from "axios";
 
-const styles = makeStyles((theme) => ({
-  grid1: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.getContrastText(theme.palette.primary.main),
-    minHeight: "180px",
-  },
-  grid2: {
-    minHeight: "180px",
-  },
-  grid3: {
-    minHeight: "180px",
-    display: "flex",
-    alignItems: "center",
-  },
-  grid4: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.getContrastText(theme.palette.primary.main),
-    minHeight: "180px",
-  },
-  button: {
-    // backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.getContrastText(theme.palette.primary.main),
-    height: "55px",
-    maxWidth: "350px",
-  },
-  loveIcon: {
-    color: theme.palette.secondary.main,
-  },
-  listIcon: {
-    minWidth: "30px",
-  },
-  input: {
-    backgroundColor: "white",
-    maxWidth: "350px",
-  },
-  inputText: {
-    color: theme.palette.text.primary,
-  },
-  inputprops: {
-    color: theme.palette.text.primary,
-    textAlign: "center",
-  },
-  cancelIcon: {
-    position: "absolute",
-   /*  top: "-18px",
-    right: "-15px", */
-  },
-}));
+
 
 const Newsletter = () => {
-  const classes = styles();
+  //  const classes = styles();
   const [isloading, setLoading] = useState(false);
   const [isSubscribed, setSubscribed] = useState(false);
   const { register, handleSubmit } = useForm();
@@ -100,7 +51,13 @@ const Newsletter = () => {
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-      <Grid container justify="flex-end" className={classes.cancelIcon}>
+      <Grid
+        container
+        justifyContent="flex-end"
+        sx={{
+          position: "absolute",
+        }}
+      >
         <Grid item>
           <IconButton
             onClick={() => setModalOpen(false)}
@@ -113,19 +70,24 @@ const Newsletter = () => {
       </Grid>
       <Grid
         container
-        justify="center"
+        justifyContent="center"
         alignContent="center"
         alignItems="center"
       >
-        <Hidden xsDown>
+        <Hidden mdDown>
           <Grid item sm={4} container>
             <Grid
               xs={12}
               container
-              justify="center"
+              justifyContent="center"
               alignContent="center"
               item
-              className={classes.grid1}
+              sx={{
+                backgroundColor: "primary.main",
+                color: (theme) =>
+                  theme.palette.getContrastText(theme.palette.primary.main),
+                minHeight: "180px",
+              }}
             >
               <Grid item>
                 <Image
@@ -139,11 +101,13 @@ const Newsletter = () => {
             </Grid>
             <Grid
               container
-              justify="center"
+              justifyContent="center"
               alignContent="center"
               xs={12}
               item
-              className={classes.grid2}
+              sx={{
+                minHeight: "180px",
+              }}
             >
               <Grid item>
                 <Typography align="center" variant="h5">
@@ -153,24 +117,43 @@ const Newsletter = () => {
             </Grid>
           </Grid>
         </Hidden>
-        <Grid item xs={12} sm={8} justify="center" container>
-          <Grid item className={classes.grid3}>
+        <Grid item xs={12} sm={8} justifyContent="center" container>
+          <Grid
+            item
+            sx={{
+              minHeight: "180px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             <Box>
               <Typography>Receive Latest Travel Tips</Typography>
               <List component="nav" aria-label="main mailbox folders">
                 <ListItem dense>
-                  <ListItemIcon classes={{ root: classes.listIcon }}>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: "30px",
+                    }}
+                  >
                     <FavoriteOutlinedIcon
-                      className={classes.loveIcon}
+                      sx={{
+                        color: (theme) => theme.palette.secondary.main,
+                      }}
                       fontSize="small"
                     />
                   </ListItemIcon>
                   <ListItemText primary="Visa and Immigration" />
                 </ListItem>
                 <ListItem dense>
-                  <ListItemIcon classes={{ root: classes.listIcon }}>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: "30px",
+                    }}
+                  >
                     <FavoriteOutlinedIcon
-                      className={classes.loveIcon}
+                      sx={{
+                        color: (theme) => theme.palette.secondary.main,
+                      }}
                       fontSize="small"
                     />
                   </ListItemIcon>
@@ -181,10 +164,15 @@ const Newsletter = () => {
           </Grid>
           <Grid
             // spacing={2}
-            justify="center"
+            justifyContent="center"
             alignContent="center"
             item
-            className={classes.grid4}
+            sx={{
+              backgroundColor: (theme) => theme.palette.primary.main,
+              color: (theme) =>
+                theme.palette.getContrastText(theme.palette.primary.main),
+              minHeight: "180px",
+            }}
             container
           >
             <Grid
@@ -206,10 +194,20 @@ const Newsletter = () => {
                   variant="outlined"
                   //   label="Email"
                   placeholder="Enter your email"
-                  className={classes.input}
-                  InputProps={{ classes: { input: classes.inputprops } }}
+                  //  className={classes.input}
+                  sx={{
+                    backgroundColor: "white",
+                    maxWidth: "350px",
+                  }}
+                  InputProps={{
+                    sx: {
+                      color: "text.primary",
+                      textAlign: "center",
+                    },
+                  }}
                   InputLabelProps={{
-                    classes: { outlined: classes.inputText },
+                    // classes: { outlined: classes.inputText },
+                    sx: { color: "text.primary" },
                   }}
                 />
               )}
@@ -229,7 +227,12 @@ const Newsletter = () => {
                 </Typography>
               ) : (
                 <Button
-                  className={classes.button}
+                  sx={{
+                    color: (theme) =>
+                      theme.palette.getContrastText(theme.palette.primary.main),
+                    height: "55px",
+                    maxWidth: "350px",
+                  }}
                   type="submit"
                   disableElevation
                   fullWidth

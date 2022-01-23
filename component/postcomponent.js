@@ -1,8 +1,8 @@
 // @ts-nocheck
-import { Box, Container, Grid, Typography } from "@material-ui/core";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReactHtmlParser, { processNodes } from "react-html-parser";
 import AdblockNotifications from "./adsblockernotification";
 import GoogleAds from "./googleads";
@@ -11,21 +11,14 @@ import Modal2 from "./modal2";
 const BlogCard = dynamic(() => import("./blogcard"));
 
 const SinglePost = (props) => {
-  const {
-    content,
-    relatedPosts,
-    isAmp,
-    sourceUrl,
-    altText,
-    width,
-    height,
-  } = props;
+  const { content, relatedPosts, isAmp, sourceUrl, altText, width, height } =
+    props;
 
   const transform = (node, index) => {
     if (node.type === "tag" && node.name === "h2") {
       return (
         <Typography
-          style={{ marginTop: "15px", marginBottom: "15px" }}
+          sx={{ marginTop: "15px", marginBottom: "15px" }}
           variant="h5"
           align="center"
           component="h2"
@@ -152,9 +145,9 @@ const SinglePost = (props) => {
           <Image
             src={src}
             alt={alt}
-            width={width}
-            height={height}
-            layout="intrinsic"
+            width="auto"
+            height="auto"
+            layout="responsive"
           />
         </Box>
       );
@@ -210,7 +203,6 @@ const SinglePost = (props) => {
   };
   const [open, setOpen] = useState(false);
 
- 
   return (
     <Container disableGutters style={{ marginTop: "20px" }}>
       {!isAmp && (
@@ -220,7 +212,12 @@ const SinglePost = (props) => {
       )}
       <Grid container>
         {isAmp ? (
-          <Grid item container justify="center" style={{ display: "block" }}>
+          <Grid
+            item
+            container
+            justifyContent="center"
+            style={{ display: "block" }}
+          >
             <Grid item>
               <amp-img
                 src={sourceUrl}
@@ -232,7 +229,7 @@ const SinglePost = (props) => {
             </Grid>
           </Grid>
         ) : (
-          <Grid item container justify="center">
+          <Grid item container justifyContent="center">
             <Grid item>
               <Image
                 src={sourceUrl}
@@ -245,10 +242,6 @@ const SinglePost = (props) => {
           </Grid>
         )}
         <Grid item xs={12}>
-          {/* <Box
-            className={classes.root}
-            dangerouslySetInnerHTML={{ __html: content }}
-          /> */}
           {ReactHtmlParser(content, options)}
         </Grid>
 
@@ -257,7 +250,7 @@ const SinglePost = (props) => {
           container
           spacing={5}
           style={{ marginTop: "30px", marginBottom: "40px" }}
-          justify="center"
+          justifyContent="center"
         >
           {relatedPosts.length > 0 && (
             <Grid item xs={12}>

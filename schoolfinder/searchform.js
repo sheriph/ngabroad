@@ -1,27 +1,19 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  CircularProgress,
-  Collapse,
-  Container,
-  Grid,
-  makeStyles,
-  Paper,
-  TextField,
-} from "@material-ui/core";
+import { Button, CircularProgress, Collapse, Container, Grid, Paper, TextField } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
 import {
   LanguageOutlined,
   LibraryBooksOutlined,
   SchoolOutlined,
   SearchOutlined,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 
 import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import { useRecoilState } from "recoil";
-import { Autocomplete, Skeleton } from "@material-ui/lab";
+import { Autocomplete, Skeleton } from '@mui/material';
 import { updateData } from "../component/utilityfx";
 import { schools_, isloading_ } from "../state/recoil";
 
@@ -99,9 +91,9 @@ const SearchForm = ({ isAmp }) => {
 
   if (!options)
     return (
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         <Grid item component={Paper} xs={12}>
-          <Skeleton animation="wave" variant="rect" height={140} />
+          <Skeleton animation="wave" variant="rectangular" height={140} />
         </Grid>
       </Grid>
     );

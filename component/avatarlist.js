@@ -7,16 +7,9 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  makeStyles,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import React from "react";
-
-const styles = makeStyles((theme) => ({
-  itemAvatarRoot: {
-    //  textAlign: "-webkit-right",
-  },
-}));
 
 const AvatarList = ({
   primaryText = "",
@@ -26,17 +19,13 @@ const AvatarList = ({
   listChildren = <></>,
   variant = "rounded",
 }) => {
-  const classes = styles();
   return (
     <Container disableGutters>
       <Grid container>
         <Grid item xs={12}>
           <List>
             <ListItem>
-              <ListItemAvatar
-                style={{ minWidth: "30px" }}
-                className={classes.itemAvatarRoot}
-              >
+              <ListItemAvatar sx={{}}>
                 <Avatar
                   children={listChildren}
                   style={avatarStyle}

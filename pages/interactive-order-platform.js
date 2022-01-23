@@ -1,19 +1,13 @@
-// @ts-nocheck
 import React from "react";
-import { Container, makeStyles } from "@material-ui/core";
-import Footer from "../component/footer";
 import { SleekTheme } from "../component/themes";
-import Homepage from "../component/homepagecomponent";
 import Order from "../component/order";
 import { SnackbarProvider } from "notistack";
 
-const styles = makeStyles((theme) => ({
-  baseContainer: {
-    backgroundColor: theme.palette.primary.main,
-  },
-}));
 
 export default function OrderPage() {
+  const [selectedOrders, setOrderSelected] = React.useState(null);
+  console.log("selectedOrders", selectedOrders);
+
   return (
     <SnackbarProvider maxSnack={3}>
       <SleekTheme
@@ -24,6 +18,7 @@ export default function OrderPage() {
         page={true}
         pageDesc="Order your travel documents here"
         pageUrl="http://naijagoingabroad.com/interactive-order-platform"
+        isAmp={undefined}
       />
     </SnackbarProvider>
   );

@@ -1,20 +1,19 @@
-// @ts-nocheck
 import {
   Box,
   Container,
   Grid,
-  makeStyles,
   Paper,
   TextField,
-} from "@material-ui/core";
-import { Autocomplete, Skeleton } from "@material-ui/lab";
+} from "@mui/material";
+import { Autocomplete, Skeleton } from "@mui/lab";
 import React, { useState } from "react";
 import EmbassyCard from "./embassycard";
 import { countriesWithEmbassyInNigeria, embassyAddress } from "./embassyfinder";
 import LazyLoad from "react-lazyload";
 import GoogleAds from "./googleads";
+import { makeStyles } from "@mui/styles";
 
-const styles = makeStyles((theme) => ({
+const styles = makeStyles(() => ({
   grid: {
     marginTop: "20px",
     marginBottom: "30px",
@@ -52,9 +51,10 @@ const EmbassyComponent = () => {
           options={countriesWithEmbassyInNigeria}
           getOptionLabel={(option) => option.name}
           onChange={(e, value, action) => {
-            if (action === "select-option") {
+            if (action === "selectOption") {
               const newEmbassyList = fixEmbassyList.filter((item) =>
                 item.Title.toLowerCase().includes(
+                  // @ts-ignore
                   value.name.toLowerCase().slice(0, 4)
                 )
               );
@@ -65,8 +65,6 @@ const EmbassyComponent = () => {
           noOptionsText="No embassy found for the country entered"
           renderInput={(params) => (
             <TextField
-              component={Paper}
-              className={classes.textField}
               {...params}
               label="Enter a Country Name ..."
               variant="outlined"

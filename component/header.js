@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   Backdrop,
   Button,
@@ -6,43 +5,17 @@ import {
   Container,
   Grid,
   Hidden,
-  makeStyles,
-} from "@material-ui/core";
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Apps } from "@material-ui/icons";
+import Apps from "@mui/icons-material/Apps";
 import Image from "next/image";
 import DrawerMenu from "./drawermenu";
 import AppHeader from "./appheader";
 import Link from "next/link";
 
-const styles = makeStyles((theme) => ({
-  buttonbase: {
-    color: theme.palette.getContrastText(theme.palette.primary.main),
-    textTransform: "none",
-  },
-  secondarymenu: {
-    backgroundColor: theme.palette.primary.dark,
-    width: "max-content",
-    borderRadius: "5px",
-    marginBottom: "10px",
-  },
-  primaryHeader: {
-    //   width: "max-content",
-  },
-  primaryHeaderButton: {
-    color: theme.palette.getContrastText(theme.palette.primary.main),
-  },
-  svgroot: {
-    transform: "rotate(90deg)",
-  },
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-  },
-}));
-
 const MyHeader = () => {
   const [open, setOpen] = useState(false);
-  const classes = styles();
+  // const classes = styles();
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -52,7 +25,7 @@ const MyHeader = () => {
 
   useEffect(() => {
     if (
-      window !== "undefined" &&
+      window !== undefined &&
       window.location.href.includes("openmenu=true")
     ) {
       setOpen(true);
@@ -63,27 +36,31 @@ const MyHeader = () => {
     <Container disableGutters>
       <DrawerMenu
         open={open}
+        // @ts-ignore
         handleDrawerOpen={handleDrawerOpen}
         handleDrawerClose={handleDrawerClose}
       />
       <Backdrop
-        className={classes.backdrop}
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
         open={open}
         onClick={handleDrawerClose}
       />
-      <Hidden xsDown>
+      <Hidden smDown>
         <Container>
-          <Grid container justify="flex-end">
+          <Grid container justifyContent="flex-end">
             <Grid
               item
               container
+              spacing={2}
               alignItems="center"
-              className={classes.primaryHeader}
+              //  className={classes.primaryHeader}
             >
               <Grid item xs>
                 <Link href="/">
                   <ButtonBase
-                    className={classes.primaryHeaderButton}
+                    // className={classes.primaryHeaderButton}
                     component={Button}
                     startIcon={
                       <Image
@@ -101,26 +78,28 @@ const MyHeader = () => {
               <Grid item>
                 <Link passHref href="/">
                   <ButtonBase
-                    className={classes.primaryHeaderButton}
+                    sx={{ color: "white !important" }}
                     component={Button}
                   >
                     HOME
                   </ButtonBase>
                 </Link>
               </Grid>
+
               <Grid item>
                 <Link passHref href="/articles">
                   <ButtonBase
-                    className={classes.primaryHeaderButton}
+                    sx={{ color: "white !important" }}
                     component={Button}
                   >
                     ARTICLES
                   </ButtonBase>
                 </Link>
               </Grid>
+
               <Grid item>
                 <ButtonBase
-                  className={classes.primaryHeaderButton}
+                  sx={{ color: "white !important" }}
                   component={Button}
                   variant="outlined"
                   color="secondary"

@@ -1,17 +1,10 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
-import { Autocomplete } from "@material-ui/lab";
-import { Divider, TextField } from "@material-ui/core";
-import { countries } from "./insuranceprice";
-import { Grid } from "@material-ui/core";
+import { Autocomplete, createTheme, Divider, Grid, TextField } from "@mui/material";
 import { useRouter } from "next/router";
+import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles((theme) => ({
+const theme = createTheme();
+const useStyles = makeStyles(() => ({
   root: {
     padding: "2px 4px",
     display: "flex",
@@ -32,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     width: "400px",
-    [theme.breakpoints.down("xs")]: { width: "300px" },
+    [theme.breakpoints.down('md')]: { width: "300px" },
   },
 }));
 
@@ -47,7 +40,7 @@ export default function SearchForm({ allTitles }) {
           options={allTitles}
           getOptionLabel={(option) => option.title}
           onChange={(e, value, action) => {
-            if (action === "select-option")
+            if (action === "selectOption")
               router.push(`/${encodeURIComponent(value.slug)}`);
           }}
           noOptionsText="No article matching your query found"

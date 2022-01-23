@@ -1,13 +1,9 @@
-// @ts-nocheck
-import { makeStyles } from "@material-ui/core";
 import React from "react";
 import ArticleComponent from "../../component/articlecomponent";
 import { useRouter } from "next/router";
 
 import { SleekTheme } from "../../component/themes";
 import { getAllPosts, getAllPostsSlugs, getAllTitles } from "../../lib/api";
-
-const styles = makeStyles((theme) => ({}));
 
 export default function ({ paginate, count, allTitles }) {
   const router = useRouter();
@@ -28,6 +24,7 @@ export default function ({ paginate, count, allTitles }) {
       }
       pageTitle="Articles"
       page={true}
+      isAmp={undefined}
     />
   );
 }

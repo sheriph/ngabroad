@@ -1,24 +1,18 @@
 // @ts-nocheck
 import {
+  Box,
   Button,
   Divider,
   Grid,
-  makeStyles,
   Paper,
+  Stack,
   Typography,
-} from "@material-ui/core";
-import { BookmarksOutlined, MoreOutlined } from "@material-ui/icons";
+} from "@mui/material";
+import { BookmarksOutlined, MoreOutlined } from "@mui/icons-material";
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
-
-const styles = makeStyles((theme) => ({
-  buttoncategory: {
-    backgroundColor: theme.palette.primary.light,
-    opacity: "0.7",
-    color: theme.palette.getContrastText(theme.palette.primary.light),
-  },
-}));
+import { lowerCase, startCase } from "lodash";
 
 const BlogCard = ({
   isAmp,
@@ -30,11 +24,9 @@ const BlogCard = ({
   height,
   categoryList,
 }) => {
-  const classes = styles();
-
   return (
-    <Grid component={Paper} container spacing={2}>
-      <Grid item container style={{ position: "relative", display: "block" }}>
+    <Stack component={Paper} sx={{ mb: 5 }} spacing={2}>
+      <Stack sx={{}}>
         {isAmp ? (
           <amp-img
             src={sourceUrl}
@@ -44,49 +36,35 @@ const BlogCard = ({
             alt={altText}
           ></amp-img>
         ) : (
-          <span style={{ maxHeight: "450px" }}>
-            <Image
-              src={sourceUrl}
-              alt={altText}
-              width={width}
-              height={height}
-              layout="intrinsic"
-            />
-          </span>
+          <Image
+            src={sourceUrl}
+            alt={altText}
+            width="auto"
+            height="auto"
+            layout="responsive"
+          />
         )}
         <Button
           size="small"
-          variant="text"
+          variant="contained"
+          disableElevation
           // color="primary"
-
-          className={classes.buttoncategory}
+          sx={{ position: "absolute", fontSize: "10px" }}
           startIcon={<BookmarksOutlined />}
-          style={{
-            position: "absolute",
-            top: "10px",
-            left: "10px",
-            textTransform: "none",
-            fontSize: "8px",
-            borderRadius: "0",
-          }}
         >
-          {categoryList.map((category) => category.name).toString()}
+          {categoryList.map((category) =>
+            startCase(lowerCase(category.name).toString())
+          )}
         </Button>
-      </Grid>
-      <Grid
-        item
-        container
+      </Stack>
+      <Stack
         spacing={2}
-        style={{ paddingLeft: "10px", paddingRight: "10px" }}
+        divider={<Divider orientation="horizontal" flexItem />}
       >
-        <Grid item xs={12} style={{ paddingLeft: "15px" }}>
-          <Typography>{title}</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Divider />
-        </Grid>
-        <Grid item container>
-          <Grid item>
+        <Typography sx={{ px: 2, height: "50px" }}>{title}</Typography>
+
+        <Stack>
+          <Stack>
             {isAmp ? (
               <a
                 style={{ textDecoration: "none" }}
@@ -122,10 +100,10 @@ const BlogCard = ({
                 </Button>
               </Link>
             )}
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+          </Stack>
+        </Stack>
+      </Stack>
+    </Stack>
   );
 };
 

@@ -1,26 +1,11 @@
 import React from "react";
-import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import AssessmentIcon from "@material-ui/icons/Assessment";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import { makeStyles } from "@mui/styles";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+
 import {
   AccountBalanceOutlined,
-  ContactSupportOutlined,
   DescriptionOutlined,
   EmailOutlined,
   ExpandLess,
@@ -30,86 +15,92 @@ import {
   NotesOutlined,
   PhoneOutlined,
   SchoolOutlined,
-  StarBorder,
-} from "@material-ui/icons";
-import { useRecoilState } from "recoil";
-import { drawerOpen_ } from "../state/recoil";
+} from "@mui/icons-material";
+import { useRouter } from "next/router";
 import {
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
   Box,
   Button,
   ButtonBase,
   Collapse,
   Grid,
   ListSubheader,
-} from "@material-ui/core";
-import { useRouter } from "next/router";
+  useTheme,
+} from "@mui/material";
 
 const drawerWidth = 300;
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: drawerWidth,
-  },
-  title: {
-    flexGrow: 1,
-  },
-  hide: {
-    display: "none",
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-    zIndex: theme.zIndex.drawer + 2,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-start",
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginRight: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: 0,
-  },
-  nested: {
-    paddingLeft: theme.spacing(8),
-  },
-}));
-
 export default function DrawerMenu({ open, handleDrawerClose }) {
-  const classes = useStyles();
   const theme = useTheme();
+  const useStyles = makeStyles(() => ({
+    root: {
+      display: "flex",
+    },
+    appBar: {
+      transition: theme.transitions.create(["margin", "width"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+    appBarShift: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(["margin", "width"], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginRight: drawerWidth,
+    },
+    title: {
+      flexGrow: 1,
+    },
+    hide: {
+      display: "none",
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+      zIndex: theme.zIndex.drawer + 2,
+    },
+    drawerPaper: {
+      width: drawerWidth,
+    },
+    drawerHeader: {
+      display: "flex",
+      alignItems: "center",
+      padding: theme.spacing(0, 1),
+      // necessary for content to be below app bar
+      ...theme.mixins.toolbar,
+      justifyContent: "flex-start",
+    },
+    content: {
+      flexGrow: 1,
+      padding: theme.spacing(3),
+      transition: theme.transitions.create("margin", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      marginRight: -drawerWidth,
+    },
+    contentShift: {
+      transition: theme.transitions.create("margin", {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginRight: 0,
+    },
+    nested: {
+      paddingLeft: theme.spacing(8),
+    },
+  }));
+  
+  const classes = useStyles();
+
   const [openVisa, setOpenVisa] = React.useState(true);
 
   const handleClick = () => {
@@ -152,7 +143,7 @@ export default function DrawerMenu({ open, handleDrawerClose }) {
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose} size="large">
             {theme.direction === "rtl" ? (
               <ChevronLeftIcon />
             ) : (

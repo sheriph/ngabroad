@@ -4,25 +4,26 @@ import {
   Container,
   Divider,
   Grid,
-  makeStyles,
   Paper,
   Typography,
-} from "@material-ui/core";
-import { EditOutlined } from "@material-ui/icons";
+} from "@mui/material";
+import { EditOutlined } from "@mui/icons-material";
 import React, { useState } from "react";
 import EditEmbassy from "./editembassy";
 import OrderModal from "./ordermodal";
+import { makeStyles } from "@mui/styles";
 
-const styles = makeStyles((theme) => ({
-  paper: {
-    paddingTop: "10px",
-    paddingBottom: "10px",
-    marginTop: "10px",
-    marginBottom: "10px",
-  },
-}));
+
 
 const EmbassyCard = ({ embassy }) => {
+  const styles = makeStyles(() => ({
+    paper: {
+      paddingTop: "10px",
+      paddingBottom: "10px",
+      marginTop: "10px",
+      marginBottom: "10px",
+    },
+  }));
   const classes = styles();
   const {
     Title: title,

@@ -1,9 +1,5 @@
-// @ts-nocheck
 import React, { useEffect } from "react";
-//import MyHeader from "./header";
-import { Container, makeStyles } from "@material-ui/core";
-//import Footer from "./footer";
-//import IntroHeader from "./introheader";
+import { Container } from "@mui/material";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import AmpHeader from "./ampheader";
@@ -16,29 +12,20 @@ import { useCookies } from "react-cookie";
 import { useRecoilState } from "recoil";
 import { isDialogOpen_ } from "../state/recoil";
 
-//const NextSeo = import("next-seo");
 
-const styles = makeStyles((theme) => ({
-  baseContainer: {
-    backgroundColor: theme.palette.primary.main,
-  },
-  ampheader: {
-    backgroundColor: theme.palette.primary.main,
-  },
-}));
 
 export const SleekTheme = ({
   pageTitle = "",
   jsx = <></>,
   title = "",
   subtitle = "",
-  seo = {},
+  seo = null,
   page = null,
   pageDesc = "",
   pageUrl = "",
   isAmp,
 }) => {
-  const classes = styles();
+ // const classes = styles();
 
   const [cookies, setCookie] = useCookies(["ngabroadoptin"]);
   const [isModalOpen, setModalOpen] = useRecoilState(isDialogOpen_);
@@ -63,6 +50,7 @@ export const SleekTheme = ({
   return (
     <React.Fragment>
       {page ? (
+        // @ts-ignore
         <NextSeo
           title={pageTitle}
           titleTemplate="%s | NGabroad"
@@ -95,23 +83,23 @@ export const SleekTheme = ({
         />
       ) : (
         <NextSeo
-          title={seo.title || ""}
+          title={seo?.title || ""}
           titleTemplate="%s | NGabroad"
-          description={seo.metaDesc || ""}
-          canonical={seo.canonical || ""}
+          description={seo?.metaDesc || ""}
+          canonical={seo?.canonical || ""}
           openGraph={{
-            url: `${seo.opengraphUrl || ""}`,
+            url: `${seo?.opengraphUrl || ""}`,
             type: "website",
             locale: "en_NG",
-            title: `${seo.opengraphTitle || ""}`,
-            description: `${seo.opengraphDescription || ""}`,
+            title: `${seo?.opengraphTitle || ""}`,
+            description: `${seo?.opengraphDescription || ""}`,
             images: [
               {
-                url: `${seo.opengraphImage?.sourceUrl || ""}`,
-                alt: `${seo.opengraphImage?.altText || ""}`,
+                url: `${seo?.opengraphImage?.sourceUrl || ""}`,
+                alt: `${seo?.opengraphImage?.altText || ""}`,
               },
             ],
-            site_name: `${seo.opengraphSiteName || ""}`,
+            site_name: `${seo?.opengraphSiteName || ""}`,
           }}
           twitter={{
             handle: "@ng_abroad",
@@ -127,7 +115,9 @@ export const SleekTheme = ({
         />
       )}
       <Container
-        className={classes.baseContainer}
+        sx={{
+          backgroundColor: "primary.main",
+        }}
         disableGutters
         maxWidth={false}
       >
@@ -136,13 +126,17 @@ export const SleekTheme = ({
       </Container>
       <Container>{jsx}</Container>
       <Container
-        className={classes.baseContainer}
+        sx={{
+          backgroundColor: "primary.main",
+        }}
         disableGutters
         maxWidth={false}
       >
         <Footer isAmp={isAmp} />
       </Container>
-      {!isAmp && <Modal jsx={<Newsletter />} />}
+      {!isAmp && <Modal 
+// @ts-ignore
+      jsx={<Newsletter />} />}
     </React.Fragment>
   );
 };

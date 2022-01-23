@@ -6,9 +6,8 @@ import {
   Box,
   Collapse,
   Grid,
-  makeStyles,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useRecoilValue } from "recoil";
 import SearchForm from "../schoolfinder/searchform";
 import { schools_, isloading_, allUni_ } from "../state/recoil";
@@ -18,14 +17,15 @@ import ResultCard2 from "./resultcard2";
 import React, { useState } from "react";
 import OrderModal from "./ordermodal";
 import { SchoolDetails, SchoolDetails2 } from "./orderfaqs";
-import { ExpandMoreOutlined } from "@material-ui/icons";
+import { ExpandMoreOutlined } from "@mui/icons-material";
 import LinearBuffer from "../schoolfinder/bufferprogress";
 import StudyTab from "./studytab";
 import SearchForm2 from "./searchForm2";
 import GoogleAds from "./googleads";
 import Image from "next/image";
+import { makeStyles } from "@mui/styles";
 
-const styles = makeStyles((theme) => ({
+const styles = makeStyles(() => ({
   grid: {
     marginTop: "20px",
     marginBottom: "30px",
@@ -38,7 +38,8 @@ const StudyAbroadComponent = ({ isAmp }) => {
   const schools = useRecoilValue(schools_);
   const [schoolinfo, setschoolinfo] = useState(null);
   const loading = useRecoilValue(isloading_);
-  const allUni = useRecoilValue(allUni_);
+  // const allUni = useRecoilValue(allUni_);
+  const allUni = true;
   const [num, setExpanded] = useState(5);
   //console.log("schools", schools);
   //console.log(openModal);
@@ -77,10 +78,11 @@ const StudyAbroadComponent = ({ isAmp }) => {
       <Grid container className={classes.grid}>
         <Grid item container spacing={2} justify="center" xs={12}>
           <Grid item xs={12}>
-            <StudyTab
+            {/* <StudyTab
               searchForm={<SearchForm />}
               searchForm2={<SearchForm2 isAmp={isAmp} />}
-            />
+            /> */}
+            <SearchForm2 isAmp={isAmp} />
           </Grid>
           <Grid item xs={12}>
             {loading && <LinearBuffer />}

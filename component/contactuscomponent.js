@@ -6,60 +6,93 @@ import {
   Container,
   Divider,
   Grid,
-  makeStyles,
   TextField,
   Typography,
-} from "@material-ui/core";
-import { CallOutlined, EmailOutlined, HouseOutlined } from "@material-ui/icons";
-import { Alert } from "@material-ui/lab";
+  useTheme,
+} from "@mui/material";
+import {
+  CallOutlined,
+  EmailOutlined,
+  HouseOutlined,
+} from "@mui/icons-material";
+import { Alert } from "@mui/lab";
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { makeStyles } from "@mui/styles";
+import emailjs from "@emailjs/browser";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
-const styles = makeStyles((theme) => ({
-  button: {
-    justifyContent: "flex-start",
-  },
-  container: {
-    marginTop: theme.spacing(2),
-    marginBottom: "30px",
-  },
-  alert: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.getContrastText(theme.palette.primary.main),
-  },
-  alertIcon: {
-    color: "white !important",
-  },
-}));
+const contactSchema = yup.object().shape({
+  from_email: yup.string().email(),
+});
 
 const ContactUs = () => {
-  const classes = styles();
-  const { register, handleSubmit, control } = useForm();
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(contactSchema),
+  });
   const [isFormSubmitted, setSubmitted] = useState(false);
-  const [enter, setEnter] = useState(false);
   const [isloading, setLoading] = useState(false);
+  const theme = useTheme();
+  const styles = makeStyles(() => ({
+    button: {
+      justifyContent: "flex-start",
+    },
+    container: {
+      marginTop: theme.spacing(2),
+      marginBottom: "30px",
+    },
+    alert: {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.getContrastText(theme.palette.primary.main),
+    },
+    alertIcon: {
+      color: "white !important",
+    },
+  }));
+  const classes = styles();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+    const { from_name, from_email, from_tel, message } = data;
     setLoading(true);
-    axios
-      .post(
-        "https://hook.integromat.com/14b7wp6j2m9jbm26owtfr4ff7kprnyyp",
-        data
-      )
-      .then((response) => {
-        console.log(response);
-        setSubmitted(true);
-        setLoading(false)
-        setTimeout(() => {
-          setEnter(true);
-        }, 500);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const templateParams = {
+      from_name: from_name,
+      from_email: from_email,
+      from_tel: from_tel,
+      message: message,
+    };
+    try {
+      await toast.promise(
+        emailjs.send(
+          process.env.NEXT_PUBLIC_SERVICE_ID,
+          process.env.NEXT_PUBLIC_TEMPLATE_ID_CONTACT_FORM,
+          templateParams,
+          process.env.NEXT_PUBLIC_EMAILJS_USER_ID
+        ),
+        {
+          pending: "Sending Email To Support ...",
+          success: "Success. You should get a feedback soon",
+          error: "Sending Failed, Please try again",
+        }
+      );
+      setSubmitted(true);
+      setLoading(false);
+    } catch (error) {
+      console.log(`error`, error);
+    }
   };
+
+
+  const { from_email: emailError } = errors;
 
   return (
     <Grid
@@ -86,7 +119,7 @@ const ContactUs = () => {
           </Grid>
         </Grid>
         {isFormSubmitted ? (
-          <Grid container justify="center">
+          <Grid container justifyContent="center">
             <Grid item>
               <img
                 src="/images/mailsent.svg"
@@ -96,16 +129,14 @@ const ContactUs = () => {
               />
             </Grid>
             <Grid item>
-              <Collapse in={enter} timeout={300}>
-                <Alert
-                  classes={{
-                    icon: classes.alertIcon,
-                  }}
-                  className={classes.alert}
-                >
-                  Your email has been sent. We will get back to you soon.
-                </Alert>
-              </Collapse>
+              <Alert
+                classes={{
+                  icon: classes.alertIcon,
+                }}
+                className={classes.alert}
+              >
+                Your email has been sent. We will get back to you soon.
+              </Alert>
             </Grid>
           </Grid>
         ) : (
@@ -118,28 +149,33 @@ const ContactUs = () => {
             <Grid item xs={12}>
               <TextField
                 inputRef={register}
-                name="name"
+                name="from_name"
                 fullWidth
                 label="Your Name"
                 variant="outlined"
+                required
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 inputRef={register}
-                name="email"
+                name="from_email"
+                required
                 fullWidth
                 label="Your Email"
                 variant="outlined"
+                error={Boolean(emailError)}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 inputRef={register}
-                name="phone"
+                name="from_tel"
                 fullWidth
                 label="Your Telephone Number"
                 variant="outlined"
+                required
+                type="number"
               />
             </Grid>
             <Grid item xs={12}>
@@ -153,6 +189,7 @@ const ContactUs = () => {
                 //  defaultValue="Default Value"
                 variant="outlined"
                 fullWidth
+                required
               />
             </Grid>
             <Grid item xs={12}>

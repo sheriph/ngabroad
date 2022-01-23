@@ -1,54 +1,55 @@
-// @ts-nocheck
-import MomentUtils from "@date-io/moment";
 import {
   Box,
   Button,
   ButtonBase,
   CircularProgress,
   Container,
+  createTheme,
   FormControl,
   Grid,
   IconButton,
-  makeStyles,
   MenuItem,
   Paper,
   TextField,
   Typography,
   useTheme,
-} from "@material-ui/core";
+} from "@mui/material";
+import { adaptV4Theme } from '@mui/material/styles';
 import {
   BookmarkBorderOutlined,
   CloseRounded,
   DateRangeOutlined,
   LocalLibraryOutlined,
   LocationOnOutlined,
-} from "@material-ui/icons";
-import { Alert } from "@material-ui/lab";
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+} from "@mui/icons-material";
+import { Alert} from "@mui/lab";
 import axios from "axios";
 import { Fragment, useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import ReactPlayer from "react-player/youtube";
+import { makeStyles } from "@mui/styles";
 
-const styles = makeStyles((theme) => ({
+const theme = createTheme(adaptV4Theme({}));
+const styles = makeStyles(() => ({
   box: {
     width: "80%",
-    [theme.breakpoints.down("xs")]: { width: "100%" },
+    [theme.breakpoints.down('md')]: { width: "100%" },
   },
 }));
 
 export const InsuranceFaqs = ({ setOpenModal }) => {
-  const theme = useTheme();
+  // const theme = useTheme();
+
   const classes = styles();
 
   return (
     <Box
-      css={{ bgcolor: "white", p: "10px", width: "80%" }}
+      sx={{ bgcolor: "white", p: "10px", width: "80%" }}
       className={classes.box}
     >
       <Box display="flex" justifyContent="flex-end">
-        <IconButton onClick={() => setOpenModal(false)} color="primary">
+        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
           <CloseRounded />
         </IconButton>
       </Box>
@@ -86,11 +87,11 @@ export const HotelFaqs = ({ setOpenModal }) => {
   const classes = styles();
   return (
     <Box
-      css={{ bgcolor: "white", p: "10px", width: "80%" }}
+      sx={{ bgcolor: "white", p: "10px", width: "80%" }}
       className={classes.box}
     >
       <Box display="flex" justifyContent="flex-end">
-        <IconButton onClick={() => setOpenModal(false)} color="primary">
+        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
           <CloseRounded />
         </IconButton>
       </Box>
@@ -133,11 +134,11 @@ export const FlightFaqs = ({ setOpenModal }) => {
   const classes = styles();
   return (
     <Box
-      css={{ bgcolor: "white", p: "10px", width: "80%" }}
+      sx={{ bgcolor: "white", p: "10px", width: "80%" }}
       className={classes.box}
     >
       <Box display="flex" justifyContent="flex-end">
-        <IconButton onClick={() => setOpenModal(false)} color="primary">
+        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
           <CloseRounded />
         </IconButton>
       </Box>
@@ -184,11 +185,11 @@ export const FormFaqs = ({ setOpenModal }) => {
   const classes = styles();
   return (
     <Box
-      css={{ bgcolor: "white", p: "10px", width: "80%" }}
+      sx={{ bgcolor: "white", p: "10px", width: "80%" }}
       className={classes.box}
     >
       <Box display="flex" justifyContent="flex-end">
-        <IconButton onClick={() => setOpenModal(false)} color="primary">
+        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
           <CloseRounded />
         </IconButton>
       </Box>
@@ -221,11 +222,11 @@ export const CoverFaqs = ({ setOpenModal }) => {
   const classes = styles();
   return (
     <Box
-      css={{ bgcolor: "white", p: "10px", width: "80%" }}
+      sx={{ bgcolor: "white", p: "10px", width: "80%" }}
       className={classes.box}
     >
       <Box display="flex" justifyContent="flex-end">
-        <IconButton onClick={() => setOpenModal(false)} color="primary">
+        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
           <CloseRounded />
         </IconButton>
       </Box>
@@ -280,11 +281,11 @@ export const FreeGiftsFaqs = ({ setOpenModal }) => {
   const classes = styles();
   return (
     <Box
-      css={{ bgcolor: "white", p: "10px", width: "80%" }}
+      sx={{ bgcolor: "white", p: "10px", width: "80%" }}
       className={classes.box}
     >
       <Box display="flex" justifyContent="flex-end">
-        <IconButton onClick={() => setOpenModal(false)} color="primary">
+        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
           <CloseRounded />
         </IconButton>
       </Box>
@@ -359,7 +360,7 @@ export const SchoolDetails = ({ setOpenModal, school }) => {
       .then((response) => {
         console.log(response);
         setSubmitted(true);
-        showForm(false);
+        setForm(false);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -369,11 +370,11 @@ export const SchoolDetails = ({ setOpenModal, school }) => {
   };
   return (
     <Box
-      css={{ bgcolor: "white", p: "10px", width: "80%" }}
+      sx={{ bgcolor: "white", p: "10px", width: "80%" }}
       className={classes.box}
     >
       <Box display="flex" justifyContent="space-between" mb={2}>
-        <IconButton onClick={() => setOpenModal(false)} color="primary">
+        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
           <CloseRounded />
         </IconButton>
         <Button
@@ -386,7 +387,7 @@ export const SchoolDetails = ({ setOpenModal, school }) => {
           {isFormSubmitted ? "Info Requested" : "Request More Info"}
         </Button>
       </Box>
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         <Grid item xs={12}>
           <Typography variant="h6" align="center" gutterBottom>
             {title} <br /> {uni_name}
@@ -481,10 +482,11 @@ export const SchoolDetails = ({ setOpenModal, school }) => {
               </TextField>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormControl>
-                <MuiPickersUtilsProvider utils={MomentUtils}>
+              {/* <FormControl>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     inputRef={register}
+                    // @ts-ignore
                     name="dob"
                     value={dob}
                     onChange={handleDob}
@@ -506,8 +508,8 @@ export const SchoolDetails = ({ setOpenModal, school }) => {
                     // startIcon={<DateRangeOutlined />}
                     //.MuiInputBase-input
                   />
-                </MuiPickersUtilsProvider>
-              </FormControl>
+                </LocalizationProvider>
+              </FormControl> */}
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -597,9 +599,7 @@ export const SchoolDetails = ({ setOpenModal, school }) => {
 export const SchoolDetails2 = ({ setOpenModal, school }) => {
   const classes = styles();
 
-
   useEffect(() => {
-
     try {
       window.document.querySelector(".ielts")?.remove();
     } catch (e) {
@@ -639,7 +639,7 @@ export const SchoolDetails2 = ({ setOpenModal, school }) => {
   // console.log("admissionRequirements", { admissionRequirements });
   return (
     <Box
-      css={{
+      sx={{
         bgcolor: "white",
         p: "10px",
         width: "80%",
@@ -649,7 +649,7 @@ export const SchoolDetails2 = ({ setOpenModal, school }) => {
       className={classes.box}
     >
       <Box display="flex" justifyContent="space-between" mb={2}>
-        <IconButton onClick={() => setOpenModal(false)} color="primary">
+        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
           <CloseRounded />
         </IconButton>
         {programUrl && (
@@ -663,7 +663,7 @@ export const SchoolDetails2 = ({ setOpenModal, school }) => {
           </Button>
         )}
       </Box>
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         <Grid item xs={12}>
           <Typography variant="h6" align="center" gutterBottom>
             {title} <br /> {uniName}

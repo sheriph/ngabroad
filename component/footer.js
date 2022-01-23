@@ -1,28 +1,22 @@
 // @ts-nocheck
-import {
-  Button,
-  ButtonGroup,
-  Container,
-  Grid,
-  makeStyles,
-  useTheme,
-} from "@material-ui/core";
+import { Button, ButtonGroup, Container, Grid, useTheme } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const styles = makeStyles((theme) => ({
-  buttongrouproot: {
-    alignItems: "start",
-  },
-  footer: {
-    backgroundColor: theme.palette.background.default,
-  },
-}));
-
 const Footer = ({ isAmp }) => {
-  const classes = styles();
   const theme = useTheme();
+  const styles = makeStyles(() => ({
+    buttongrouproot: {
+      alignItems: "start",
+    },
+    footer: {
+      backgroundColor: theme.palette.background.default,
+    },
+  }));
+  const classes = styles();
+
   return (
     <Container disableGutters maxWidth={false}>
       <Container>

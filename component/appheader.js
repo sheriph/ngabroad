@@ -1,32 +1,28 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import { Grid } from "@material-ui/core";
-import { Apps } from "@material-ui/icons";
+import { makeStyles } from "@mui/styles";
+import { Grid, Toolbar, IconButton, AppBar } from "@mui/material";
+import { Apps } from "@mui/icons-material";
 import Link from "next/link";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    // marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
-
 export default function AppHeader({ handleDrawerClose, handleDrawerOpen }) {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      // marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+  }));
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Grid container alignItems="center" justify="space-between">
+          <Grid container alignItems="center" justifyContent="space-between">
             <Grid item>
               <Link href="/">
                 <img
@@ -43,7 +39,7 @@ export default function AppHeader({ handleDrawerClose, handleDrawerOpen }) {
                 color="inherit"
                 aria-label="menu"
                 onClick={handleDrawerOpen}
-              >
+                size="large">
                 <Apps />
               </IconButton>
             </Grid>

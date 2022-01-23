@@ -1,4 +1,4 @@
-import { Container, Grid, Paper, Typography } from "@material-ui/core";
+import { Container, Grid, Paper, Typography } from "@mui/material";
 import Image from "next/image";
 
 const FeatureCard = ({
@@ -13,10 +13,10 @@ const FeatureCard = ({
     <Container
       component={Paper}
       elevation={10}
-      style={{ paddingTop: "10px", paddingBottom: "10px", minHeight: "290px" }}
+      sx={{ paddingTop: "10px", paddingBottom: "10px", minHeight: "290px" }}
     >
       <Grid container>
-        <Grid item container justify="center" xs={12}>
+        <Grid item container justifyContent="center" xs={12}>
           <Grid item>
             <Image
               src={src}

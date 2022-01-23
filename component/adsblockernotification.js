@@ -1,12 +1,12 @@
 // @ts-nocheck
-import { Box, Grid, IconButton, Typography } from "@material-ui/core";
-import { CancelPresentation } from "@material-ui/icons";
-import { Alert } from "@material-ui/lab";
+import { Box, Grid, IconButton, Typography } from "@mui/material";
+import { CancelPresentation } from "@mui/icons-material";
+import { Alert } from "@mui/lab";
 
 const AdblockNotifications = () => {
   return (
     <Box component={Alert} severity="error" style={{ alignItems: "baseline" }}>
-      <Grid container justify="flex-end">
+      <Grid container justifyContent="flex-end">
         <Grid item>
           <IconButton size="medium" color="primary">
             <CancelPresentation fontSize="large" />

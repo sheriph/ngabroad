@@ -1,12 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Box from "@material-ui/core/Box";
 import { useRecoilState } from "recoil";
 import { allUni_, schools_ } from "../state/recoil";
+import { AppBar, Box, createTheme, Tab, Tabs } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -37,7 +34,9 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
+const theme = createTheme();
+
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     width: "100%",
@@ -65,7 +64,7 @@ export default function StudyTab(props) {
           value={value}
           onChange={handleChange}
           variant="scrollable"
-          scrollButtons="on"
+          scrollButtons="auto"
           indicatorColor="primary"
           textColor="primary"
           aria-label="scrollable force tabs example"
@@ -78,14 +77,14 @@ export default function StudyTab(props) {
             label="All Universities"
             {...a11yProps(0)}
           />
-          <Tab
+          {/* <Tab
             onClick={() => {
               setAllUniView(false);
               setSchools(null);
             }}
             label="Partner Universities"
             {...a11yProps(1)}
-          />
+          /> */}
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>

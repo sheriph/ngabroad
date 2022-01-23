@@ -1,41 +1,47 @@
 // @ts-nocheck
 import React from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import {
   EmailOutlined,
   LocationOnOutlined,
   PhoneOutlined,
-} from "@material-ui/icons";
-import { Box, Button, ButtonBase, Grid, Typography } from "@material-ui/core";
+} from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  ButtonBase,
+  Divider,
+  Grid,
+  IconButton,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { useAmp } from "next/amp";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    backgroundColor: "#ffffff",
-  },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-start",
-  },
-  contact: {
-    backgroundColor: "#5348dc",
-    color: "#ffffff",
-  },
-}));
+import { makeStyles } from "@mui/styles";
 
 const AmpSidebar = () => {
-  const classes = useStyles();
   const theme = useTheme();
+  const useStyles = makeStyles(() => ({
+    root: {
+      display: "flex",
+      backgroundColor: "#ffffff",
+    },
+    drawerHeader: {
+      display: "flex",
+      alignItems: "center",
+      padding: theme.spacing(0, 1),
+      // necessary for content to be below app bar
+      ...theme.mixins.toolbar,
+      justifyContent: "flex-start",
+    },
+    contact: {
+      backgroundColor: "#5348dc",
+      color: "#ffffff",
+    },
+  }));
+  const classes = useStyles();
+
   const isAmp = useAmp();
 
   if (!isAmp) return "";
@@ -54,7 +60,7 @@ const AmpSidebar = () => {
               on="tap:sidebar.toggle"
               className="sidebar-trigger"
               component="button"
-            >
+              size="large">
               {theme.direction === "rtl" ? (
                 <ChevronLeftIcon />
               ) : (

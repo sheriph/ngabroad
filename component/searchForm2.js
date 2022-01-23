@@ -6,32 +6,28 @@ import {
   Collapse,
   Container,
   Grid,
-  makeStyles,
   Paper,
   TextField,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import {
   LanguageOutlined,
   LibraryBooksOutlined,
   SchoolOutlined,
   SearchOutlined,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 
 import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import { useRecoilState } from "recoil";
-import { Autocomplete, Skeleton } from "@material-ui/lab";
+import { Autocomplete, Skeleton } from "@mui/lab";
 import { updateData } from "../component/utilityfx";
 import { schools_, isloading_ } from "../state/recoil";
 import { startCase } from "lodash";
+import { makeStyles } from "@mui/styles";
 
-const styles = makeStyles((theme) => ({
-  /*  skeleton: {
-    width: "500px",
-    [theme.breakpoints.down("xs")]: { width: "300px" },
-  }, */
+const styles = makeStyles(() => ({
   gridItem: {
     display: "initial",
   },
@@ -52,7 +48,7 @@ const SearchForm2 = ({ isAmp }) => {
   const [level, setLevel] = useState(null);
   const [field, setField] = useState(null);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     setisloading(true);
     const { country, field, level } = data;
     if (country.length === 0 || field.length === 0 || level.length === 0) {
@@ -66,50 +62,49 @@ const SearchForm2 = ({ isAmp }) => {
 
     console.log(data);
 
-    axios
-      .post("/api/getschools2", data)
-      .then((response) => {
-        setisloading(false);
-        //  console.log(response);
-        const { results } = response.data;
-        if (results) {
-          setschools(results);
-        } else {
-          throw new Error(error);
-        }
-      })
-      .catch((error) => {
-        setisloading(false);
-        console.log(error.response.data);
-      });
+    try {
+      const response = await axios.post("/api/getschools2", data);
+      const { results } = response.data;
+      if (results) {
+        setschools(results);
+      } else {
+        throw new Error(error);
+      }
+      setisloading(false);
+    } catch (error) {
+      setisloading(false);
+      console.log(error.response.data);
+      console.log(`error`, error);
+    }
+  };
+
+  const getFilter = async (isloading) => {
+    setOptions(null);
+    try {
+      const response = await axios.get("/api/getfilter2");
+      const [countries, field, level] = response.data.results;
+      const formattedCountries = countries
+        .map((country) => startCase(country["TABLE_NAME"]))
+        .sort()
+        .map((country) => ({ country: country }));
+      if (isloading) {
+        setCountry(formattedCountries);
+        setField(field);
+        setLevel(level);
+        setOptions(true);
+        //    setisloading(false);
+        isloading = true;
+      }
+    } catch (error) {
+      console.log(`error`, error);
+      setisloading(false);
+    }
   };
 
   useEffect(() => {
     // console.log("mounting form 2");
     let isloading = true;
-    setOptions(null);
-    axios
-      .get("/api/getfilter2")
-      .then((response) => {
-        // console.log(response);
-        const [countries, field, level] = response.data.results;
-        const formattedCountries = countries
-          .map((country) => startCase(country["TABLE_NAME"]))
-          .sort()
-          .map((country) => ({ country: country }));
-        if (isloading) {
-          setCountry(formattedCountries);
-          setField(field);
-          setLevel(level);
-          setOptions(true);
-          //    setisloading(false);
-          isloading = true;
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setisloading(false);
-      });
+    getFilter(isloading);
     return () => {
       isloading = false;
     };
@@ -117,9 +112,9 @@ const SearchForm2 = ({ isAmp }) => {
 
   if (!options)
     return (
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         <Grid item component={Paper} xs={12}>
-          <Skeleton animation="wave" variant="rect" height={140} />
+          <Skeleton animation="wave" variant="rectangular" height={140} />
         </Grid>
         {isAmp && (
           <Typography

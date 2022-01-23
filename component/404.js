@@ -1,11 +1,12 @@
 // @ts-nocheck
-import { Box, Grid, Typography } from "@material-ui/core";
-import React from "react";
+import * as React from 'react'
+import { Box, Grid, Typography } from "@mui/material";
+
 
 const FourOFourComponent = ({ isAmp }) => {
   return (
     <Box m={4}>
-      <Grid container spacing={4} alignItems="center" justify="center">
+      <Grid container spacing={4} alignItems="center" justifyContent="center">
         <Grid item xs={12} sm={6}>
           {isAmp ? (
             <amp-img

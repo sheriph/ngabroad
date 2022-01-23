@@ -1,13 +1,9 @@
 // @ts-nocheck
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import { Grid } from "@material-ui/core";
-import { Apps } from "@material-ui/icons";
+import { Apps } from "@mui/icons-material";
+import { AppBar, Toolbar, IconButton, Grid, Box } from "@mui/material";
 
-const useStyles = makeStyles((theme) => ({
+/* const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -17,17 +13,20 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
-}));
+})); */
 
 export default function AmpHeader() {
-  const classes = useStyles();
-
+  // const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <Box
+      sx={{
+        flexGrow: 1,
+      }}
+    >
       <AppBar position="static">
         <Toolbar>
-          <Grid container alignItems="center" justify="space-between">
+          <Grid container alignItems="center" justifyContent="space-between">
             <Grid item>
               <a style={{ textDecoration: "none" }} href="/">
                 <span>
@@ -44,20 +43,18 @@ export default function AmpHeader() {
             <Grid item>
               <IconButton
                 edge="start"
-                //  className={classes.menuButton}
-                // color="inherit"
-                style={{ color: "white" }}
+                sx={{ color: "white" }}
                 aria-label="menu"
                 component="button"
                 on="tap:sidebar.toggle"
                 className="sidebar-trigger"
-              >
+                size="large">
                 <Apps />
               </IconButton>
             </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
-    </div>
+    </Box>
   );
 }

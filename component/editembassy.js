@@ -4,22 +4,18 @@ import {
   Container,
   Grid,
   IconButton,
-  makeStyles,
   Paper,
   TextField,
   Typography,
-} from "@material-ui/core";
-import { CloseRounded, SendOutlined } from "@material-ui/icons";
+  useTheme,
+} from "@mui/material";
+import { CloseRounded, SendOutlined } from "@mui/icons-material";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import CircularIntegration from "./animateprogress";
+import { makeStyles } from "@mui/styles";
 
-const styles = makeStyles((theme) => ({
-  box: {
-    width: "80%",
-    [theme.breakpoints.down("xs")]: { width: "100%" },
-  },
-}));
+
 
 const EditEmbassy = ({ title, setOpenModal }) => {
   const [save, setSave] = useState(false);
@@ -32,16 +28,23 @@ const EditEmbassy = ({ title, setOpenModal }) => {
     setSubmitted(true);
   };
   const [submitted, setSubmitted] = useState(false);
+  const theme = useTheme()
+  const styles = makeStyles(() => ({
+    box: {
+      width: "80%",
+      [theme.breakpoints.down('md')]: { width: "100%" },
+    },
+  }));
   const classes = styles();
 
   return (
     <Box
-      css={{ bgcolor: "white", p: "10px", width: "80%" }}
+      sx={{ bgcolor: "background.paper", p: "10px", width: "80%" }}
       className={classes.box}
       component={Container}
     >
       <Box display="flex" justifyContent="flex-end">
-        <IconButton onClick={() => setOpenModal(false)} color="primary">
+        <IconButton onClick={() => setOpenModal(false)} color="primary" size="large">
           <CloseRounded />
         </IconButton>
       </Box>
@@ -49,7 +52,7 @@ const EditEmbassy = ({ title, setOpenModal }) => {
         <Grid
           container
           style={{ paddingBottom: "20px" }}
-          justify="center"
+          justifyContent="center"
           alignItems="center"
           alignContent="center"
         >
@@ -68,8 +71,8 @@ const EditEmbassy = ({ title, setOpenModal }) => {
         </Grid>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container style={{ paddingBottom: "20px" }}>
-            <Grid item xs={12} style={{ marginBottom: "20px" }}>
+          <Grid container sx={{ paddingBottom: "20px" }}>
+            <Grid item xs={12} sx={{ marginBottom: "20px" }}>
               <Typography>
                 Has the <strong>{title}</strong> updated their contact details ?
               </Typography>
@@ -77,7 +80,7 @@ const EditEmbassy = ({ title, setOpenModal }) => {
                 Please support us by providing the updated info below:
               </Typography>
             </Grid>
-            <Grid item container spacing={3} justify="center">
+            <Grid item container spacing={3} justifyContent="center">
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth

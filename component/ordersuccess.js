@@ -3,27 +3,29 @@ import {
   Button,
   ButtonBase,
   Container,
+  createTheme,
   Divider,
   Grid,
-  makeStyles,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import {
   AttachMoneyOutlined,
   CheckCircleOutlineSharp,
   EmailOutlined,
   ErrorOutlineOutlined,
   ShoppingCartOutlined,
-} from "@material-ui/icons";
-import { Alert } from "@material-ui/lab";
+} from "@mui/icons-material";
+import { Alert } from "@mui/lab";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { usePaystackPayment } from "react-paystack";
 import { formatMoney } from "./utilityfx";
+import { makeStyles } from "@mui/styles";
 
-const styles = makeStyles((theme) => ({
+const theme = createTheme()
+const styles = makeStyles(() => ({
   error: {
     marginLeft: "10px",
     backgroundColor: theme.palette.error.light,
@@ -133,7 +135,7 @@ const OrderSuccess = () => {
   };
   return (
     <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         <Grid item xs={12} style={{ marginBottom: "20px" }}>
           <Alert icon={<EmailOutlined />} closeText="close" severity="success">
             Booking confirmation has been sent to {email}
@@ -152,7 +154,7 @@ const OrderSuccess = () => {
           <Grid
             item
             container
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="center"
             style={{ marginBottom: "30px" }}
           >

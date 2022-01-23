@@ -41,3 +41,18 @@ export const isDialogOpen_ = atom({
   key: "isDialogOpen",
   default: false,
 });
+
+export const formData_ = atom({
+  key: "formData_",
+  default: null,
+});
+
+export const orderData_ = atom({
+  key: "orderData_",
+  default: null,
+});
+
+export const customerInfo_ = atom({
+  key: "customerInfo_",
+  default: null,
+});

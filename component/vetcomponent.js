@@ -1,7 +1,7 @@
-// @ts-nocheck
 import {
   Box,
   Button,
+  createTheme,
   Divider,
   FormControl,
   FormHelperText,
@@ -11,7 +11,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  makeStyles,
   MenuItem,
   Paper,
   Select,
@@ -19,21 +18,25 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-} from "@material-ui/core";
-import { Alert, Autocomplete } from "@material-ui/lab";
+} from "@mui/material";
+import { adaptV4Theme } from '@mui/material/styles';
+import { Alert, Autocomplete } from "@mui/lab";
 import { useEffect, useState } from "react";
 import vetcountries from "./vetcountries";
-import BeenhereIcon from "@material-ui/icons/Beenhere";
+import BeenhereIcon from "@mui/icons-material/Beenhere";
 import { useRouter } from "next/router";
 import { useForm, Controller } from "react-hook-form";
-import AutorenewIcon from "@material-ui/icons/Autorenew";
-import SendIcon from "@material-ui/icons/Send";
+import AutorenewIcon from "@mui/icons-material/Autorenew";
+import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
 import { startCase } from "lodash";
-import DoneAllIcon from "@material-ui/icons/DoneAll";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { useSnackbar } from "notistack";
+import { makeStyles } from "@mui/styles";
 
-const styles = makeStyles((theme) => ({
+const theme = createTheme(adaptV4Theme({}));
+
+const styles = makeStyles(() => ({
   emailInput: {
     color: "#ffffff",
   },
@@ -165,7 +168,7 @@ const VisaEligibilityComponent = () => {
     setState(data);
   };
 
-  const [state, setState] = useState("");
+  const [state, setState] = useState(null);
 
   const router = useRouter();
   const query = router.query;
@@ -202,10 +205,11 @@ const VisaEligibilityComponent = () => {
   };
 
   const theme = useTheme();
-  const xsDevices = useMediaQuery(theme.breakpoints.down("xs"));
+  const xsDevices = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
     if (query.travelPurpose) {
+      // @ts-ignore
       setTravelPurpose(query.travelPurpose);
     }
   });
@@ -624,7 +628,7 @@ const VisaEligibilityComponent = () => {
               item
               spacing={5}
               container
-              justify="space-between"
+              justifyContent="space-between"
             >
               <Grid
                 xs={12}
@@ -755,10 +759,10 @@ const VisaEligibilityComponent = () => {
                               {
                                 totalScore: outputScore,
                                 name: startCase(
-                                  state.fullName.toLocaleLowerCase()
+                                  state?.fullName.toLocaleLowerCase()
                                 ),
-                                country: startCase(state.country.toUpperCase()),
-                                email: state.email,
+                                country: startCase(state?.country.toUpperCase()),
+                                email: state?.email,
                               }
                             )
                             .then((res) => {
@@ -777,7 +781,6 @@ const VisaEligibilityComponent = () => {
                                       onClose={() => {
                                         closeSnackbar();
                                       }}
-                                      component={Paper}
                                       severity="success"
                                     >
                                       Congratulations!!! Your result has been

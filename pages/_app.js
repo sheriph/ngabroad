@@ -2,8 +2,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Head from "next/head";
-import { ThemeProvider } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 import theme from "../src/theme";
 import { RecoilRoot } from "recoil";
 import "firebase/firestore";
@@ -14,6 +14,7 @@ import { SnackbarProvider } from "notistack"; */
 import { useAmp } from "next/amp";
 import { useRouter } from "next/router";
 import * as ga from "../lib/ga";
+import { ToastContainer } from "react-toastify";
 
 /* const firebaseConfig = {
   apiKey: "AIzaSyDnWq5tSHBtRn7Y83WyNHzZoIqY0xpCBzQ",
@@ -166,18 +167,21 @@ export default function MyApp(props) {
           content="/icons/appleIcons/ms-icon-144x144.png"
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        {/*  <SnackbarProvider maxSnack={3}> */}
-        <CookiesProvider>
-          <RecoilRoot>
-            <CssBaseline />
-            {/*   <FuegoProvider fuego={fuego}> */}
-            <Component {...pageProps} />
-            {/*   </FuegoProvider> */}
-          </RecoilRoot>
-        </CookiesProvider>
-        {/*   </SnackbarProvider> */}
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          {/*  <SnackbarProvider maxSnack={3}> */}
+          <CookiesProvider>
+            <RecoilRoot>
+              <ToastContainer />
+              <CssBaseline />
+              {/*   <FuegoProvider fuego={fuego}> */}
+              <Component {...pageProps} />
+              {/*   </FuegoProvider> */}
+            </RecoilRoot>
+          </CookiesProvider>
+          {/*   </SnackbarProvider> */}
+        </ThemeProvider>
+      </StyledEngineProvider>
     </React.Fragment>
   );
 }

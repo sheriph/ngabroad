@@ -1,16 +1,10 @@
-import { Container, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Container, Grid,  Typography } from "@mui/material";
 import React from "react";
 import FeatureCard from "./featurescard";
 import { useRouter } from "next/router";
 
-const styles = makeStyles((theme) => ({
-  container: {
-    marginTop: "20px",
-    marginBottom: "50px",
-  },
-}));
+
 const Homepage = () => {
-  const classes = styles();
   const router = useRouter();
   const features = [
     {
@@ -58,7 +52,14 @@ const Homepage = () => {
     },
   ];
   return (
-    <Grid container component={Container} className={classes.container}>
+    <Grid
+      container
+      component={Container}
+      sx={{
+        marginTop: "20px",
+        marginBottom: "50px",
+      }}
+    >
       <Grid item xs={12} style={{ marginTop: "20px", marginBottom: "30px" }}>
         <Typography align="center">Services</Typography>
       </Grid>
