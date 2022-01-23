@@ -82,6 +82,8 @@ export default function OrderComplete() {
   // @ts-ignore
   const initializePayment = usePaystackPayment(config);
 
+  console.log(formData, customerInfo, orderData);
+
   return (
     <Stack
       divider={<Divider orientation="horizontal" flexItem />}
@@ -157,7 +159,9 @@ export default function OrderComplete() {
                     {row.productName}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {dayjs(row.value).isValid()
+                    {dayjs(row.value).isValid() &&
+                    row.productName !== "Telephone" &&
+                    row.productName !== "Passport Number"
                       ? dayjs(row.value).format("DD MMMM, YYYY")
                       : row.value}
                   </StyledTableCell>

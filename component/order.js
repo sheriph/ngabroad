@@ -58,6 +58,7 @@ export default function Order() {
     query: { orderNumber },
   } = router;
 
+
   const getOrder = async (orderNumber) => {
     setLoading(true);
     try {
@@ -86,7 +87,7 @@ export default function Order() {
     if (orderNumber) {
       getOrder(orderNumber);
     }
-  }, [null]);
+  }, [orderNumber]);
 
   const onSubmit = async (data) => {
     switch (activeStep) {

@@ -58,7 +58,6 @@ export default function OrderDetails() {
                   fullWidth
                   value={value}
                   onChange={(e) => onChange(e.target.value)}
-                  id="outlined-basic"
                   label="Surname"
                   variant="outlined"
                   size="small"
@@ -75,7 +74,6 @@ export default function OrderDetails() {
                   required
                   value={value}
                   onChange={(e) => onChange(e.target.value)}
-                  id="outlined-basic"
                   label="First Name"
                   variant="outlined"
                   size="small"
@@ -94,10 +92,10 @@ export default function OrderDetails() {
                   required
                   value={value}
                   onChange={(e) => onChange(e.target.value)}
-                  id="outlined-basic"
                   label="Telephone"
                   variant="outlined"
                   size="small"
+                  type="tel"
                 />
               )}
             />
@@ -112,7 +110,6 @@ export default function OrderDetails() {
                   fullWidth
                   value={value}
                   onChange={(e) => onChange(e.target.value)}
-                  id="outlined-basic"
                   label="Email"
                   variant="outlined"
                   size="small"
@@ -154,7 +151,6 @@ export default function OrderDetails() {
                   required
                   value={value}
                   onChange={(e) => onChange(e.target.value)}
-                  id="outlined-basic"
                   label="Passport Number"
                   variant="outlined"
                   size="small"
@@ -206,7 +202,6 @@ export default function OrderDetails() {
                     required
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
-                    id="outlined-basic"
                     label="Home Address"
                     variant="outlined"
                     placeholder="65c Opebi Rd, Ikeja, Lagos"
@@ -295,7 +290,6 @@ export default function OrderDetails() {
                     required
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
-                    id="outlined-basic"
                     label="Departure City, Country"
                     variant="outlined"
                     placeholder="Lagos, Nigeria"
@@ -313,7 +307,6 @@ export default function OrderDetails() {
                     required
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
-                    id="outlined-basic"
                     label="Destination City, Country"
                     placeholder="London, UK"
                     variant="outlined"
@@ -386,7 +379,6 @@ export default function OrderDetails() {
                   }
                   value={value}
                   onChange={(e) => onChange(e.target.value)}
-                  id="outlined-basic"
                   variant="outlined"
                 />
               )}
