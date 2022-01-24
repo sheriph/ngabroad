@@ -1,5 +1,11 @@
 import React from "react";
-import { Autocomplete, createTheme, Divider, Grid, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  createTheme,
+  Divider,
+  Grid,
+  TextField,
+} from "@mui/material";
 import { useRouter } from "next/router";
 import { makeStyles } from "@mui/styles";
 
@@ -25,19 +31,20 @@ const useStyles = makeStyles(() => ({
   },
   textField: {
     width: "400px",
-    [theme.breakpoints.down('md')]: { width: "300px" },
+    [theme.breakpoints.down("md")]: { width: "300px" },
   },
 }));
 
 export default function SearchForm({ allTitles }) {
   const router = useRouter();
   const classes = useStyles();
- // console.log("allTitles", allTitles);
+  // console.log("allTitles", allTitles);
   return (
     <Grid container>
-      <Grid item>
+      <Grid item sx={{ width: "350px" }}>
         <Autocomplete
           options={allTitles}
+          fullWidth
           getOptionLabel={(option) => option.title}
           onChange={(e, value, action) => {
             if (action === "selectOption")

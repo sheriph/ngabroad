@@ -3,7 +3,7 @@ import { SleekTheme } from "../component/themes";
 import StudyAbroadComponent from "../component/studyabroadcomponent";
 import { useAmp } from "next/amp";
 
-export const config = { amp: false };
+export const config = { amp: "hybrid" };
 
 export default function StudyAbroad() {
   const isAmp = useAmp();

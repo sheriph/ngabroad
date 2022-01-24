@@ -44,7 +44,7 @@ const AmpSidebar = () => {
 
   const isAmp = useAmp();
 
-  if (!isAmp) return "";
+  if (!isAmp) return <></>;
 
   return (
     <amp-sidebar

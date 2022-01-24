@@ -1,9 +1,11 @@
-import React from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 import Head from "next/head";
-import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import { CacheProvider } from "@emotion/react";
 import theme from "../src/theme";
+import createEmotionCache from "../src/createEmotionCache";
 import { RecoilRoot } from "recoil";
 import { CookiesProvider } from "react-cookie";
 import { useAmp } from "next/amp";
@@ -11,53 +13,15 @@ import { useRouter } from "next/router";
 import * as ga from "../lib/ga";
 import { ToastContainer } from "react-toastify";
 
-/* const firebaseConfig = {
-  apiKey: "AIzaSyDnWq5tSHBtRn7Y83WyNHzZoIqY0xpCBzQ",
-  authDomain: "ngabroad-f348c.firebaseapp.com",
-  projectId: "ngabroad-f348c",
-  storageBucket: "ngabroad-f348c.appspot.com",
-  messagingSenderId: "1035539676049",
-  appId: "1:1035539676049:web:bb175380d94dca1b2af830",
-  measurementId: "G-6S1V47J894",
-};
-
-const fuego = new Fuego(firebaseConfig); */
-
-/* export function reportWebVitals(metric) {
-  console.log(metric);
-  if (metric.label === "web-vital") {
-    console.log(metric); // The metric object ({ id, name, startTime, value, label }) is logged to the console
-  }
-} */
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
 
 export default function MyApp(props) {
-  const { Component, pageProps } = props;
-  const isAmp = useAmp();
-  const router = useRouter();
-
-  React.useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector("#jss-server-side");
-    if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
-    }
-
-    const handleRouteChange = (url) => {
-      ga.pageview(url);
-    };
-    //When the component is mounted, subscribe to router changes
-    //and log those page views
-    router.events.on("routeChangeComplete", handleRouteChange);
-
-    // If the component is unmounted, unsubscribe
-    // from the event with the `off` method
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
-    };
-  }, [router.events]);
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+  const isAmp = useAmp()
 
   return (
-    <React.Fragment>
+    <CacheProvider value={emotionCache}>
       <Head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -162,22 +126,22 @@ export default function MyApp(props) {
           content="/icons/appleIcons/ms-icon-144x144.png"
         />
       </Head>
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme}>
-          <CookiesProvider>
-            <RecoilRoot>
-              <ToastContainer />
-              <CssBaseline />
-              <Component {...pageProps} />
-            </RecoilRoot>
-          </CookiesProvider>
-        </ThemeProvider>
-      </StyledEngineProvider>
-    </React.Fragment>
+      <CookiesProvider>
+        <RecoilRoot>
+          <ToastContainer />
+          <ThemeProvider theme={theme}>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </RecoilRoot>
+      </CookiesProvider>
+    </CacheProvider>
   );
 }
 
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
+  emotionCache: PropTypes.object,
   pageProps: PropTypes.object.isRequired,
 };

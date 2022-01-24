@@ -11,6 +11,11 @@ const nextConfig = {
       "www.naijagoingabroad.com.ng",
     ],
   },
+  experimental: {
+    amp: {
+      skipValidation: true,
+    },
+  },
   env: {
     DB_HOST: process.env.DB_HOST,
     DB_USER: process.env.DB_USER,
