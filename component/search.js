@@ -41,7 +41,7 @@ export default function SearchForm({ allTitles }) {
   // console.log("allTitles", allTitles);
   return (
     <Grid container>
-      <Grid item sx={{ width: "350px" }}>
+      <Grid item>
         <Autocomplete
           options={allTitles}
           fullWidth

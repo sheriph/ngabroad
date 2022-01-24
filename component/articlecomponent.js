@@ -17,7 +17,7 @@ const ArticleComponent = (props) => {
       <Grid item xs>
         <Grid container>
           <Grid item container justifyContent="center">
-            <Grid sx={{ mt: 2 }} item>
+            <Grid sx={{ mt: 2, width: "100%" }} item>
               <SearchForm allTitles={allTitles} />
             </Grid>
           </Grid>
