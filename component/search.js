@@ -40,8 +40,8 @@ export default function SearchForm({ allTitles }) {
   const classes = useStyles();
   // console.log("allTitles", allTitles);
   return (
-    <Grid container>
-      <Grid item>
+    <Grid container sx={{ mt: 2, width: "100%" }}>
+      <Grid item sx={{ mt: 2, width: "100%" }}>
         <Autocomplete
           options={allTitles}
           fullWidth
