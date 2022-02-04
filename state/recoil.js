@@ -56,3 +56,19 @@ export const customerInfo_ = atom({
   key: "customerInfo_",
   default: null,
 });
+
+export const user_ = atom({
+  key: "user_",
+  default: null,
+  dangerouslyAllowMutability: true,
+});
+
+export const showLogin_ = atom({
+  key: "showLogin_",
+  default: false,
+});
+
+export const userData_ = atom({
+  key: "userData_",
+  default: null,
+});

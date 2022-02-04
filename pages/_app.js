@@ -9,16 +9,34 @@ import createEmotionCache from "../src/createEmotionCache";
 import { RecoilRoot } from "recoil";
 import { CookiesProvider } from "react-cookie";
 import { useAmp } from "next/amp";
-import { useRouter } from "next/router";
-import * as ga from "../lib/ga";
 import { ToastContainer } from "react-toastify";
+import "../src/gobal.css";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
 export default function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-  const isAmp = useAmp()
+  const isAmp = useAmp();
+
+  /*   function signOut() {
+    Auth.signOut()
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log("error: cant signout", err);
+      });
+  } */
+
+  /*   async function getUser() {
+    try {
+      const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
+      setUser(user);
+    } catch (error) {
+      console.log("error getting user: ", error);
+    }
+  } */
 
   return (
     <CacheProvider value={emotionCache}>
@@ -126,6 +144,7 @@ export default function MyApp(props) {
           content="/icons/appleIcons/ms-icon-144x144.png"
         />
       </Head>
+
       <CookiesProvider>
         <RecoilRoot>
           <ToastContainer />

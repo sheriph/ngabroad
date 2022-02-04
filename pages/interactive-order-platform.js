@@ -1,11 +1,17 @@
 import React from "react";
 import { SleekTheme } from "../component/themes";
 import Order from "../component/order";
+import { useRecoilState } from "recoil";
+import { showLogin_ } from "../state/recoil";
+import LoginWrapper from "../component/loginwrapper";
 
 export default function OrderPage() {
-  const [selectedOrders, setOrderSelected] = React.useState(null);
-  console.log("selectedOrders", selectedOrders);
 
+  const [showLogin, setShowLogin] = useRecoilState(showLogin_);
+
+  if (showLogin) {
+    return <LoginWrapper setShowLogin={setShowLogin} />;
+  }
   return (
     <SleekTheme
       subtitle="Order Now"

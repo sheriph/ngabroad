@@ -10,9 +10,11 @@ const Footer = dynamic(() => import("./footer"));
 const IntroHeader = dynamic(() => import("./introheader"));
 import { useCookies } from "react-cookie";
 import { useRecoilState } from "recoil";
-import { isDialogOpen_ } from "../state/recoil";
-
-
+import { isDialogOpen_, userData_, user_ } from "../state/recoil";
+import { Auth } from "aws-amplify";
+import useSWR from "swr";
+import axios from "axios";
+import useSWRImmutable from "swr/immutable";
 
 export const SleekTheme = ({
   pageTitle = "",
@@ -25,10 +27,12 @@ export const SleekTheme = ({
   pageUrl = "",
   isAmp,
 }) => {
- // const classes = styles();
+  // const classes = styles();
 
   const [cookies, setCookie] = useCookies(["ngabroadoptin"]);
   const [isModalOpen, setModalOpen] = useRecoilState(isDialogOpen_);
+  const [user, setUser] = useRecoilState(user_);
+  const [userData, setUserData] = useRecoilState(userData_);
 
   useEffect(() => {
     if (!cookies.ngabroadoptin) {
@@ -46,6 +50,46 @@ export const SleekTheme = ({
       }, 30000);
     }
   }, [null]);
+
+  async function fetchUser() {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      setUser(user);
+    } catch (error) {
+      console.log("error getting user: ", error);
+      throw new Error(error);
+    }
+  }
+
+  const fetchUserData = async (email) => {
+    try {
+      console.log(`fetching with email `, email);
+      const userData = await axios.post("/api/getuserdata", { email });
+      console.log(`userData`, userData);
+      setUserData(userData.data);
+      return userData.data;
+    } catch (error) {
+      console.log(`error`, error);
+    }
+  };
+
+  const { data, error } = useSWR("1", fetchUser, {
+    revalidateIfStale: true,
+    revalidateOnFocus: true,
+    revalidateOnMount: true,
+    revalidateOnReconnect: true,
+    errorRetryCount: 2,
+    onError: (error) => {
+      console.log("error", error);
+      setUser(null);
+    },
+  });
+
+  const email = user?.attributes?.email;
+  const { data: userDataReceived, error: userDataError } = useSWRImmutable(
+    email,
+    fetchUserData
+  );
 
   return (
     <React.Fragment>
@@ -122,7 +166,6 @@ export const SleekTheme = ({
         maxWidth={false}
       >
         {isAmp ? <AmpHeader /> : <MyHeader />}
-        <IntroHeader title={title} subtitle={subtitle} />
       </Container>
       <Container>{jsx}</Container>
       <Container
@@ -134,9 +177,12 @@ export const SleekTheme = ({
       >
         <Footer isAmp={isAmp} />
       </Container>
-      {!isAmp && <Modal 
-// @ts-ignore
-      jsx={<Newsletter />} />}
+      {!isAmp && (
+        <Modal
+          // @ts-ignore
+          jsx={<Newsletter />}
+        />
+      )}
     </React.Fragment>
   );
 };

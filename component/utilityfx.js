@@ -67,3 +67,9 @@ export const getProductName = (name, orderData) => {
       return { productName: undefined, value: undefined };
   }
 };
+
+export const generateId = () =>
+  `${Math.floor(Math.random() * 1000 * 10000)}${Math.random()
+    .toString(36)
+    .slice(2)
+    .toUpperCase()}`;

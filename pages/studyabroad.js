@@ -2,11 +2,21 @@ import React from "react";
 import { SleekTheme } from "../component/themes";
 import StudyAbroadComponent from "../component/studyabroadcomponent";
 import { useAmp } from "next/amp";
+import { useRecoilState } from "recoil";
+import { showLogin_ } from "../state/recoil";
+import LoginWrapper from "../component/loginwrapper";
 
 export const config = { amp: "hybrid" };
 
 export default function StudyAbroad() {
   const isAmp = useAmp();
+
+  
+  const [showLogin, setShowLogin] = useRecoilState(showLogin_);
+
+  if (showLogin) {
+    return <LoginWrapper setShowLogin={setShowLogin} />;
+  }
 
   return (
     <SleekTheme

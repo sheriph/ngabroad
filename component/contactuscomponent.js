@@ -23,7 +23,7 @@ import { makeStyles } from "@mui/styles";
 import emailjs from "@emailjs/browser";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import * as yup from "yup";
 
 const contactSchema = yup.object().shape({
@@ -91,7 +91,6 @@ const ContactUs = () => {
     }
   };
 
-
   const { from_email: emailError } = errors;
 
   return (
@@ -146,7 +145,7 @@ const ContactUs = () => {
             container
             spacing={2}
           >
-            <Grid item xs={12}>
+            <Grid sx={{ height: "auto" }} item xs={12}>
               <TextField
                 inputRef={register}
                 name="from_name"

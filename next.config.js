@@ -9,11 +9,17 @@ const nextConfig = {
       "naijagoingabroad.com.ng",
       "cdn.naijagoingabroad.com",
       "www.naijagoingabroad.com.ng",
+      "ngabroadbucket210504-dev.s3.eu-west-2.amazonaws.com",
     ],
   },
   experimental: {
     amp: {
-      skipValidation: true,
+      skipValidation: false,
+    },
+  },
+  api: {
+    bodyParser: {
+      sizeLimit: "10mb",
     },
   },
   env: {
@@ -29,6 +35,10 @@ const nextConfig = {
     NEXT_PUBLIC_DB_PUBLIC_KEY: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
     NEXT_PUBLIC_TEMPLATE_ID_ORDER_FORM:
       process.env.NEXT_PUBLIC_TEMPLATE_ID_ORDER_FORM,
+    WORDPRESS_API_URL: process.env.WORDPRESS_API_URL,
+    WORDPRESS_AUTH_REFRESH_TOKEN: process.env.WORDPRESS_AUTH_REFRESH_TOKEN,
+    WORDPRESS_PREVIEW_SECRET: process.env.WORDPRESS_PREVIEW_SECRET,
+    NEXT_PUBLIC_WEBSITE_URL: process.env.NEXT_PUBLIC_WEBSITE_URL,
   },
 };
 

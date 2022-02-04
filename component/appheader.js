@@ -3,6 +3,7 @@ import { makeStyles } from "@mui/styles";
 import { Grid, Toolbar, IconButton, AppBar } from "@mui/material";
 import { Apps } from "@mui/icons-material";
 import Link from "next/link";
+import LoginMenu from "./loginmenu";
 
 export default function AppHeader({ handleDrawerClose, handleDrawerOpen }) {
   const useStyles = makeStyles((theme) => ({
@@ -22,8 +23,13 @@ export default function AppHeader({ handleDrawerClose, handleDrawerOpen }) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Grid container alignItems="center" justifyContent="space-between">
-            <Grid item>
+          <Grid
+            spacing={2}
+            container
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Grid item xs>
               <Link href="/">
                 <img
                   src="/images/mobile-logo-reversed_75x27.png"
@@ -33,13 +39,17 @@ export default function AppHeader({ handleDrawerClose, handleDrawerOpen }) {
               </Link>
             </Grid>
             <Grid item>
+              <LoginMenu />
+            </Grid>
+            <Grid item>
               <IconButton
                 edge="start"
                 className={classes.menuButton}
                 color="inherit"
                 aria-label="menu"
                 onClick={handleDrawerOpen}
-                size="large">
+                size="large"
+              >
                 <Apps />
               </IconButton>
             </Grid>
